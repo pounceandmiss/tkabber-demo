@@ -37,6 +37,18 @@ sources). It is signed with a debug key.
     OpenSSL; `tls/android.tcl` passes them to `tls::import`.
   - `res/` holds the launcher icon (Tkabber's logo).
 
+## On Wayland
+
+The same Tk runs natively on Wayland, where Tkabber works unchanged, with the
+compositor's (or libdecor's) window decorations. `wayland/csd.tcl` is an
+optional Tkabber plugin which replaces them with a header bar made of Tk
+widgets, with rounded corners: the presence icon, the menus and the window
+buttons, using the `::tk::wayland` commands of the port (`startmove`,
+`startresize`, `windowmenu`, `corners`). Copy it to
+`~/.tkabber/plugins/csd/csd.tcl`; it does nothing on other windowing systems.
+
+<img src="wayland/csd.png" width="600" alt="Tkabber on Wayland (Weston) with a header bar drawn by Tk">
+
 ## Building
 
 You need a checkout of the Android build of Tk, set up as described in
