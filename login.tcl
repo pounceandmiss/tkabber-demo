@@ -122,7 +122,8 @@ if {$use_tls} {
                        key (optional)."] \
         -group Login -type file
     custom::defvar loginconf(sslcacertstore) \
-        [expr {$tcl_platform(platform) eq "unix"? "/etc/ssl/certs" : ""}] \
+        [expr {$tcl_platform(platform) eq "unix" &&
+               [file exists /etc/ssl/certs]? "/etc/ssl/certs" : ""}] \
         [::msgcat::mc "SSL certification authority file or\
                        directory (optional)."] \
         -group Login -type file

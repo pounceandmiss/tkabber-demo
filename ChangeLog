@@ -1,3 +1,11 @@
+2026-11-06  pounceandmiss  <pounceandmiss@proton.me>
+
+	* login.tcl: Default the SSL certification authority store to
+	  /etc/ssl/certs only if it exists. On systems without it (Android),
+	  the nonexistent path was given to tls as -cafile, and no server
+	  certificate could be verified, instead of the defaults of OpenSSL
+	  being used.
+
 2026-08-29  Sergei Golovan  <sgolovan@nes.ru>
 
 	* plugins/chat/abbrev.tcl: Fix usage of [tk::TextPrevPos] for Tk 9.1.
