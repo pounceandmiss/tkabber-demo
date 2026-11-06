@@ -1,0 +1,3062 @@
+<?xml version='1.0'?>
+<!DOCTYPE rfc SYSTEM 'rfc2629.dtd'>
+
+<?rfc compact='no'?>
+<?rfc toc='yes'?>
+<?rfc tocdepth='4'?>
+<?rfc private=' '?>
+<?rfc symrefs='yes'?>
+
+<rfc>
+<front>
+<title>Tkabber 1.1.2+</title>
+
+    <author initials='A.Y.' surname='Shchepin'
+            fullname='Alexey Yurievich Shchepin'>
+      <organization>Process-One</organization>
+      <address>
+        <email>alexey@process-one.net</email>
+      </address>
+    </author>
+
+<author initials='M.T.' surname='Rose' fullname='Marshall T. Rose'>
+<organization>Dover Beach Consulting, Inc.</organization>
+<address>
+<postal>
+<street>POB 255268</street>
+<city>Sacramento</city> <region>CA</region> <code>95865-5268</code>
+<country>US</country>
+</postal>
+<phone>+1 916 483 8878</phone>
+<facsimile>+1 916 483 8848</facsimile>
+<email>mrose@dbc.mtview.ca.us</email>
+</address>
+</author>
+
+<author initials='S.' surname='Golovan' fullname='Sergei Golovan'>
+<organization>New Economic School</organization>
+<address>
+<email>sgolovan@nes.ru</email>
+</address>
+</author>
+
+<author initials='M.Y.' surname='Litvak'
+        fullname='Michail Yurievich Litvak'>
+<organization>Colocall Ltd.</organization>
+<address>
+<email>mci@shadow.in.ua</email>
+</address>
+</author>
+
+<author initials='K.' surname='Khomoutov'
+        fullname='Konstantin Khomoutov'>
+<organization>Service 007</organization>
+<address>
+<email>khomoutov@gmail.com</email>
+</address>
+</author>
+
+<date month='March' year='2015'/>
+
+<abstract><t><spanx>Tkabber</spanx> is an open source Jabber client,
+written in <spanx>Tcl/Tk</spanx>.
+This memo describes the installation, configuration, and extension of
+<spanx>Tkabber</spanx>.</t></abstract>
+</front>
+
+<middle>
+
+<section anchor='s.features' title='Features'>
+<t><eref target='http://tkabber.jabber.ru/'>Tkabber</eref>
+provides a <spanx>Tcl/Tk</spanx> interface to the
+<eref target='http://www.jabber.org/'>Jabber/XMPP</eref> instant messaging
+and presence service.</t>
+
+<t><spanx>Tcl/Tk</spanx> is a graphical scripting language that runs on the Unix,
+Windows, and Macintosh platforms.
+The choice of <spanx>Tcl/Tk</spanx> for a Jabber client is three-fold:
+<list style='symbols'>
+<t>it is portable:
+once you install a <spanx>Tcl/Tk</spanx> interpreter on your system,
+the <spanx>Tkabber</spanx> script "just runs" &mdash; without having to compile
+anything;</t>
+
+<t>it is customizable:
+<spanx>Tkabber</spanx> reads a configuration file when it starts that tells it the
+settings of various parameters;
+and,</t>
+
+<t>it is extensible:
+the configuration file is actually a <spanx>Tcl</spanx> script,
+so you can replace or augment entire portions of <spanx>Tkabber</spanx>
+(if you're so inclined).</t>
+</list></t>
+
+<t>
+<spanx>Tkabber</spanx> is fully-featured:
+        <list style='hanging'>
+          <t hangText='sessions:'>
+            <list style='symbols'>
+              <t>TCP, BOSH and HTTP-polling session transports</t>
+              <t>XMPP SRV and TXT DNS-records handling</t>
+              <t>hashed passwords</t>
+              <t>SASL authentication</t>
+              <t>encrypted sessions (if you install an optional extension)</t>
+              <t>compressed sessions (if you install an optional extension)</t>
+              <t>login via SOCKS4a, SOCKS5 or HTTPS proxy</t>
+              <t>IPv6 support (from Tcl/Tk 8.6)</t>
+              <t>
+                user-defined hooks for connection establishment and
+                release
+              </t>
+              <t>XMPP/Jabber MIME type</t>
+            </list>
+          </t>
+
+          <t hangText='messages:'>
+            <list style='symbols'>
+              <t>privacy rules</t>
+              <t>
+                GPG-signed/encrypted messages (if you install an optional
+                extension)
+              </t>
+              <t>Off-the-record (<eref target='https://otr.cypherpunks.ca/'>OTR</eref>) messaging</t>
+              <t>file transfers (HTTP, SOCKS bytestream, DTCP and IBB transports)</t>
+              <t>
+                groupchat (GroupChat-1.0 and Multi-User Chat conferencing
+                protocols)
+              </t>
+              <t>headline messages</t>
+              <t>message events</t>
+              <t>completions of nick and commands</t>
+              <t>hyperlinks</t>
+              <t>emoticons</t>
+              <t>user-defined hooks for messages arriving and chat window events</t>
+            </list></t>
+
+          <t hangText='presence:'>
+            <list style='symbols'>
+              <t>signed presence (if you install an optional extension)</t>
+              <t>avatars</t>
+              <t>browsing</t>
+              <t>groupchat and roster invitations</t>
+              <t>conference room bookmarks</t>
+              <t>annotations about roster items</t>
+              <t>vCards</t>
+              <t>user-defined hooks for presence changes</t>
+            </list></t>
+
+          <t hangText='windowing:'>
+            <list style='symbols'>
+              <t>configurable look-and-feel via a resources database</t>
+              <t>unicode</t>
+              <t>tabbed/non-tabbed interface</t>
+              <t>sound notifications</t>
+              <t>nested roster groups</t>
+              <t>roster metacontacts</t>
+              <t>auto-away</t>
+              <t>
+                for Unix: spell checking, KDE or freedesktop docking,
+                and WMaker icons
+              </t>
+              <t>
+                for Windows: taskbar icons
+              </t>
+            </list>
+          </t>
+        </list>
+      </t>
+</section>
+
+<section anchor='s.requirements' title='Requirements'>
+<t>You should already have installed:
+<list style='symbols'>
+<t><eref target='http://sourceforge.net/project/showfiles.php?group_id=10894'>Tcl/Tk
+version 8.5.8</eref> (or later, Tcl/Tk 8.6.3 or later is recommended). Note, that if
+you want to use Tkabber in IPv6 environment, you'll have to install Tcl/Tk 8.6.</t>
+
+<t><eref target='http://sourceforge.net/project/showfiles.php?group_id=12883'>tcllib
+version 1.8</eref> (or later, tcllib 1.16 or later is required for SCRAM SASL
+mechanism support). </t>
+
+<t><eref target='http://sourceforge.net/project/showfiles.php?group_id=12883'>BWidget
+1.9</eref> (or later)</t>
+</list>
+Most systems already come with these packages pre-installed.
+If not,
+various Unix systems have them available as ready-made packages.
+Otherwise,
+go to the URLs above and click on the appropriate download link for
+your system.
+Both <spanx>tcllib</spanx> and <spanx>BWidget</spanx> are script libraries &mdash;
+no compiling is necessary.
+In the case of <spanx>Tcl/Tk</spanx>,
+there are many ready-made binary packages available on the download site.</t>
+
+<t>The <eref target='http://www.activestate.com/Products/ActiveTcl'>ActiveTcl</eref>
+distribution contains all three packages
+(along with the <spanx>tls</spanx> and <spanx>Img</spanx> package mentioned below);
+so,
+you may want to use that instead of three separate downloads.</t>
+
+<t>At your discretion,
+there are several optional packages that you may also install.
+<spanx>Tkabber</spanx> will run just fine without them,
+but if they're available <spanx>Tkabber</spanx> will make additional features
+available to you.
+So, here's the list:
+<list style='symbols'>
+<t>
+By default, the Tcl's DNS package uses TCP for its communication with DNS servers.
+If your DNS server requires usin UDP then you may want to install
+<eref target='http://sourceforge.net/projects/tcludp/'>Tcl UDP extension</eref>
+version 1.0.8 (or later). This extension works both for Unix and Windows.
+<vspace blankLines='1' />
+</t>
+
+<t>By default,
+communications between the server and client take place over a
+plaintext connection.
+While this may not be a problem in some local, wired environments,
+if your server is distant or your client is wireless,
+then you may want to encrypt all the client/server traffic.
+<vspace blankLines='0' />
+Accordingly,
+you may to install
+<eref target='http://sourceforge.net/project/showfiles.php?group_id=13248'>tls
+version 1.4.1</eref> (or later).
+This package works on both Unix and Windows.
+Note that if you're using Unix,
+then you'll also need to have <spanx>OpenSSL</spanx> installed.
+Fortunately,
+this comes preinstalled on many Unix systems.
+If it's not on your system,
+check <eref target='http://www.openssl.org/source/'>OpenSSL source page</eref>.
+(The Windows distribution of <spanx>tls</spanx> comes with all the necessary DLLs.)
+<vspace blankLines='1' />
+</t>
+
+<t><spanx>Tcl/Tk</spanx> supports only a small number of image formats
+(i.e., bitmaps, GIFs and portable pixmaps).
+If presence information contains avatars,
+these may be in other formats
+(e.g., PNGs or JPGs).
+<vspace blankLines='0' />
+Accordingly,
+you may want to install
+<eref target='http://sourceforge.net/projects/tkimg/'>Img version
+1.2</eref> (or later).
+This package works on both Unix and Windows.
+<!-- http://www.xs4all.nl/~nijtmans/img.html -->
+<vspace blankLines='1' />
+</t>
+
+<t>Tkabber comes bundled with pure-Tcl XML parser. If its performance is
+insufficient, you may want to install
+<eref target="http://www.tdom.org/">tDOM version 0.8.0</eref> (or later)
+and use expat based XML parser.
+<vspace blankLines='1' />
+</t>
+
+<t>Another option in Unix is to compress connection between client and server (it currently
+disables encryption).
+<vspace blankLines='0' />
+There's no special requirements for traffic compression in Tcl/Tk 8.6, but if you're
+using Tcl/Tk 8.5 and
+want to compress traffic you should install
+<eref target='https://gna.org/projects/ztcl/'>ZTcl version 1.0b4</eref> (or later)
+and <eref target='https://gna.org/projects/ztcl/'>Tclmore version 0.7b1</eref> (or later).
+<vspace blankLines='0' />
+(At the time of 0.11.0 release <spanx>ZTcl</spanx> and <spanx>Tclmore</spanx> home page
+were unavailable, so you may grab them from
+<eref target='http://sgolovan.nes.ru/jabber/ztcl/'>a mirror</eref>.)
+<vspace blankLines='1' />
+</t>
+
+<t>By default,
+end-to-end communications between two or more Jabber clients is
+plaintext.
+Depending on your environment,
+this may not be a problem for you.
+Alternatively,
+you may want to digitally-sign all of your outgoing messages,
+and allow others to encrypt their messages to you.
+<vspace blankLines='0' />
+Accordingly,
+you may want to install the <spanx>TclGPG</spanx> package.
+Depending on what's already installed on your system,
+you may have to download upto two software bits:
+<list style='symbols'>
+<t><eref target="https://chiselapp.com/user/sgolovan/repository/tclgpg/">TclGPG</eref> (available
+only in a <eref target="http://fossil-scm.org">Fossil</eref> repository at present);</t>
+
+<t><eref target="http://www.gnupg.org/download.html">GPG version 1.0.7</eref>
+(or later).</t>
+</list>
+<vspace blankLines='0' />
+Another alternative is to use <eref target='https://otr.cypherpunks.ca/'>Off-the-record
+messaging protocol</eref>, if your contact supports it. The OTR plugin is included
+into <spanx>Tkabber plugins collection</spanx> starting from version 1.1 and
+requires a few packages from <spanx>Tcllib</spanx>, namely the <spanx>aes</spanx>,
+<spanx>asn</spanx>, <spanx>base64</spanx>, <spanx>math::bignum</spanx>,
+<spanx>sha1</spanx>, <spanx>sha256</spanx> packages. Also, if you're using Windows,
+the <eref target='http://memchan.sourceforge.net/'>Memchan</eref> extension has to be
+installed to run the OTR plugin.
+<vspace blankLines='1' />
+</t>
+
+<t>If you're running Unix or Windows,
+then you may want <spanx>Tkabber</spanx> to play predefined sounds when message
+or presence arrives.
+<vspace blankLines='0' />
+Accordingly, you may want to install
+<eref target="http://www.speech.kth.se/snack/download.html">Snack version 2.2.10</eref> (or later).
+<vspace blankLines='1' />
+</t>
+
+<t>If you're running Unix,
+then you may want <spanx>Tkabber</spanx> to use the docking tray.
+<vspace blankLines='0' />
+Accordingly,
+you may want to install
+<eref target="http://sw4me.com/wiki/Tktray">tktray
+version 1.3</eref> (or later) for freedesktop icon (supported by modern <spanx>KDE</spanx>
+and <spanx>GNOME</spanx>).
+<vspace blankLines='1' />
+</t>
+
+<t>If you're running Windows,
+then you may want <spanx>Tkabber</spanx> to use the system tray.
+<vspace blankLines='0' />
+Accordingly,
+you may want to install
+<eref target="http://sourceforge.net/projects/tktable/">Winico
+version 0.6</eref> (or later).
+<vspace blankLines='1' />
+</t>
+
+<t>If you're a Tcl/Tk guru,
+then you may want to access the Tk console to debug things.
+<vspace blankLines='0' />
+Accordingly,
+you may want to install
+<eref target="http://tkcon.sourceforge.net">tkcon version 2.3</eref>
+(or later).</t>
+</list>
+Please keep in mind that these are all "optional extras" &mdash;
+if they're not right for you or your environment,
+don't bother with them!</t>
+</section>
+
+<section anchor='s.download' title='Download, install and run'>
+<t>Latest stable version is 1.1.2 and available at
+<eref target='http://tkabber.jabber.ru/download'>http://tkabber.jabber.ru/download</eref>.</t>
+<t>Older versions can be found at
+<eref target='http://files.jabber.ru/tkabber/'>http://files.jabber.ru/tkabber/</eref>.</t>
+
+<figure>
+<preamble>You can always find the latest development version via <eref
+target="http://fossil-scm.org">Fossil</eref>. Execute the following commands:</preamble>
+<artwork><![CDATA[
+fossil clone https://chiselapp.com/user/sgolovan/repository/tkabber tkabber.fossil
+fossil clone https://chiselapp.com/user/sgolovan/repository/tclxmpp tclxmpp.fossil
+mkdir tkabber
+cd tkabber
+fossil open ../tkabber.fossil
+mkdir tclxmpp
+cd tclxmpp
+fossil open --nested ../../tclxmpp.fossil
+]]></artwork>
+</figure>
+<figure>
+<preamble>And if you want to test some plugins, then do</preamble>
+<artwork><![CDATA[
+fossil clone https://chiselapp.com/user/sgolovan/repository/tkabber-plugins tkabber-plugins.fossil
+mkdir tkabber-plugins
+cd tkabber-plugins
+fossil open ../tkabber-plugins.fossil
+]]></artwork>
+</figure>
+<figure>
+<preamble>And if you want to try unofficial plugins, then execute</preamble>
+<artwork><![CDATA[
+fossil clone https://chiselapp.com/user/sgolovan/repository/tkabber-contrib tkabber-contrib.fossil
+mkdir tkabber-contrib
+cd tkabber-contrib
+fossil open ../tkabber-contrib.fossil
+]]></artwork>
+<postamble>They usually include short readme with info on what they do and how to use them.</postamble>
+</figure>
+<figure>
+<preamble>If you use the Debian GNU/Linux distribution, you may want to get
+all required packages by using <spanx>apt</spanx>.
+Just execute</preamble>
+<artwork><![CDATA[
+apt-get install tk tcllib bwidget
+]]></artwork>
+</figure>
+<figure>
+<preamble>or</preamble>
+<artwork><![CDATA[
+apt-get install tkabber
+]]></artwork>
+<postamble>to get the version included into Debian repository.</postamble>
+</figure>
+
+<t>No real installation is required, simply copy the <spanx style='verb'>tkabber/</spanx>
+directory to a commonly-available area, and then either:
+<list style='symbols'>
+<t>put this directory in your search-path; or,</t>
+
+<t>make a calling script/shortcut to the file <spanx style='verb'>tkabber.tcl</spanx> in that directory.</t>
+</list>
+Although <spanx>Tkabber</spanx> comes with a Makefile,
+there's really not much to do &mdash; most folks prefer to simply copy
+the distribution directory to somewhere in their home directory.</t>
+
+<figure>
+<preamble>From the shell,
+you can invoke <spanx>Tkabber</spanx> as:</preamble>
+<artwork><![CDATA[
+% tkabber.tcl
+]]></artwork>
+<postamble>whilst on a windowing system,
+simply double-click on that file or a short-cut to it.</postamble>
+</figure>
+
+<figure>
+<preamble>If you're a Tcl/Tk guru and have installed <spanx>tkcon</spanx>,
+then you may want to invoke <spanx>Tkabber</spanx> as:</preamble>
+<artwork><![CDATA[
+% tkcon.tcl -exec "" -root .tkconn -main "source tkabber.tcl"
+]]></artwork>
+<postamble>
+<spanx>Tkabber</spanx> will automatically know that it's running under <spanx>tkcon</spanx>
+and will start by hiding the <spanx>Tk</spanx> console window.
+Look under the <spanx style='verb'>Services-&gt;Debug tools</spanx> menu to find the checkbutton to show the
+console. Note that if <spanx>Tkcon</spanx> is installed as a Tcl/Tk package then <spanx>Tkabber</spanx> will
+add corresponding menu item under <spanx>Services-&gt;Debug tools</spanx> automatically.</postamble>
+</figure>
+        <figure>
+          <preamble>
+            Also you can setup <spanx>Tkabber</spanx> as handler for
+            <eref target="http://www.xmpp.org/extensions/xep-0081.html">
+              XMPP/Jabber MIME Type
+            </eref>.  For this you need to set hanler for
+            <spanx style='verb'>application/xmpp+xml</spanx> MIME type in your
+            browser to something like this:
+          </preamble>
+          <artwork>
+tkabber -mime %s
+</artwork>
+        </figure>
+</section>
+
+<section anchor='s.upgrading' title='Upgrading'>
+<section anchor='s.upgrading1.1.1' title='Upgrading from version 1.0, 1.1 or 1.1.1'>
+<t>Upgrading <spanx>Tkabber</spanx> from version 1.0 doesn't require
+configuration changes. You are advised to upgrade external plugins
+but it isn't strictly necessary.</t>
+</section>
+
+<section anchor='s.upgrading0.11.1' title='Upgrading from version 0.11.0 or 0.11.1'>
+<t>When upgrading <spanx>Tkabber</spanx> from version 0.11.1 or earlier note that
+its plugin interface and several configuration options have been changed.</t>
+
+<section anchor='ss.upgrading0.11.1.plugins' title='External plugins'>
+<t>There are incompatible changes in Tkabber internals, which break the old
+plugins. So, you'll have to upgrade them as well. If a plugin author hasn't
+released a version compatible with <spanx>Tkabber</spanx> 1.1 then you'll have
+to disable or remove that plugin.</t>
+</section>
+
+<section anchor='ss.upgrading0.11.1.conf' title='Configuration options'>
+<t>There are notable changes in specifying a set of proxy servers.
+If you define proxy server in the global <spanx style='verb'>loginconf</spanx>
+array then you'll have to do the following: In case if you use the
+<spanx>Customize</spanx> interface, you may open the <spanx>Manage proxy servers</spanx>
+dialog window and add your proxy server there. Note that if you're using
+the HTTPS proxy then you'll have to add it twice (one in the <spanx>Tunnel proxies</spanx>
+tab and the other in the <spanx>HTTP proxies</spanx> tab, see <xref target='s.postload-proxy'>section 'The proxy module'</xref>
+below). If you define proxy server in the <spanx>Tkabber</spanx> config file then
+you have lines similar to the following in the config:</t>
+<figure>
+<artwork><![CDATA[
+set loginconf(proxy) https
+set loginconf(proxyhost) proxy.example.com
+set loginconf(proxyport) 3128
+set loginconf(proxyusername) ""
+set loginconf(proxypassword) ""
+]]></artwork>
+</figure>
+
+<figure>
+<preamble>Replace them by the following:
+</preamble>
+<artwork><![CDATA[
+set proxy1(type) https
+set proxy1(host) proxy.example.com
+set proxy1(port) 3128
+set proxy1(username) ""
+set proxy1(password) ""
+set proxy1(match) *
+set proxy1(exclude) "localhost* 127.0.0.* 172.* 192.168.* 10.*"
+
+set proxy2(type) http
+set proxy2(host) proxy.example.com
+set proxy2(port) 3128
+set proxy2(username) ""
+set proxy2(password) ""
+set proxy2(match) *
+set proxy2(exclude) "localhost* 127.0.0.* 172.* 192.168.* 10.*"
+
+set proxyconf(profile) Proxies
+set proxyconf(tunnel) {proxy1}
+set proxyconf(http) {proxy2}
+]]></artwork>
+<postamble>which will instruct <spanx>Tkabber</spanx> to use these proxies for all connections.
+If you need more complicated setup with several proxy profiles, read <xref target='s.postload-proxy'>section
+'The proxy module'</xref> below.
+</postamble>
+</figure>
+</section>
+</section>
+
+<section anchor='s.upgrading0.10.0' title='Upgrading from version 0.10.0'>
+<t>When upgrading <spanx>Tkabber</spanx> from version 0.10.0 or earlier read
+<xref target='ss.upgrading0.11.1.plugins'>the above section on plugins</xref>
+and also note that
+several configuration options and user interface elements have been changed.</t>
+
+<section anchor='ss.upgrading0.10.0.conf' title='Configuration options'>
+<t>There are notable changes in handling connection through proxy servers, managing
+fonts and balloon colors, and detecting breaks in underlying TCP
+connection to a server.</t>
+
+<section anchor='ss.upgrading0.10.0.conf.proxy' title='Proxy servers'>
+<t>Since SOCKS4 and SOCKS5 proxy types were implemented in addition to HTTP
+proxy type, the whole set of connection options regarding proxy servers has
+been changed. This means that after upgrade the old values stored using the
+Customize mechanism will be lost and the same values in
+<spanx style='verb'>loginconf</spanx> arrays will not be recognized any longer.</t>
+
+<t>To learn how to adapt your current proxy settins to the current <spanx>Tkabber</spanx>
+version, read <xref target='ss.upgrading0.11.1.conf'>section above</xref>, but remember
+that variables in the
+<spanx style='verb'>loginconf</spanx> array mentioned there have been changed
+between 0.10.0 and 0.11.0. Use the map below as a reference which variable should actually be
+used:
+<list style='symbols'>
+<t>Variable "httpproxy"in 0.10.0  became "proxyhost" in 0.11.0.</t>
+<t>Variable "httpport" became "proxyport".</t>
+<t>Variable "httplogin" became "proxyusername".</t>
+<t>Variable "httppassword" became "proxypassword".</t>
+</list>
+</t>
+</section>
+
+<section anchor='ss.upgrading0.10.0.conf.fonts' title='Resources to control fonts'>
+<t>Fonts handling has been partially reworked: the global variable
+<spanx style='verb'>font</spanx> that
+controls chat and roster fonts has been removed and now <spanx>Tkabber</spanx>
+relies on <spanx>Tk</spanx> option database to manage these settings.
+You can override roster and chat fonts independently of each other. To do
+that on systems not based on X Window use <spanx>Customize</spanx> options
+described below.</t>
+
+<t>The main consequence of this change is that now the fonts are taken from
+<spanx>Tk</spanx> option database and if it contains sane values you don't need to
+touch anything (until the update you had to tweak the
+<spanx style='verb'>font</spanx> variable because it was set to font "fixed"
+by default). The variable <spanx style='verb'>font</spanx> does not have any
+special meaning starting from 0.11.0 release.</t>
+
+<t>The second consequence is that you are now able to set fonts for chat
+and roster windows separately from each other using this list as a reference:
+<list style='symbols'>
+<t><spanx style='verb'>*font</spanx> <spanx>Tk</spanx> option database resource sets default font for
+all widgets used in <spanx>Tkabber</spanx>.</t>
+<t><spanx style='verb'>*Chat*Text.font</spanx> <spanx>Tk</spanx> option database resource can be used
+to override font used for chat windows. This resource can be overridden by the
+<spanx style='verb'>::ifacetk::options(font)</spanx> option from the
+"Main Interface" group of <spanx>Customize</spanx> settings.</t>
+<t><spanx style='verb'>*Roster*font</spanx> <spanx>Tk</spanx> option database resource can be used to override
+font used for roster windows. This resource can be overridden by the
+<spanx style='verb'>::ifacetk::options(roster_font)</spanx> option from the
+"Main Interface" group of <spanx>Customize</spanx> settings.</t>
+</list>
+</t>
+</section>
+
+<section anchor='ss.upgrading0.10.0.conf.kalive' title='Keep-alives and dead link detection'>
+<t>Keep-alive mechanism that was used to keep NATP devices from disconnecting
+idle XMPP sessions was accompanied in 0.10.0 with "XMPP ping" mechanism
+which also implemented dead link detection with support for disconnecting
+upon detection of network outage.</t>
+
+<t>In version 0.11.0, the old keep-alive mechanism has been dropped,
+so the following two global options have no effect now:
+<list style='symbols'>
+<t><spanx style='verb'>keep_alive</spanx></t>
+<t><spanx style='verb'>keep_alive_interval</spanx></t>
+</list>
+</t>
+
+<t>In order to get the same functionality, enable XMPP ping using these
+options in the "IQ" group of Customize settings:
+<list style='symbols'>
+<t>Enabling <spanx style='verb'>::plugins::ping::options(ping)</spanx> will make
+<spanx>Tkabber</spanx> periodically
+send xmpp:ping IQ request to the server.</t>
+<t>Set <spanx style='verb'>::plugins::ping::options(timeout)</spanx> option to a number of seconds
+<spanx>Tkabber</spanx> should wait for either a xmpp:ping reply or an error to arrive
+from the server; if there is no answer from the server during this
+timeout, the socket for this connection will be forcibly disconnected.</t>
+</list>
+</t>
+</section>
+
+<section anchor='ss.upgrading0.10.0.conf.ballons' title='Resources to control appearance of balloon windows'>
+
+<t>Resources controlling the appearance of balloon windows have been made
+more generic. If you use custom <spanx>Tk</spanx> option database settings for balloon
+windows, change the relevant resources using this map:
+<list style='symbols'>
+<t>Change references to <spanx style='verb'>*Balloon.background</spanx> and
+<spanx style='verb'>*Balloon.foreground</spanx>
+resources to <spanx style='verb'>*Balloon*background</spanx> and
+<spanx style='verb'>*Balloon*foreground</spanx>, respectively.</t>
+<t>Change references to <spanx style='verb'>*Balloon*padX</spanx> and
+<spanx style='verb'>*Balloon*padY</spanx> resources to
+<spanx style='verb'>*Balloon.text.padX</spanx> and
+<spanx style='verb'>*Balloon.text.padY</spanx>, respectively.</t>
+</list>
+</t>
+</section>
+
+<section anchor='ss.upgrading0.10.0.conf.parser' title='Support for external XML parser'>
+
+<t>Support for <spanx>TclXML</spanx> as an external XML parser has been removed
+(since <spanx>TclXML</spanx> has anyway been unable to support partial XML processing)
+along with the global variable <spanx style='verb'>use_external_tclxml</spanx>
+which controlled the loading of <spanx>TclXML</spanx>.</t>
+
+<t>Now expat-based <spanx>Tcl</spanx> package <spanx>tDOM</spanx>
+is supported as an external XML
+parser. It is enabled by default if it is installed.</t>
+</section>
+</section>
+
+<section anchor='ss.upgrading0.10.0.iface' title='User interface'>
+<t>There are notable changes in systray mouse gestures, appearance of a main
+tabbed window, and in behavior of paned window splitters.</t>
+<section anchor='ss.upgrading0.10.0.iface.tray' title='System tray icon mouse gestures'>
+
+<t>Mouse gestures bound to system tray (system notification area) icon
+have been reworked:
+<list style='symbols'>
+<t>Single click on it with the left mouse button now unconditionally
+brings the main <spanx>Tkabber</spanx> window to front, possibly deiconifying it first.</t>
+<t>Single click with the middle mouse button now unconditionally
+iconifies the main <spanx>Tkabber</spanx> window.</t>
+</list>
+</t>
+
+<t>This differs from the previois behaviour where single click with the
+left mouse button on <spanx>Tkabber</spanx>'s system tray icon toggled the
+iconified/visible state of the main <spanx>Tkabber</spanx> window.</t>
+</section>
+
+<section anchor='ss.upgrading0.10.0.iface.tabs' title='New tab management widget'>
+<t>The <spanx>notebook</spanx> widget which was used to render tabs in tabbed
+interface mode has been replaced with a new custom widget providing
+the ability for multi-row placement of tabs and docking them to the
+left or right sides of the chat window (in addition to top or bottom
+docking available in 0.10.0 version and earlier).</t>
+
+<t>If you adjusted any specific <spanx>Tk</spanx> option database resources pertaining
+to that <spanx>notebook</spanx> widget, you have to change them keeping in mind
+that the new widget is just a bunch of <spanx>Tk</spanx> buttons (class
+<spanx style='verb'>Button</spanx>)
+placed in a frame (called <spanx style='verb'>.nb</spanx> as before). The class name for the
+new widget is <spanx style='verb'>ButtonBar</spanx>.</t>
+
+<t>So if you explicitly set, say <spanx style='verb'>*Notebook*font</spanx> option, you have to
+change it to <spanx style='verb'>*ButtonBar*font</spanx> and so on.</t>
+</section>
+
+<section anchor='ss.upgrading0.10.0.iface.splitters' title='Window splitters'>
+<t>Window splitters (thin vertical and horizontal windows used to change
+relative sizes of windows between which a splitter is placed) have been
+changed to "Windows" style. This differs from previous "Motif" style which
+implemented explicit "grip box" on each splitter which was the only
+"active point" of a splitter.</t>
+</section>
+</section>
+</section>
+
+<section anchor='s.upgrading0.9.9' title='Upgrading from version 0.9.9'>
+<t>When upgrading <spanx>Tkabber</spanx> from version 0.9.9 or earlier read
+<xref target='s.upgrading0.10.0'>the above section</xref> and also note the following:
+<list style='symbols'>
+    <t>On Macintosh or Microsoft Windows <spanx>Tkabber</spanx> will copy
+    it's configuration directory to a new location (see <xref target='s.configuration'>the next section</xref>
+    for details). If the transfer of the config directory goes smoothly you may delete old
+    <spanx style='verb'>"~/.tkabber"</spanx>
+    directory and replace its name in your config file by <spanx style='verb'>$::configdir</spanx>.</t>
+    <t>Also, <spanx>Tkabber</spanx> will convert chatlogs directory to a new format.</t>
+    <t>Also, <spanx>Tkabber</spanx> changed the way it works with emoticons. Instead of loading them in config file
+    you may put you faivorite emoticons directory into <spanx style='verb'>$::configdir/plugins</spanx> directory,
+    restart Tkabber and then choose emoticons set using Customize GUI.</t>
+</list>
+</t>
+</section>
+</section>
+
+<section anchor='s.configuration' title='Configuration'>
+<t><spanx>Tkabber</spanx> maintains its configuration using a set
+of files placed in a special configuration directory which
+location depends on the operating system <spanx>Tkabber</spanx>
+runs on. These locations are:
+<list style='symbols'>
+        <t>Unix systems: <spanx style='verb'>"~/.tkabber"</spanx>;
+        </t>
+        <t>Macintosh:
+        <spanx style='verb'>"~/Library/Application Support/Tkabber"</spanx>;
+        </t>
+        <t>Under Microsoft Windows this location
+        is governed by the policy of the particular flavor
+        of this OS, but the general rule is that the
+        <spanx>Tkabber</spanx> configuration directory is named
+        <spanx style='verb'>"Tkabber"</spanx> and is located
+        in the special system folder for storing application-specific data.
+        For example, under Windows XP this will be something like
+        <spanx style='verb'>"C:\Documents and Settings\USERNAME\Application Data\Tkabber"</spanx>,
+        where <spanx style='verb'>"USERNAME"</spanx>
+        is the login name of a particular operating system's user.
+        </t>
+</list>
+</t>
+
+<t><spanx>Tkabber</spanx> also honors the value of the
+<spanx style='verb'>"TKABBER_HOME"</spanx> environment variable
+&mdash; if it exists the whole OS-based guessing of the
+configuration directory location is cancelled and the value of
+this environment variable is used instead.</t>
+
+<t>Once the pathname of the <spanx>Tkabber</spanx> configuration
+directory is known, its value is assigned to the
+<spanx style='verb'>"configdir"</spanx> global Tcl variable
+which can be accessed from within the main
+<spanx>Tkabber</spanx> configuration file (see below).</t>
+
+<t>One of the first things that <spanx>Tkabber</spanx> does
+when it's starting up is reading a file
+located in its configuration directory under the name
+<spanx style='verb'>"config.tcl"</spanx>.
+This is a <spanx>Tcl</spanx> source file,
+so obviously,
+it's a lot easier to maintain this file if you know the Tcl
+programming language.
+If you're not familiar with it,
+that's okay &mdash; most things you'll need to do are pretty simple!
+(In fact,
+if you don't have your own configuration file,
+you'll get the vanilla <spanx>Tkabber</spanx>,
+which hopefully you'll find quite usable.)</t>
+
+<t>Note that almost all <spanx>Tkabber</spanx> options can be cofigured
+using graphical interface (menu Tkabber->Customize), so editing configuration
+file is not strictly necessary.</t>
+
+<t><spanx>Tkabber</spanx> is configured in four stages:
+<list style='symbols'>
+<t>in the pre-load stage,
+configuration options which guide the loading process are set;</t>
+
+<t>in the post-load stage,
+configuration options for each module are set;</t>
+
+<t>in the menu-load stage,
+the user is given an option to re-arrange <spanx>Tkabber's</spanx> menu bar; and,</t>
+
+<t>the final-load stage allows any last changes to be made before the
+"login" dialog window is displayed to the user.</t>
+</list>
+Let's look at each,
+in turn.</t>
+
+<section anchor='s.preload' title='Pre-load'>
+<figure>
+<preamble>There are a few things that you may let <spanx>Tkabber</spanx> know
+immediately.
+These are:</preamble>
+<artwork><![CDATA[
+# tabbed interface
+
+set ifacetk::options(use_tabbar) 1
+
+
+# primary look-and-feel
+
+set load_default_xrdb 1
+
+option add *font \
+       "-monotype-arial-medium-r-normal-*-13-*-*-*-*-*-iso10646-1" \
+       userDefault
+
+
+# cryptography by default
+
+set ssj::options(sign-traffic)    0
+set ssj::options(encrypt-traffic) 0
+
+
+# debugging output
+
+set debug_lvls {xmpp warning}
+
+
+# splash window
+
+set show_splash_window 0
+
+
+# force english labels instead of native language
+
+::msgcat::mclocale en
+
+# use mozilla firefox to open web urls in text
+
+set webbrowser "firefox -new-tab %s"
+]]></artwork>
+</figure>
+
+<section anchor='s.preload.tab' title='Tabbed Interface'>
+<figure>
+<preamble>The first of these options,
+<spanx style='verb'>ifacetk::options(use_tabbar)</spanx>,
+tells <spanx>Tkabber</spanx> whether you want a tabbed interface or not.
+If not,
+here's what to put in your configuration file:</preamble>
+<artwork><![CDATA[
+set ifacetk::options(use_tabbar) 0
+]]></artwork>
+<postamble>Although <spanx>Tkabber</spanx> immediately applies most of its configuration changes,
+in order to apply changed option <spanx style='verb'>ifacetk::options(use_tabbar)</spanx> you
+have to restart <spanx>Tkabber</spanx>. So, basically you have two options:
+set <spanx style='verb'>ifacetk::options(use_tabbar)</spanx> at the
+beginning of your configuration file, or using graphical interface save the option and restart
+<spanx>Tkabber</spanx>.</postamble>
+</figure>
+</section>
+
+<section anchor='s.preload-looknfeel' title='Fonts and colors'>
+
+<t>Many aspects of the <spanx>Tkabber</spanx>'s visual appearance
+such as fonts, colors and geometry of windows can be
+configured using the
+<eref target='http://wiki.tcl.tk/1727'>Tk option database.</eref></t>
+
+<t>The corresponding <spanx>Tk</spanx>'s
+<eref target='http://www.tcl.tk/man/tcl8.6/TkCmd/option.htm'>option</eref>
+command can be used in the
+<spanx>Tkabber</spanx>'s configuration file in any acceptable way:
+from small tweaks to reading files containing elaborate sets of
+configuration commands; ready-to-use examples of such files are
+included in the distribution and are located under the
+"examples/xrdb" directory.</t>
+
+<t>The <spanx>Tk</spanx> toolkit is able to initialize its option
+database from the <spanx>XRDB</spanx> (X Resource Database)
+if its availability is detected at run time.
+This means that any settings described here can be tuned via the
+standard XRDB mechanism
+(see <spanx style='verb'>man xrdb</spanx>).</t>
+
+<t>Beware though that the <spanx>Tk</spanx>'s semantics of matching
+option specifications against the option database differ in some
+subtle details from that of the <spanx>Xt</spanx> toolkit.
+The most notable one is the priority of options: <spanx>Tk</spanx>
+prefers the latest option it sees, while <spanx>Xt</spanx>
+prefers "the most specific" one.</t>
+
+<t>When specifying <spanx>Tkabber</spanx>-specific options in your
+<spanx>XRDB</spanx> file use the "Tkabber" class as the root
+element of the options.</t>
+
+<t>See <xref target='XRDB' /> for a list of all the resources that you
+can set to control <spanx>Tkabber's</spanx> look-and-feel.</t>
+
+<figure>
+<preamble>
+Probably the most commonly used way to configure
+<spanx>Tkabber</spanx>'s visual appearance (especially on
+Windows platforms which lack <spanx>XRDB</spanx>
+mechanism) is to put all the necessary settings in some
+file and then ask <spanx>Tk</spanx> to update its option
+database from it, like this:
+</preamble>
+<artwork><![CDATA[
+    set load_default_xrdb 0
+    option readfile $::configdir/newlook.xrdb userDefault
+]]></artwork>
+<postamble>
+The first line tells <spanx>Tkabber</spanx> not to load its default "xrdb"
+file, whilst the second line tells <spanx>Tkabber</spanx> which file to load
+instead. Look at the provided example "xrdb" files to get the idea
+about how they are organised. Of course, you can use any of that
+files as a template. And of course, you can simply specify any
+of the example files instead of your own to the
+<spanx style='verb'>option readfile</spanx> command to get the
+provided "theme".
+</postamble>
+</figure>
+
+<figure>
+<preamble>Alternatively,
+if you're a Tcl "old timer", you can always do:
+</preamble>
+<artwork><![CDATA[
+    set load_default_xrdb 0
+    tk_bisque
+]]></artwork>
+<postamble>to set the palette to a pleasing color scheme.
+Read more about this in
+<spanx style='verb'>man palette</spanx>.
+</postamble>
+</figure>
+
+
+<figure>
+<preamble>You can also customize the fonts <spanx>Tkabber</spanx> uses to
+render its user interface:
+</preamble>
+<artwork><![CDATA[
+    option add *font \
+        "-monotype-arial-medium-r-normal-*-13-*-*-*-*-*-iso10646-1" \
+        userDefault
+]]></artwork>
+<postamble>
+The above setting
+(operating on the Tk option database) selects the font used for all UI
+elements like buttons and labels and roster and conversation windows.
+Obviously, you should choose fonts that suit your taste.
+</postamble>
+</figure>
+<figure>
+<preamble>If you want to specify another font for roster labels use the
+following option:
+</preamble>
+<artwork><![CDATA[
+    option add *Roster*font \
+           "-misc-fixed-medium-r-normal-*-12-*-*-*-*-*-iso10646-1" \
+           userDefault
+]]></artwork>
+</figure>
+<t>When picking fonts, observe these rules:
+<list style='symbols'>
+        <t>Under X, encoding (charset) of fonts must match that of your locale.</t>
+        <t>Ensure that the specified font exists, since if it's not,
+        <spanx>Tk</spanx> will try hard to pick the most suitable one which
+        often yields not what you want. (The best bet is to first pick
+        the font using some tool like <spanx style='verb'>xfontsel</spanx>.)</t>
+</list>
+Note that when specifying settings using the <spanx>Tkabber</spanx>'s
+configuration files (i.e. not using <spanx>XRDB</spanx> directly)
+you are not forced to use "X-style" (XLFD) font descriptions and may
+instead specify fonts using sometimes more convenient <spanx>Tk</spanx>
+features described in
+<eref target='http://tcl.tk/man/tcl8.6/TkCmd/font.htm#M13'>Tk font manual page</eref>.</t>
+</section>
+
+<section anchor='s.preload-crypto' title='Cryptography by default'>
+<t>Next,
+you may want to <spanx>Tkabber</spanx> to use cryptography by default.
+There are two options:
+<list style='symbols'>
+<t>whether the traffic you send should be digitally-signed; and,</t>
+
+<t>if you have cryptographic information for someone,
+should the default action be to encipher your traffic for them.</t>
+</list>
+(By defining these options early on,
+<spanx>Tkabber</spanx> will complain immediately if it isn't able to load its
+cryptographic module;
+otherwise,
+the default behavior is to proceed without any cryptographic buttons,
+menus, and so on.)</t>
+</section>
+
+<section anchor='s.preload-debugoutput' title='Debugging Output'>
+<t><spanx>Tkabber</spanx> has a lot of debugging output.
+By default,
+it gets printed to the standard output by a Tcl procedure called
+<spanx style='verb'>debugmsg</spanx> (if there's standard output
+available). However,
+only information about those modules listed in a variable called
+<spanx style='verb'>debug_lvls</spanx> will be printed.</t>
+
+<figure>
+<preamble>If you know how to program Tcl,
+then this will seem rather obvious:</preamble>
+<artwork><![CDATA[
+set debug_lvls [list message presence ssj warning]
+
+# if you want a different behavior,
+#     define your own...
+
+proc debugmsg {module msg} {
+#    ...
+}
+]]></artwork>
+</figure>
+
+<figure>
+<preamble>Most users won't care about <spanx style='verb'>debugmsg</spanx> because they're
+running <spanx>Tkabber</spanx> under an application launcher so the standard
+output is never seen.
+However,
+if this isn't the case for you,
+and you just don't want to see any of this stuff,
+put this one line in your configuration file:</preamble>
+<artwork><![CDATA[
+set debug_lvls {}
+]]></artwork>
+</figure>
+</section>
+<section anchor='s.preload-splashwindow' title='Splash window'>
+<figure>
+<preamble>
+By default, when <spanx>Tkabber</spanx> startup, it show loading process in
+splash window.  To disable this feature, put this in your
+configuration file:
+</preamble>
+<artwork><![CDATA[
+set show_splash_window 0
+]]></artwork>
+</figure>
+</section>
+
+<section anchor='s.preload-internation' title="I18n/L10n">
+<figure>
+<preamble>
+<spanx>Tkabber</spanx> can show all messages in user's native language.  This
+is done by using Tcl's built-in <spanx>msgcat</spanx> package which looks for
+a directory called <spanx style='verb'>msgs/</spanx> wherever you installed <spanx>Tkabber</spanx>,
+and then uses the <spanx
+style='verb'>LC_MESSAGES</spanx> environment variable
+(or <spanx style='verb'>LANG</spanx>
+if <spanx style='verb'>LC_MESSAGES</spanx> not set) to select the appropriate file.  If
+you wish, you can force use of a particular language by putting a
+line like this in your configuration file:
+</preamble>
+<artwork><![CDATA[
+::msgcat::mclocale en
+]]></artwork>
+</figure>
+</section>
+
+<section anchor='s.preload-webbrowser' title="Browse URL">
+<t><spanx>Tkabber</spanx> executes a browser when you click on a URL in chat windows,
+or in user info window, or in headlines window etc. It uses some heuristics to
+find which browsers are installed in the system and invokes the first browser it finds.</t>
+
+<figure>
+<preamble>
+If <spanx>Tkabber</spanx>'s decision on which browser to use is suboptimal to you,
+or if you want to add some options to the browser command line (open URL in a new tab,
+or in a new window etc.) you may set the varable <spanx style='verb'>webbrowser</spanx>
+like the following:
+</preamble>
+<artwork><![CDATA[
+set webbrowser "firefox -new-tab %s"
+]]></artwork>
+<postamble>
+Note, that the <spanx style='verb'>%s</spanx> in the string (it doesn't have to be at the
+end) will be replaced by an actual URL when the command will be run. Also, if your
+favorite browser's path contains spaces, enclose it in braces.
+</postamble>
+</figure>
+
+<t>The following figures shows some examples of setting this variable</t>
+
+<figure>
+<preamble>
+for Windows:
+</preamble>
+<artwork><![CDATA[
+set webbrowser "{C:/Program Files/Opera/opera.exe} %s"
+
+set webbrowser \
+    "{C:/Program Files/Mozilla Firefox/firefox.exe} -new-window %s"
+
+set webbrowser "{C:/Program Files/Internet Explorer/iexplore.exe} %s"
+]]></artwork>
+</figure>
+
+<figure>
+<preamble>
+for Unix:
+</preamble>
+<artwork><![CDATA[
+set webbrowser "iceweasel -new-tab %s"
+
+set webbrowser "chromium-browser %s"
+]]></artwork>
+</figure>
+</section>
+
+<section anchor='s.preload-searching' title="Searching">
+<t><spanx>Tkabber</spanx> allows the user to perform textual
+searching in certain classes of its windows. This searching
+is controlled by several settings which can be specified in
+this section.</t>
+<t>These settings are described in detail in
+<xref target='s.ui-searching'/>.</t>
+</section>
+</section>
+
+<section anchor='s.postload' title='Post-load'>
+<t>After <spanx>Tkabber</spanx> reads your configuration file,
+it loads all of its own modules,
+it then invokes a procedure called <spanx style='verb'>postload</spanx>.
+This procedure is supposed to perform module-specific configuration.</t>
+
+<figure>
+<preamble>The default version of this procedure doesn't do anything.
+If you want to configure one more module modules,
+then you need to define the procedure in your configuration file,
+e.g.,</preamble>
+<artwork><![CDATA[
+proc postload {} {
+# look-and-feel
+
+    set pixmaps::options(pixmaps_theme) Default
+
+    global alert colors alert_lvls
+
+    set alert_lvls(error)        1
+    set alert_lvls(server)       1
+    set alert_lvls(message)      2
+    set alert_lvls(mesg_to_user) 3
+    set alert_colors             {Black DarkBlue Blue Red}
+
+    set ifacetk::options(raise_new_tab) 1
+
+# tray icon
+
+    set ::plugins::tktray::options(enable) 1
+
+# the autoaway module
+
+    set plugins::autoaway::options(awaytime)  5
+    set plugins::autoaway::options(xatime)   15
+    set plugins::autoaway::options(status) \
+        "Automatically away due to idle"
+    set plugins::autoaway::options(drop_priority) 1
+
+
+# the avatar module
+
+    set avatar::options(announce) 0
+    set avatar::options(share)    0
+
+
+# the chat module
+
+    set chat::options(stop_scroll)          0
+    set plugins::options(timestamp_format)  {[%R]}
+
+
+# the clientinfo module
+
+    set plugins::clientinfo::options(autoask) 0
+
+
+# the conferenceinfo module
+
+    set plugins::conferenceinfo::options(autoask)        0
+    set plugins::conferenceinfo::options(interval)       1
+    set plugins::conferenceinfo::options(err_interval)  60
+
+
+# the cryptographic module
+
+    set ssj::options(encrypt,fred@example.com) 1
+
+
+# the emoticon module
+
+    set plugins::emoticons::options(theme) \
+                $::configdir/emoticons/rythmbox
+
+
+# the file transfer module
+
+    set ft::options(download_dir) "/tmp"
+
+
+# the groupchat module
+
+    global gra_group gra_server
+    global gr_nick gr_group gr_server
+    global defaultnick
+
+    set defaultnick(adhoc@conference.example.com) publius
+    set defaultnick(*@conference.example.com) cicerone
+
+
+# the ispell module
+
+    set plugins::ispell::options(enable)              1
+    set plugins::ispell::options(executable)          /usr/bin/hunspell
+    set plugins::ispell::options(command_line)        -d ru_RU,en_US
+    set plugins::ispell::options(dictionary_encoding) ""
+    set plugins::ispell::options(check_every_symbol)  0
+
+# the stream initiation module
+
+    set si::transport(allowed,http://jabber.org/protocol/bytestreams) 0
+    set si::transport(allowed,http://jabber.org/protocol/ibb) 1
+
+
+# the logger module
+
+    set logger::options(logdir)        [file join $::configdir logs]
+    set logger::options(log_chat)      1
+    set logger::options(log_groupchat) 1
+
+# the proxy module
+
+    global proxy1 proxy2 proxy3 proxyconf1 proxyconf2 proxyconf
+
+    set proxy1(type)     https
+    set proxy1(host)     proxy.example.com
+    set proxy1(port)     3128
+    set proxy1(username) ""
+    set proxy1(password) ""
+    set proxy1(match)    *
+    set proxy1(exclude)  "localhost* 127.0.0.* 172.* 192.168.* 10.*"
+
+    set proxy2(type)     http
+    set proxy2(host)     proxy.example.com
+    set proxy2(port)     3128
+    set proxy2(username) ""
+    set proxy2(password) ""
+    set proxy2(match)    *
+    set proxy2(exclude)  "localhost* 127.0.0.* 172.* 192.168.* 10.*"
+
+    set proxy3(type)     socks5
+    set proxy3(host)     proxy.example.com
+    set proxy3(port)     1080
+    set proxy3(username) ""
+    set proxy3(password) ""
+    set proxy3(match)    *
+    set proxy3(exclude)  "localhost* 127.0.0.* 172.* 192.168.* 10.*"
+
+    set proxyconf1(profile) Home
+    set proxyconf1(tunnel)  {}
+    set proxyconf1(http)    {}
+
+    set proxyconf2(profile) Work
+    set proxyconf2(tunnel)  {proxy1 proxy3}
+    set proxyconf2(http)    {proxy2}
+
+    array set proxyconf [array get proxyconf2]
+
+# the login module
+
+    global loginconf loginconf1 loginconf2 autologin
+
+    set loginconf(user)           ""
+    set loginconf(password)       ""
+    set loginconf(server)         example.com
+    set loginconf(resource)       tkabber
+    set loginconf(priority)       16
+    set loginconf(usealtserver)   0
+    set loginconf(altserver)      ""
+    set loginconf(altport)        5422
+    set loginconf(stream_options) plaintext
+    set loginconf(usesasl)        1
+    set loginconf(allowauthplain) 0
+
+    # The following variables are useful when your jabber-server
+    # (example.com) does not have SRV or A-record in DNS
+    set loginconf(usealtserver)  1
+    set loginconf(altserver)     "jabber.example.com"
+
+    set loginconf1(profile)      "Default Account"
+    set loginconf1(user)         mrose
+
+    set loginconf2(profile)      "Test Account"
+    set loginconf2(user)         test
+
+    array set loginconf          [array get loginconf1]
+
+    set autologin 0
+
+
+# the message module
+
+    set message::options(headlines,cache)    1
+    set message::options(headlines,multiple) 1
+
+
+# the raw xml input module
+
+    set plugins::rawxml::set options(pretty_print) 0
+    set plugins::rawxml::set options(indent)       2
+
+
+# the roster module
+
+    set roster::show_only_online            1
+    set roster::roster(collapsed,RSS)       1
+    set roster::roster(collapsed,Undefined) 1
+
+    set roster::aliases(friend@some.host) \
+        {friend@other.host friend@another.host}
+    set roster::use_aliases                 1
+
+
+# the sound module
+
+    set sound::options(mute)                   0
+    set sound::options(mute_if_focus)          0
+    set sound::options(notify_online)          0
+    set sound::options(mute_groupchat_delayed) 1
+    set sound::options(mute_chat_delayed)      0
+    set sound::options(external_play_program) /usr/bin/aplay
+    set sound::options(external_play_program_options) -q
+    set sound::options(delay)
+
+    set sound::options(connected_sound)                     ""
+    set sound::options(presence_available_sound)            ""
+    set sound::options(presence_unavailable_sound)          ""
+    set sound::options(groupchat_server_message_sound)      ""
+    set sound::options(groupchat_their_message_to_me_sound) ""
+}
+]]></artwork>
+<postamble>This isn't nearly as complicated as it seems.
+Let's break it down by individual module</postamble>
+</figure>
+
+        <section anchor='s.postload-looknfeel' title='Look-and-Feel'>
+          <t>
+            <spanx>Tkabber</spanx> is shameless in borrowing icons from other Jabber
+            clients.  By setting <spanx style='verb'>pixmaps::options(pixmaps_theme)</spanx>,
+            you can select a family of
+            related icons.  Besides <spanx style='verb'>"Default"</spanx>, you can choose one of
+            <spanx style='verb'>"Gabber"</spanx>,
+            <spanx style='verb'>"JAJC"</spanx>,
+            <spanx style='verb'>"Jarl"</spanx>,
+            <spanx style='verb'>"Psi"</spanx>,
+            <spanx style='verb'>"ICQ"</spanx>,
+            or a few other themes.
+          </t>
+
+<t>If you want,
+you can have <spanx>Tkabber</spanx> use a different theme by
+putting custom theme subdirectory to
+<spanx style='verb'>$::configdir/pixmaps/</spanx>
+directory (tilde means home directory). <spanx>Tkabber</spanx> knows that it is a
+theme directory by looking for <spanx style='verb'>icondef.xml</spanx> file in the
+directory.
+
+To find out the structure of icon definition file, look through <spanx>XEP-0038</spanx>
+and go to where you installed <spanx>Tkabber</spanx> and take a look at the directory
+called <spanx style='verb'>"pixmaps/default/"</spanx>.</t>
+
+          <t>
+            If you're using the tabbed window interface, <spanx>Tkabber</spanx> needs a way
+            of telling you that something has changed in a window that's not on
+            top.  This is where the an array called <spanx>alert_lvls</spanx> and a list
+            called <spanx>alert_colors</spanx> come in.  The array maps an incoming message
+            to a priority number from zero to three.  The list, which is
+            indexed starting at <spanx>zero</spanx>, indicates what color the tab should
+            use to let you know that something's changed.  So, the way to read
+            the example is that receiving:
+            <list style='symbols'>
+              <t>
+                an error or server message will cause the tab of a lowered
+                window to go dark blue;
+              </t>
+              <t>
+                a groupchat or headline message will cause the tab to go blue;
+                and,
+              </t>
+              <t>
+                a chat message addressed directly to you will cause the tab to
+                go red.
+              </t>
+            </list>
+          </t>
+          <figure>
+            <preamble>By default, whenever a new tab is created,
+it is automatically raised.
+If you don't like this behavior,
+add this line:
+            </preamble>
+            <artwork>set ifacetk::options(raise_new_tab) 0</artwork>
+          </figure>
+        </section>
+
+<section anchor='s.postload-tktray' title='The system tray icon (for Unix)'>
+<t>This module is presently available only for Unix</t>
+
+<t>To enable the system tray icon you have to install <spanx>tktray</spanx> extension
+and set the config variable
+<spanx style='verb'>plugins::tktray::options(enable)</spanx> to 1.</t>
+
+<t>If you want to control the tray icon appearance and/or position, consult the
+documentation for your desktop environment or window manager. Note, that the
+Tkabber's tray icon has WM class <spanx>TkabberIcon</spanx>.</t>
+</section>
+
+<section anchor='s.postload-autoaway' title='The Autoaway Module'>
+<t>There are two variables that control when <spanx>Tkabber</spanx> automatically
+marks you as away:
+<spanx style='verb'>plugins::autoaway::options(awaytime)</spanx> and
+<spanx style='verb'>plugins::autoaway::options(xatime)</spanx>.
+Both define the idle threshold in minutes (the number does not have to be integer).</t>
+
+<t>If variable <spanx style='verb'>plugins::autoaway::options(drop_priority)</spanx> is set in 1 then
+<spanx>Tkabber</spanx> will set priority to 0 when moving in extended away state.</t>
+
+<t>Variable <spanx style='verb'>plugins::autoaway::options(status)</spanx> allows to specify text status, which
+is set when <spanx>Tkabber</spanx> is moving in away state.</t>
+</section>
+
+<section anchor='s.postload-avatar' title='The Avatar Module'>
+<t>There are two variables that you can set to control whether
+<spanx>Tkabber</spanx> will allow others to see your avatar:
+<list style='symbols'>
+<t><spanx style='verb'>avatar::options(announce)</spanx> determines whether your presence
+information indicates that you have an avatar; and,</t>
+
+<t><spanx style='verb'>avatar::options(share)</spanx> determines whether requests for your
+avatar will be honored.</t>
+</list></t>
+</section>
+
+<section anchor='s.postload-chat' title='The Chat Module'>
+<t>The variable named <spanx style='verb'>chat::options(stop_scroll)</spanx> determines whether
+a chat window should automatically scroll down to the bottom whenever
+something new comes in.</t>
+
+          <figure>
+            <preamble>
+              You can also set format of time stamp that displayed in beginning
+              of each chat message.  Refer to <spanx>Tcl</spanx> documentation
+              for description of format.  E.g., to display it in
+              <spanx style='verb'>"dd:mm:ss"</spanx> format, add this line:
+            </preamble>
+            <artwork>
+set plugins::options(timestamp_format) {[%T]}
+</artwork>
+          </figure>
+
+</section>
+
+        <section anchor='s.postload-clientinfo' title="The Clientinfo Module">
+          <figure>
+            <preamble>
+              This module shows in popup balloons information of used by this
+              user client name, version, and OS.  You can allow or deny
+              automatic asking of this info from users by setting this variable
+              to 1 or 0:
+            </preamble>
+            <artwork>set plugins::clientinfo::options(autoask) 1</artwork>
+          </figure>
+        </section>
+
+        <section anchor='s.postload-confinfo' title="The Conferenceinfo Module">
+          <figure>
+            <preamble>After you join a conference that's listed in your
+            roster, then whenever you mouse over that roster entry,
+            you'll see a popup listing the conference's participants.
+            If you want to see this popup, regardless of whether you
+            are currently joined with the conference, add this line to
+            your post-load:
+            </preamble>
+            <artwork>set plugins::conferenceinfo::options(autoask) 1</artwork>
+          </figure>
+          <figure>
+            <preamble>
+              You can also set interval between these requests with
+              these two variables:
+            </preamble>
+<artwork><![CDATA[
+set plugins::conferenceinfo::options(interval)       1
+set plugins::conferenceinfo::options(err_interval)  60
+]]></artwork>
+            <postamble>
+            The second variable defines how many minutes to wait after
+              receiving an error reply before trying again.
+              (Usually an error reply indicates that the server
+              hosting the conference doesn't support browsing,
+              so it makes sense not to try that often.
+            </postamble>
+          </figure>
+        </section>
+
+<section anchor='s.postload-crypto' title='The Cryptographic Module'>
+<t><xref target='s.preload'>Earlier</xref> we saw an example where
+the <spanx style='verb'>ssj::options</spanx> array from the cryptographic module was set during
+the preload.</t>
+
+<figure>
+<preamble>In addition to <spanx style='verb'>signed-traffic</spanx>
+and <spanx style='verb'>encrypt-traffic</spanx>,
+you can also tell <spanx>Tkabber</spanx> whether to encrypt for a particular JID,
+e.g.,</preamble>
+<artwork><![CDATA[
+    set ssj::options(encrypt,fred@example.com) 1
+]]></artwork>
+</figure>
+</section>
+
+        <section anchor='s.postload-emoti' title='The Emoticons Module'>
+          <t>
+            The procedure called <spanx>plugins::emoticons::load_dir</spanx> is used to load
+            emoticon definitions from a directory.  The directory contains a
+            file called <spanx style='verb'>"icondef.xml"</spanx>, which defines the mapping between
+            each image and its textual emoticon (To find out what this file
+            looks like, go to where you installed <spanx>Tkabber</spanx> and take a look at
+            the file called <spanx style='verb'>"emoticons/default/icondef.xml"</spanx> or read <eref
+            target='http://www.xmpp.org/extensions/xep-0038.html'>XEP-0038</eref>.)
+          </t>
+
+<figure>
+<preamble>If you have just a few icons,
+and you don't want to create a directory and a textual mapping,
+you can use the procedure called <spanx style='verb'>plugins::emoticons::add</spanx>, e.g.,</preamble>
+<artwork><![CDATA[
+    plugins::emoticons::add ":beer:" \
+        [image create photo -file $::configdir/emoticons/beer.gif]
+]]></artwork>
+</figure>
+<figure>
+<preamble>If you want to disable all emoticons, you can simply load empty directory.
+Put in postload function</preamble>
+<artwork><![CDATA[
+    plugins::emoticons::load_dir ""
+]]></artwork>
+</figure>
+</section>
+
+        <section anchor='s.postload-filexfer' title="The File Transfer Module">
+          <figure>
+            <preamble>
+              You can set directory in which files will be saved by default:
+            </preamble>
+            <artwork><![CDATA[
+    set ft::options(download_dir) "/tmp"
+]]></artwork>
+          </figure>
+        </section>
+
+        <section anchor='s.postload-groupchat' title='The Groupchat Module'>
+          <t>
+            There are several variables that set the dialog window defaults for
+            adding a groupchat to your roster, or joining a groupchat:
+            <list style='hanging'>
+              <t hangText='add to roster dialog window:'>
+                <spanx style='verb'>gra_group</spanx> and <spanx style='verb'>gra_server</spanx> specify the default room and
+                conference server, repectively; and,
+              </t>
+
+              <t hangText='join dialog window:'>
+                <spanx style='verb'>gr_nick</spanx>, <spanx
+                style='verb'>gr_group</spanx> and <spanx style='verb'>gr_server</spanx> specify the default
+                nickname, room, and conference server, respectively.
+              </t>
+            </list>
+            Note that variables <spanx
+            style='verb'>gra_server</spanx>, <spanx
+            style='verb'>gr_nick</spanx> and <spanx style='verb'>gr_server</spanx>
+            overriden in login procedure, so better place for changing them is
+            in <spanx style='verb'>connected_hook</spanx> (see below).
+          </t>
+
+<figure>
+<preamble>You may want to have different nicknames for different groupchats.
+Accordingly,
+the array called <spanx>defaultnick</spanx> is used to set the default nickname
+for when you enter a conference.
+The array is indexed by the JID of the room, e.g.,</preamble>
+<artwork><![CDATA[
+    set defaultnick(adhoc@conference.example.com) publius
+]]></artwork>
+</figure>
+<figure>
+<preamble>Another possibility is to put pattern in parentheses. The following example
+shows how to specify default nickname for all conferences at <spanx>conference.example.com</spanx>:
+</preamble>
+<artwork><![CDATA[
+    set defaultnick(*@conference.example.com) ciceroni
+]]></artwork>
+<postamble>
+Exact JID's take the higher precedence than patterns.
+</postamble>
+</figure>
+</section>
+
+        <section anchor='s.postload-ispell' title="The Ispell Module">
+          <figure>
+            <preamble>
+            On Unix, <spanx>Tkabber</spanx> can check spelling of what you entered by
+            calling an external program <spanx>ispell</spanx>.  To enable this feature, add
+            following lines to postload function:
+            </preamble>
+<artwork>
+set plugins::ispell::options(enable) 1
+</artwork>
+          </figure>
+
+          <t>
+            If you enabled this module, then you can also define:
+<list style='symbols'>
+<t>the path to the <spanx>ispell</spanx>, or <spanx>aspell</spanx>, or
+<spanx>hunspell</spanx> executable by setting
+<spanx style='verb'>plugins::ispell::options(executable)</spanx></t>
+
+<t>the <spanx>ispell</spanx> command line options, which can specify
+dictionaries to use, by setting
+<spanx style='verb'>plugins::ispell::options(command_line)</spanx>; and,</t>
+
+<t>the encoding of the output by setting
+<spanx style='verb'>plugins::ispell::options(dictionary_encoding)</spanx>.</t>
+</list>
+If you don't care about putting a large load on your process,
+then you can also set
+<spanx style='verb'>plugins::ispell::options(check_every_symbol)</spanx> to 1 to check
+correctness of current word after every entered symbol.  (Usually
+you don't need to set this option.)
+</t>
+</section>
+
+<section anchor='s.postload-si' title="The Stream Initiation Module">
+  <t>
+    Stream initiation profile is defined in <spanx>XEP-0095</spanx> with
+    two transports (<spanx>XEP-0047</spanx> - IBB, <spanx>XEP-0065</spanx> - SOCKS5
+    bytestreams).
+    With it you can specify what
+    transports you can use, and via negotiation choose more appropriate
+    one.  <spanx>Tkabber</spanx> comes with two transport implementations:
+    <list style='hanging'>
+      <t hangText='bytestreams:'>
+        that allows you to connect to any node that supports
+        <spanx style='verb'>bytestreams</spanx> transport (mediated connection
+        is not supported yet);</t>
+      <t hangText='ibb:'>that uses your
+        <spanx style='verb'>Jabber</spanx> connection to transmit the data (which may
+        slowdown other traffic to you).
+      </t>
+    </list>
+  </t>
+  <figure>
+    <preamble>
+      If your machine is behind a NAT, then you can't use the
+      <spanx style='verb'>bytestreams</spanx> transport, so you should disable it:
+    </preamble>
+<artwork><![CDATA[
+    set si::transport(allowed,http://jabber.org/protocol/bytestreams) 0
+]]></artwork>
+          </figure>
+        </section>
+
+        <section anchor='s.postload-log' title="The Logger Module">
+          <figure>
+            <preamble>
+              You can set directory to store logs:
+            </preamble>
+            <artwork>
+    set logger::options(logdir) [file join $::configdir logs]
+</artwork>
+          </figure>
+          <figure>
+            <preamble>
+              Also you can allow or disallow storing of private and group chats
+              logs:
+            </preamble>
+            <artwork>
+    set logger::options(log_chat)      1
+    set logger::options(log_groupchat) 1
+</artwork>
+          </figure>
+        </section>
+
+<section anchor='s.postload-proxy' title='The Proxy Module'>
+<t>Starting from version 1.0 <spanx>Tkabber</spanx> does not keep proxy settings
+in the <spanx style='verb'>loginconf</spanx> array. It uses proxy profiles defined in
+separate arrays.</t>
+
+<figure>
+<preamble>First, you may want to specify a set of proxy servers. You can have multiple
+proxy servers defined in the config file (to use in different environments, or
+if in your company different proxies are used to connect to different hosts).
+To do so, define global arrays (their names could be arbitrary, but
+<spanx style='verb'>proxy&lt;number&gt;</spanx> looks natural):</preamble>
+<artwork><![CDATA[
+    set proxy1(type)     https
+    set proxy1(host)     proxy.example.com
+    set proxy1(port)     3128
+    set proxy1(username) ""
+    set proxy1(password) ""
+    set proxy1(match)    *
+    set proxy1(exclude)  "localhost* 127.0.0.* 172.* 192.168.* 10.*"
+
+    set proxy2(type)     http
+    set proxy2(host)     proxy.example.com
+    set proxy2(port)     3128
+    set proxy2(username) ""
+    set proxy2(password) ""
+    set proxy2(match)    *
+    set proxy2(exclude)  "localhost* 127.0.0.* 172.* 192.168.* 10.*"
+
+    set proxy3(type)     socks5
+    set proxy3(host)     proxy.example.com
+    set proxy3(port)     1080
+    set proxy3(username) ""
+    set proxy3(password) ""
+    set proxy3(match)    *
+    set proxy3(exclude)  "localhost* 127.0.0.* 172.* 192.168.* 10.*"
+]]></artwork>
+<postamble>
+Field <spanx style='verb'>type</spanx> is one of the following: <spanx>"socks4"</spanx>, <spanx>"socks5"</spanx>,
+<spanx>"https"</spanx>, <spanx>"http"</spanx>. The firat
+three types are tunnelling proxies. If you enable them, <spanx>Tkabber</spanx> will use them to tunnel its TCP
+connections (in case of <spanx>"https"</spanx> this means using <spanx>CONNECT</spanx> method for HTTP proxy).
+The other one is used when <spanx>Tkabber</spanx> needs to fetch some data via <spanx>GET</spanx> or
+<spanx>POST</spanx> method of the HTTP protocol (e.g., when utilizing BOSH or HTTP-poll connection).
+</postamble>
+</figure>
+
+<t>Fields <spanx style='verb'>host</spanx>, <spanx style='verb'>port</spanx>, <spanx
+style='verb'>username</spanx> and <spanx style='verb'>password</spanx> are selfexplanatory.</t>
+
+<t>There are two fields which need some explanation: <spanx style='verb'>match</spanx> and <spanx
+style='verb'>exclude</spanx>. When Tkabber needs to connect to a certain <spanx>host</spanx> or to get an HTTP
+document it searches proxies in order they appear in the corresponding proxyconf list
+(see below) and uses the first proxy for which the <spanx>host</spanx> matches one of the patterns from the
+<spanx style='verb'>match</spanx> field but doesn't match any of the patterns from the <spanx
+style='verb'>exclude</spanx> field. The matching uses patterns convention from the <spanx style='verb'>string
+match</spanx>
+<spanx>Tcl</spanx> command.</t>
+
+<figure>
+<preamble>Second, you may want to define proxy profiles, and switch between them when the environment changes
+(it's useful for portable computers). To do so, you may define global arrays named
+<spanx style='verb'>proxyconf&lt;number&gt;</spanx> where numbers must start from 1 and be consecutive, otherwise
+<spanx>Tkabber</spanx> GUI wouldn't be able to switch to them:
+</preamble>
+<artwork><![CDATA[
+    set proxyconf1(profile) Home
+    set proxyconf1(tunnel)  {}
+    set proxyconf1(http)    {}
+
+    set proxyconf2(profile) Work
+    set proxyconf2(tunnel)  {proxy1 proxy3}
+    set proxyconf2(http)    {proxy2}
+
+    array set proxyconf [array get proxyconf2]
+]]></artwork>
+<postamble>
+Here, two proxy profiles are defined. The first one instructs <spanx>Tkabber</spanx> not to use any proxies and
+directly connect to any host. The second one defines two tunnel proxies and one HTTP proxy. Note that HTTPS and
+HTTP proxy are the same, but they should appear in both <spanx style='verb'>tunnel</spanx> and
+<spanx style='verb'>http</spanx> fields anyway. The last line chooses the default proxy profile, which is
+<spanx>Work</spanx> in the example above.
+</postamble>
+</figure>
+
+<t>Also, you can edit proxy settings using <spanx>Tkabber</spanx> GUI under <spanx>Tkabber-&gt;Manage proxy
+servers</spanx> menu item.</t>
+</section>
+
+<section anchor='s.postload-login' title='The Login Module'>
+<t>The first task is to initialize the configuration defaults for the
+<spanx>login</spanx> module.
+As you can see above,
+the global array <spanx style='verb'>loginconf</spanx> has a whole bunch of elements,
+e.g., <spanx style='verb'>user</spanx>, <spanx style='verb'>password</spanx>, and so on.</t>
+
+<t>Elements <spanx style='verb'>loginconf(user)</spanx> and
+<spanx style='verb'>loginconf(password)</spanx>specify username and
+password to authenticate at your <spanx>Jabber</spanx> server.</t>
+
+<t>Element <spanx style='verb'>loginconf(server)</spanx> must be set to
+<spanx>Jabber</spanx> server name (the part of you <spanx>JID</spanx> after
+<spanx style='verb'>@</spanx>.</t>
+
+<t>Element <spanx style='verb'>loginconf(stream_options)</spanx> is set to
+one of the following values:
+<list style='symbols'>
+    <t>plaintext &mdash; use plaintext connection;</t>
+    <t>encrypted &mdash; use encrypted (via STARTTLS mechanism) connection (this option
+        requires tls extension to be installed);</t>
+    <t>ssl &mdash; use encrypted (via legacy SSL mechanism) connection (this option
+        requires tls extension to be installed);</t>
+    <t>compressed &mdash; use compressed connection (this option requires Ztcl extension
+        to be installed).</t>
+</list></t>
+
+<t><spanx>Tkabber</spanx> tries to resolve <spanx>Jabber</spanx> server name
+using <spanx>SRV</spanx> first and usual <spanx>A</spanx> records in <spanx>DNS</spanx>.
+If the resolution fails (for example if you are in LAN environment without
+<spanx>DNS</spanx>) you can force <spanx>Tkabber</spanx> to connect to the server
+using <spanx style='verb'>loginconf(altserver)</spanx> and
+<spanx style='verb'>loginconf(altport)</spanx> options (do not forget to set
+<spanx style='verb'>loginconf(usealtserver)</spanx> to <spanx style='verb'>1</spanx>).</t>
+
+<t>Another option is to use <spanx>BOSH</spanx> (XEP-0124 and XEP-0206) connect method (if your server
+supports it) and tunnel <spanx>XMPP</spanx> traffic through <spanx>HTTP</spanx>.
+To enable <spanx>BOSH</spanx> set <spanx style='verb'>loginconf(usebosh)</spanx>
+to <spanx style='verb'>1</spanx>. <spanx>Tkabber</spanx> then tries to find connect
+<spanx>URL</spanx> using <spanx>TXT</spanx> record in <spanx>DNS</spanx> (see XEP-0156).
+You can specify <spanx>URL</spanx> manually by setting
+<spanx style='verb'>loginconf(boshurl)</spanx>.</t>
+
+<t>And another option is to use <spanx>HTTP</spanx>-polling connect method (if your server
+supports it) and tunnel <spanx>XMPP</spanx> traffic through <spanx>HTTP</spanx>.
+To enable <spanx>HTTP</spanx>-polling set <spanx style='verb'>loginconf(usehttppoll)</spanx>
+to <spanx style='verb'>1</spanx>. <spanx>Tkabber</spanx> then tries to find connect
+<spanx>URL</spanx> using <spanx>TXT</spanx> record in <spanx>DNS</spanx> (see XEP-0156).
+You can specify <spanx>URL</spanx> manually by setting
+<spanx style='verb'>loginconf(pollurl)</spanx>.</t>
+
+<t>This collection of elements,
+which is termed a login profile,
+is what populates the dialog window you'll see when <spanx>Tkabber</spanx> wants
+to connect to the server.</t>
+
+<t>It turns out that <spanx>Tkabber</spanx> lets you have as many different login
+profiles as you want.
+If you want more than just one,
+they're named <spanx style='verb'>loginconf1</spanx>, <spanx style='verb'>loginconf2</spanx>, and so on.</t>
+
+<t>What the example above shows is the default values for all profiles
+being set in <spanx style='verb'>loginconf</spanx>,
+and then two profiles,
+one called <spanx style='verb'>"Default Account"</spanx> and the other
+called <spanx style='verb'>"Test Account"</spanx>
+being created.</t>
+
+          <t>
+            If you want to automatically login to server, then you can
+            set the <spanx style='verb'>autologin</spanx> variable to
+            <spanx style='verb'>1</spanx>.
+          </t>
+          <t>
+            If you set the <spanx style='verb'>autologin</spanx>
+            variable to <spanx style='verb'>-1</spanx>, then <spanx>Tkabber</spanx>
+            will not automatically login and will not show login dialog.
+          </t>
+          <t>
+            Default value for <spanx style='verb'>autologin</spanx> is
+            <spanx style='verb'>0</spanx>. In this case <spanx>Tkabber</spanx>
+            shows login dialog.
+          </t>
+</section>
+
+<section anchor='s.postload-message' title='The Message Module'>
+<t>By default,
+when you restart <spanx>Tkabber</spanx> it won't remember the headlines you received.
+If you want <spanx>Tkabber</spanx> to remember headlines whenever you run it,
+set <spanx style='verb'>message::options(headlines,cache)</spanx> to
+<spanx style='verb'>1</spanx>.</t>
+
+<t>By default,
+<spanx>Tkabber</spanx> will put all headline messages into a single window.
+If you want <spanx>Tkabber</spanx> to use a seperate window for each headline source,
+set <spanx style='verb'>message::options(headlines,multiple)</spanx>
+to <spanx style='verb'>1</spanx>.</t>
+</section>
+
+        <section anchor='s.postload-rawxml' title="The Raw XML Input Module">
+          <t>
+            With this module you can monitor incoming/outgoing traffic from
+            connection to server and send custom XML stanzas.  Also you can
+            switch on <spanx style='verb'>pretty print</spanx> option to see incoming and outgoing XML
+            stanzas pretty printed.  Note, that with this option they may be
+            drawed incorrectly, e.g. for XHTML tags.  Also you can set
+            indentation level via <spanx style='verb'>indent</spanx> option.
+          </t>
+        </section>
+
+        <section anchor='s.postload-roster' title='The Roster Module'>
+          <t>
+            By default, your entire roster is shown, even those items that
+            aren't online.  The variable called <spanx style='verb'>roster::show_only_online</spanx>
+            controls this.
+          </t>
+
+          <t>
+            Similarly by default, each item in every category is shown in the
+            roster.  If you want to hide the items in a given category, the
+            array called <spanx style='verb'>roster::roster</spanx> lets you do this.  In the example,
+            we see that two groups (<spanx style='verb'>"RSS"</spanx>
+            and <spanx style='verb'>"Undefined"</spanx>) start with
+            their items hidden.
+          </t>
+
+          <t>
+            Some peoples use several JIDs.  <spanx>Tkabber</spanx> lets you
+            specify an alias for people like these, so it will show
+            only one entry in the roster.
+            In the example, we see that user <spanx style='verb'>friend@some.host</spanx> have
+            aliases <spanx style='verb'>friend@other.host</spanx> and
+            <spanx style='verb'>friend@another.host</spanx>.
+            You can also disable all aliases by setting
+            <spanx style='verb'>roster::use_aliases</spanx> to <spanx style='verb'>0</spanx>.
+          </t>
+        </section>
+
+        <section anchor='s.postload-sound' title="The Sound Module">
+            <t>
+              <spanx>Tkabber</spanx> can play sounds on some events.  It can use for this
+              <spanx>snack</spanx> library or external program that can play <spanx>WAV</spanx> files.
+              Sound notifications is enabled when <spanx>Tkabber</spanx> starts.
+            </t>
+          <figure>
+            <preamble>
+              If you want to start <spanx>Tkabber</spanx> with sound muted
+              add the following line:
+            </preamble>
+            <artwork>set sound::options(mute) 1 </artwork>
+          </figure>
+          <figure>
+            <preamble>
+              If you want <spanx>Tkabber</spanx> to stop notifying you when you are not
+              online (in away or dnd state)
+              add the following line:
+            </preamble>
+            <artwork>set sound::options(notify_online) 1 </artwork>
+          </figure>
+          <figure>
+            <preamble>
+              If you want <spanx>Tkabber</spanx> to mute sound when it is focued
+              (and you are paying enough attention to it)
+              add the following line:
+            </preamble>
+            <artwork>set sound::options(mute_if_focus) 1 </artwork>
+          </figure>
+          <figure>
+            <preamble>
+              You can also mute sounds of delayed groupchat messages and
+              delayed personal chat messages:
+            </preamble>
+            <artwork>
+set sound::options(mute_groupchat_delayed) 1
+set sound::options(mute_chat_delayed)      0
+</artwork>
+          </figure>
+          <figure>
+            <preamble>
+              If you want to use external program for playing sounds and possibly
+              this program's options, then also
+              add something like this (these options are suitable for Linux users
+              with ALSA installed):
+            </preamble>
+            <artwork>
+set sound::options(external_play_program) /usr/bin/aplay
+set sound::options(external_play_program_options) -q
+</artwork>
+          </figure>
+          <figure>
+            <preamble>
+              You can also set minimal interval (in milliseconds) between
+              playing different sounds.
+            </preamble>
+            <artwork>set sound::options(delay) 200</artwork>
+          </figure>
+            <t>
+              <spanx>Tkabber</spanx> allows you to specify the filename it will play
+              notifying about some more or less important events. These are:
+              <list style='symbols'>
+                <t><spanx style='verb'>sound::options(connected_sound)</spanx> &mdash; sound playing
+            when <spanx>Tkabber</spanx> is connected to the server;</t>
+
+            <t><spanx style='verb'>sound::options(presence_available_sound)</spanx> &mdash; sound
+            playing when available presence is coming;</t>
+
+            <t><spanx style='verb'>sound::options(presence_unavailable_sound)</spanx> &mdash; sound
+            playing when unavailable presence is coming;</t>
+
+            <t><spanx style='verb'>sound::options(chat_my_message_sound)</spanx> &mdash; sound
+            playing when you send one-to-one chat message;</t>
+
+            <t><spanx style='verb'>sound::options(chat_their_message_sound)</spanx> &mdash; sound
+            playing when you receive one-to-one chat message;</t>
+
+            <t><spanx style='verb'>sound::options(groupchat_server_message_sound)</spanx> &mdash; sound
+            playing when you receive groupchat message from server;</t>
+
+            <t><spanx style='verb'>sound::options(groupchat_my_message_sound)</spanx> &mdash; sound
+            playing when you receive groupchat message from server;</t>
+
+            <t><spanx style='verb'>sound::options(groupchat_their_message_sound)</spanx> &mdash; sound
+            playing when you receive groupchat message from another user;</t>
+
+            <t><spanx style='verb'>sound::options(groupchat_their_message_to_me_sound)</spanx> &mdash; sound
+            playing when you receive highlighted (usually personally addressed) groupchat message from
+            another user.</t>
+              </list>
+            </t>
+
+          <figure>
+            <preamble>
+              If you want to disable sound notification for some of the events, then you can add line
+              like this:
+            </preamble>
+<artwork><![CDATA[
+set sound::options(connected_sound)                     ""
+set sound::options(presence_available_sound)            ""
+set sound::options(presence_unavailable_sound)          ""
+set sound::options(groupchat_server_message_sound)      ""
+set sound::options(groupchat_their_message_to_me_sound) ""
+]]></artwork>
+          </figure>
+        </section>
+</section>
+
+<section anchor='s.menuload' title='Menu-load'>
+<t>After <spanx>Tkabber</spanx> invokes your <spanx style='verb'>postload</spanx> procedure,
+it starts building the GUI.
+One of the most important things it does is build up a list that
+specifies its menu bar.
+It then invokes a procedure called <spanx style='verb'>menuload</spanx>,
+which is allowed to modify that specification before <spanx>Tkabber</spanx> uses it.</t>
+
+<figure>
+<preamble>The default version of this procedure is the identity function,
+i.e..,</preamble>
+<artwork><![CDATA[
+proc menuload {description} { return $description }
+]]></artwork>
+</figure>
+
+<t>If you <spanx>really</spanx> want to change the menubar specification,
+then here's how to get started:
+<list style='numbers'>
+<t>Go to where you installed the <spanx>BWidget</spanx> library and take a look at
+the file called <spanx style='verb'>"BWman/MainFrame.html"</spanx>.
+The documentation for the <spanx style='verb'>"-menu"</spanx> option explains the syntax of the
+specification.</t>
+
+<t>Go to where you installed <spanx>Tkabber</spanx> and take a look at the file
+called <spanx style='verb'>"iface.tcl"</spanx>.
+Look for the line that starts with <spanx style='verb'>"set descmenu"</spanx>.
+This will show you the specification given to your <spanx style='verb'>menuload</spanx>
+procedure.</t>
+
+<t>Go to where you installed <spanx>Tkabber</spanx> and take a look at the file
+called
+<spanx style='verb'>"examples/mtr-config.tcl"</spanx>.
+Look at the <spanx style='verb'>menuload</spanx> procedure defined there.
+It lays out <spanx>Tkabber's</spanx> menu bar similar to <spanx>Gabber's</spanx>.</t>
+
+<t>Finally,
+study the procedures listed here.</t>
+</list></t>
+
+<section anchor='s.menuload-avatar' title='The Avatar Module'>
+<t>The procedure called <spanx style='verb'>avatar::store_on_server</spanx> stores your avatar
+on the server.</t>
+</section>
+
+<section anchor='s.menuload-browser' title='The Browser Module'>
+<t>The procedure called <spanx style='verb'>browser::open</spanx> opens a new browser window.</t>
+</section>
+
+<section anchor='s.menuload-groupchat' title='The Groupchat Module'>
+<t>The procedure called <spanx style='verb'>add_group_dialog</spanx> displays a dialog window
+when you want to add a groupchat to your roster.
+Similarly,
+the procedure called <spanx style='verb'>join_group_dialog</spanx> displays a dialog window
+when you want to join a groupchat.</t>
+</section>
+
+<section anchor='s.menuload-login' title='The Login Module'>
+<t>The procedure called <spanx style='verb'>show_login_dialog</spanx> displays a dialog window
+when you want to login to the server.
+(Prior to attempting to login,
+if necessary it will logout).
+Naturally,
+the procedure called <spanx style='verb'>logout</spanx> does just that;
+however,
+if you want get a dialog window for confirmation,
+use <spanx style='verb'>show_logout_dialog</spanx> instead.</t>
+</section>
+
+<section anchor='s.menuload-message' title='The Message Module'>
+<t>If you want to send a message to someone,
+the procedure called <spanx style='verb'>message::send_dialog</spanx> will put up a dialog window.
+It takes upto three optional arguments:
+the recipient JID, the subject, and the thread.</t>
+
+<t>If you want to get added to someone's roster,
+the procedure called <spanx style='verb'>message::send_subscribe_dialog</spanx> will put up a
+dialog window.
+It takes one optional argument:
+the recipient JID.</t>
+</section>
+
+<section anchor='s.menuload-presence' title='The Presence Module'>
+<t>If you want to display information about a user,
+the procedure called <spanx style='verb'>userinfo::open</spanx> will put up a dialog window.
+It takes two optional arguments:
+the user's JID;
+and,
+whether or not the dialog window should be editable.</t>
+
+<figure>
+<preamble>Obviously,
+the second argument makes sense only if it's your own information,
+i.e.,</preamble>
+<artwork><![CDATA[
+    global loginconf
+
+    userinfo::open \
+        ${loginconf(user)}@$loginconf(server)/$loginconf(resource) 1
+]]></artwork>
+</figure>
+
+<t>There are also two variables that you can use to set your own
+presence:
+<spanx style='verb'>userstatus</spanx> and <spanx style='verb'>textstatus</spanx>.
+The first variable takes one of five values:
+<list style='symbols'>
+<t>available;</t>
+<t>chat;</t>
+<t>away;</t>
+<t>xa;</t>
+<t>dnd; or,</t>
+<t>invisible.</t>
+</list>
+The second variable takes any textual value.</t>
+
+<figure>
+<preamble>Changes to your presence information are propagated only
+when <spanx style='verb'>userstatus</spanx> is changed.
+Accordingly,
+if you make a change to <spanx style='verb'>textstatus</spanx>,
+be sure to write <spanx style='verb'>userstatus</spanx> immediately afterwards,
+even if it's a no-op,
+e.g.,</preamble>
+<artwork><![CDATA[
+    global userstatus textstatus
+
+    set textstatus "Out to lunch"
+    set userstatus $userstatus
+]]></artwork>
+</figure>
+</section>
+
+<section  anchor='s.menuload-miscellany' title='Miscellany'>
+<t>Finally,
+you can use the procedure named <spanx style='verb'>help_window</spanx> to display some textual
+help.
+This procedure takes two arguments:
+the title for the window;
+and,
+the text to display.</t>
+
+<t>Also, instead of calling <spanx style='verb'>exit</spanx> to terminate <spanx>Tkabber</spanx>,
+please use the <spanx style='verb'>quit</spanx> procedure instead.</t>
+</section>
+</section>
+
+<section anchor='s.finalload' title='Final-Load'>
+<t>Finally,
+right before <spanx>Tkabber</spanx> goes to display the login dialog,
+it invokes a procedure called <spanx style='verb'>finload</spanx>,
+which does whatever you want it to.</t>
+</section>
+    </section>
+
+
+<section anchor='s.extensibility' title='Extensibility'>
+<t>In addition to various configuration mechanisms,
+<spanx>Tkabber</spanx> lets you define procedures,
+termed "hooks" that get run when certain events happen.</t>
+
+<figure>
+<preamble>Here's an example.
+When <spanx>Tkabber</spanx> receives a chat message,
+how does it know what to process and what to draw?
+The short answer is that it doesn't need to know anything,
+all it does is:</preamble>
+<artwork><![CDATA[
+hook::run draw_message_hook $chatid $from $type $body $extras
+]]></artwork>
+<postamble>The <spanx style='verb'>hook::run</spanx> procedure invokes whatever hooks have been
+defined for <spanx style='verb'>draw_message_hook</spanx>.
+In fact,
+more than ten procedures may get invoked to satisfy this hook!</postamble>
+</figure>
+
+<figure>
+<preamble>Here's how it works:
+<spanx>Tkabber</spanx> comes with a number of plugins,
+which get loaded automatically.
+Each plugin makes one or more calls that look like this:</preamble>
+<artwork><![CDATA[
+hook::add draw_message_hook [namespace current]::my_draw_hook $prio
+]]></artwork>
+<postamble>where the last two parameters are:
+the name of a procedure to run;
+and, a relative integer priority.</postamble>
+</figure>
+
+<t>When <spanx style='verb'>hook::run</spanx> is invoked for <spanx style='verb'>draw_message_hook</spanx>,
+each of these procedures is called,
+in the priority order (from smallest to largest).
+If one of the procedures wants to prevent the later procedures from
+being called,
+it returns the string <spanx style='verb'>"stop"</spanx>.</t>
+
+<figure>
+<preamble>To continue with the example,
+in between the pre-load and post-load stages of configuration,
+the following calls get made by different plugins:</preamble>
+<artwork><![CDATA[
+hook::add draw_message_hook [list ...::events::process_x 0] 0
+hook::add draw_message_hook ...::chatstate::process_x 1
+hook::add draw_message_hook ...::check_draw_empty_body 4
+hook::add draw_message_hook ...::chat_open_window 5
+hook::add draw_message_hook [list ...::events::process_x 1] 6
+hook::add draw_message_hook ...::draw_signed 6
+hook::add draw_message_hook ...::draw_encrypted 7
+hook::add draw_message_hook ...::handle_error 10
+hook::add draw_message_hook ...::handle_info 10
+hook::add draw_message_hook ...::draw_timestamp 15
+hook::add draw_message_hook    ::logger::log_message 15
+hook::add draw_message_hook ...::set_message_timestamp 15
+hook::add draw_message_hook ...::add_number_of_messages_to_title 18
+hook::add draw_message_hook ...::chat_message_notify19
+hook::add draw_message_hook ...::handle_server_message 20
+hook::add draw_message_hook ...::roster::update_chat_activity 50
+hook::add draw_message_hook ...::check_nick 60
+hook::add draw_message_hook    ::wmdock::msg_recv 70
+hook::add draw_message_hook ...::handle_last_nick 79
+hook::add draw_message_hook ...::add_bookmark 80
+hook::add draw_message_hook ...::handle_me 83
+hook::add draw_message_hook ...::xhtml::draw_xhtml_message 85
+hook::add draw_message_hook ...::draw_normal_message 87
+]]></artwork>
+<postamble>Many of these procedures look at the incoming chat message
+and operate on only certain kinds of messages.
+Some of these procedures may return <spanx style='verb'>"stop"</spanx>,
+e.g., <spanx style='verb'>handle_me</spanx> which handles chat bodies
+that start with <spanx style='verb'>"/me"</spanx> and <spanx style='werb'>draw_xhtml_message</spanx>
+which visualizes <spanx>XHTML</spanx> formatted messages.
+(In this example,
+the actual namespaces were replaced with <spanx style='verb'>"...:"</spanx> to make it more
+readable).</postamble>
+</figure>
+
+<t>Now let's look at the different kind of hooks that <spanx>Tkabber</spanx> knows
+about.</t>
+
+<section title='Message Hooks'>
+<figure>
+<preamble>
+When <spanx>Tkabber</spanx> receives a message stanza it calls two hooks:
+</preamble>
+<artwork><![CDATA[
+rewrite_message_hook \
+    xlib from id type is_subject subject body err thread priority x
+process_message_hook \
+    $xlib $from $id $type $is_subject $subject $body $err $thread \
+    $priority $x
+]]></artwork>
+</figure>
+<t>The first hook takes eleven variable names as arguments, so the calling
+procedures can rewrite them. This means that a procedure in this hook should call
+<spanx style='verb'>upvar 2 $varbody body</spanx> and use the <spanx style='verb'>body</spanx>
+variable to change the actual message body. For example, this allows <spanx>Tkabber</spanx> to put
+decrypted message into the <spanx style='verb'>body</spanx> variable if it is encrypted.</t>
+<t>The second hook does the job of showing message to the user (or doing something else with it if it's
+a special message like part of an in-band file transfer.</t>
+
+<figure>
+<preamble>When you are about to send a chat or normal message to the wire,
+a hook is run:</preamble>
+<artwork><![CDATA[
+rewrite_outgoing_message_hook xlib to id type subject body err thread x
+]]></artwork>
+<postamble>The hook takes nine variable names as arguments, so the calling
+procedures can rewrite them. This means that a procedure in this hook should call
+<spanx style='verb'>upvar 2 $varbody body</spanx> and use the <spanx style='verb'>body</spanx>
+variable to change the actual message body. For example, this allows <spanx>Tkabber</spanx> to
+encrypt message and put the encrypted message into the <spanx style='verb'>body</spanx>
+variable to send. This hook is introduced in <spanx>Tkabber</spanx> 1.1, and is used
+by the OTR plugin, so the latter will not work in <spanx>Tkabber</spanx> 1.0 and older.</postamble>
+</figure>
+
+</section>
+
+<section title='Chat Hooks'>
+<figure>
+<preamble>When <spanx>Tkabber</spanx> decides that it needs to open a (tabbed)
+window for a chat or groupchat,
+two hooks are run:</preamble>
+<artwork><![CDATA[
+open_chat_pre_hook  $chatid $type
+open_chat_post_hook $chatid $type
+]]></artwork>
+<postamble>Both hooks are given two parameters:
+the chatid (ID of the chat or conference room window, you always can obtain JID using
+<spanx style='verb'>chat::get_jid</spanx> and connection token using
+<spanx style='verb'>chat::get_xlib</spanx> routines);
+and,
+and the type of chat
+(either <spanx style='verb'>"chat"</spanx> or <spanx style='verb'>"groupchat"</spanx>).</postamble>
+</figure>
+
+<figure>
+<preamble>Similarly,
+when <spanx>Tkabber</spanx> encounters activity on a tabbed window,
+a hook is run:</preamble>
+<artwork><![CDATA[
+raise_chat_tab_hook $path $chatid
+]]></artwork>
+<postamble>The hook is given two parameters:
+the path of the <spanx>Tk</spanx> widget for the tabbed window;
+and,
+the chatid of the chat or conference room window.</postamble>
+</figure>
+
+<figure>
+<preamble>When you want to send a chat message,
+a hook is run:</preamble>
+<artwork><![CDATA[
+chat_send_message_hook $chatid $user $body $type
+]]></artwork>
+<postamble>The hook is given four parameters:
+the chatid of the recipient;
+the localpart of your login identity;
+the body of the message;
+and, the type of chat.</postamble>
+</figure>
+
+<figure>
+<artwork><![CDATA[
+draw_message_hook $chatid $from $type $body $extras
+]]></artwork>
+<postamble>The hook is given five parameters:
+the chatid of the sender window (JID includes a resource);
+the JID of the sender (without the resource);
+the type of chat;
+the body of the message;
+and,
+a nested-list of additional payload elements.
+(This last parameter isn't documented in this version of the documentation.)
+</postamble>
+</figure>
+
+        <figure>
+          <preamble>
+            Chat windows have menubuttons, and two hooks are used to add items
+            in menu:
+          </preamble>
+<artwork><![CDATA[
+chat_create_user_menu_hook $path $xlib $jid
+chat_create_conference_menu_hook $path $xlib $jid
+]]></artwork>
+          <postamble>
+            The first is used in user chat windows, and second in groupchat
+            ones.  Hooks are given three parameters: the path of the <spanx>Tk</spanx> menu
+            widget; connection token; and, the JID of user or conference.
+          </postamble>
+        </figure>
+
+        <figure>
+          <preamble>
+            In groupchat windows it is possible to complete participants' nicks or
+            commands by pressing TAB key.  List of completions is generated by
+            running this hook:
+          </preamble>
+<artwork><![CDATA[
+generate_completions_hook $chatid $compsvar $wordstart $line
+]]></artwork>
+          <postamble>
+                  The hook is given four parameters: the chatid of conference window; name of
+                  global variable, in which current list of possible
+                  completions is stored; index of position where completion must be inserted;
+                  and content of text widget where completion is requested.
+          </postamble>
+        </figure>
+        <figure>
+          <preamble>
+            When someone enters/exits conference or changes their presence, the following hooks are called:
+          </preamble>
+<artwork><![CDATA[
+chat_user_enter    $group $nick
+chat_user_exit     $group $nick
+chat_user_presence $group $nick
+]]></artwork>
+          <postamble>
+            The hooks are given two parameters: chatid of conference and nick of
+            participant.
+          </postamble>
+        </figure>
+        <figure>
+          <preamble>
+            When someone changes his/her nickname in a conference room, the following hook is called:
+          </preamble>
+<artwork><![CDATA[
+room_nickname_changed_hook $chatid $nick $new_nick
+]]></artwork>
+          <postamble>
+            The hook is given three parameters: chatid of conference old nickname and the new nickname of
+            participant.
+          </postamble>
+        </figure>
+      </section>
+
+<section title='Login Hooks'>
+<figure>
+<preamble>Two hooks are invoked whenever a session is connected or
+disconnected:</preamble>
+<artwork><![CDATA[
+connected_hook $xlib
+
+disconnected_hook $xlib
+]]></artwork>
+<postamble>Both hooks are given one parameter: connection token (<spanx>Tkabber</spanx>
+allows several connections at once).</postamble>
+</figure>
+</section>
+
+<section title='Presence Hooks'>
+<figure>
+<preamble>When our presence status changes,
+a hook is run:</preamble>
+<artwork><![CDATA[
+change_our_presence_post_hook $status
+]]></artwork>
+</figure>
+
+<t>The hook is given one parameter:
+the new presence status value,
+i.e., one of:
+<list style='symbols'>
+<t>available;</t>
+<t>chat;</t>
+<t>away;</t>
+<t>xa;</t>
+<t>dnd; or</t>
+<t>unavailable.</t>
+</list></t>
+
+<figure>
+<preamble>Similarly,
+when someone else's presence changes,
+a hook is run:</preamble>
+<artwork><![CDATA[
+on_change_user_presence_hook $label $status
+]]></artwork>
+<postamble>The hook is given two parameters:
+the label associated with the JID (e.g., "fred")
+or the JID itself (e.g., "fred@example.com")
+if no label exists in the roster;
+and,
+the user's new status.</postamble>
+</figure>
+
+        <figure>
+          <preamble>
+            And for all received presence packets, a hook is run:
+          </preamble>
+<artwork><![CDATA[
+client_presence_hook $xlib $from $type $x $args
+]]></artwork>
+          <postamble>
+            The hook is given four parameters: connection token, who send this presence, type of
+            presence (e.g., "error", "unavailable"), list of extended subtags
+            and parameters of this presence (e.g., "-show xa -status online").
+          </postamble>
+        </figure>
+      </section>
+
+<section title='Info/Query Hook'>
+<figure>
+<preamble>When an IQ stanza is received,
+a hook is run:</preamble>
+<artwork><![CDATA[
+client_iq_hook $xlib $from $type $queries $args
+]]></artwork>
+        <postamble>
+          The hook is given four compulsory parameters:
+          connection token, who sent this query/response type of stanza (e.g., "get", "set", "result" or "error"),
+          list of query subelements (usually it contains only one element), list of optional arguments
+          (e.g., "-lang language -to jid -id id -x $list_of_other_attributes").
+        </postamble>
+      </figure>
+    </section>
+
+      <section title='Roster Hooks'>
+        <figure>
+          <preamble>
+            When an item is added to the roster window, one of the four hooks is run to add
+            stuff to the menu associated with that item:
+          </preamble>
+<artwork><![CDATA[
+roster_conference_popup_menu_hook $path $xlib $jid
+
+roster_service_popup_menu_hook $path $xlib $jid
+
+roster_jid_popup_menu_hook $path $xlib $jid
+
+roster_group_popup_menu_hook $path $xlib $name
+]]></artwork>
+          <postamble>
+            When run, each hook is given three parameters: the path of the <spanx>Tk</spanx> menu
+            widget; the connection token; and, a JID of the roster item (or the name
+                of the roster group for the last one).
+          </postamble>
+        </figure>
+        <figure>
+          <preamble>
+            Also the following hook is run to add stuff to the menu in groupchats:
+          </preamble>
+<artwork><![CDATA[
+roster_create_groupchat_user_menu_hook $path $xlib $jid
+]]></artwork>
+          <postamble>
+            The hook is given three parameters: the path of the <spanx>Tk</spanx> menu
+            widget; the connection token; and, a JID of user.
+          </postamble>
+        </figure>
+        <figure>
+          <preamble>
+            The following hook is run to add stuff to the popup balloon for each roster
+            item:
+          </preamble>
+<artwork><![CDATA[
+roster_user_popup_info_hook $varname $xlib $jid
+]]></artwork>
+          <postamble>
+            The hook is given three parameters: the variable name in which
+            current popup text is stored, the connection token, and the JID of the roster item.
+          </postamble>
+        </figure>
+      </section>
+
+<section title='Miscellaneous Hooks'>
+<figure>
+<preamble>There are three "obvious" hooks:</preamble>
+<artwork><![CDATA[
+postload_hook
+
+finload_hook
+
+quit_hook
+]]></artwork>
+<postamble>The first two,
+by default,
+run the <spanx style='verb'>postload</spanx> and <spanx style='verb'>finload</spanx> procedures,
+respectively. <spanx style='verb'>postload_hook</spanx> is run after all code has been loaded and before initializing main
+<spanx>Tkabber</spanx> window. After that <spanx style='verb'>finload_hook</spanx> is run.
+The final hook is called just before <spanx>Tkabber</spanx> terminates
+(cf., <xref target='s.menuload-miscellany'/>).</postamble>
+</figure>
+
+<figure>
+<preamble>You can add custom pages to userinfo window using</preamble>
+<artwork><![CDATA[
+userinfo_hook $path $xlib $jid $editable
+]]></artwork>
+<postamble>
+It is run with four arguments: the userinfo notebook widget name; the connection token;
+the JID of the user; and a boolean
+parameter which indicates whether the form is editable.
+</postamble>
+</figure>
+</section>
+</section> <!-- s.extensibility -->
+
+<section anchor='s.user-interface' title='User Interface basics'>
+
+<section anchor='s.ui-searching' title='Searching'>
+<t>Search panel may be invoked in certain classes of
+<spanx>Tkabber</spanx> windows using the
+<spanx style='verb'>&lt;&lt;OpenSearchPanel&gt;&gt;</spanx>
+Tk virtual event which is bound by default to the
+<spanx style='verb'>&lt;Control-S&gt;</spanx> keyboard command.</t>
+
+<t>Search panel can be dismissed by pressing the
+<spanx style='verb'>&lt;Escape&gt;</spanx> key
+and the default search action ("search down") is activated
+by pressing the <spanx style='verb'>&lt;Return&gt;</spanx>
+key while entering the search pattern.</t>
+
+<t>Search panel is currenlty available in:
+<list style='symbols'>
+<t>Chat and groupchat windows;</t>
+<t>Service discovery window;</t>
+<t>Chat history logs;</t>
+<t>All windows of the "Chats history" tool.</t>
+<t>Headlines window.</t>
+<t>Raw XML log window.</t>
+<t>MUC affiliations and roles lists.</t>
+</list></t>
+
+<t>Searching may be customized using the settings located
+under the <spanx>Plugins &rarr; Search</spanx> group of the
+<spanx>Customize</spanx> window.
+These setings are:
+<list style='symbols'>
+<t><spanx style='verb'>::plugins::search::options(case)</spanx>:
+perform case-sensitive searching (<spanx>off</spanx> by default);
+</t>
+<t><spanx style='verb'>::plugins::search::options(mode)</spanx>:
+selects searching mode which can be one of:
+        <list style='symbols'>
+        <t><spanx>substring</spanx> &mdash; use simple substring search:
+        the typed search string is taken verbatim and then the attempt
+        to locate it is performed. This is the default mode.
+        </t>
+        <t><spanx>glob</spanx> &mdash; uses "glob-style" (or "shell-style")
+        matching: special symbols are recognized and they provide for
+        "wildcarding":
+        <list style='symbols'>
+                <t><spanx>*</spanx> matches zero or more characters;</t>
+                <t><spanx>?</spanx> matches exactly one character;</t>
+                <t><spanx>[</spanx> and <spanx>]</spanx> define
+                character classes, e.g., <spanx style='verb'>[A-Z]</spanx>
+                will match any character in the series
+                "A", "B", ... "Z".</t>
+        </list>
+        The full syntax is described in
+        <eref target='http://www.tcl.tk/man/tcl8.6/TclCmd/string.htm#M35'>Tcl string manual page</eref>.
+        That is, this search mode can be convenient for those who want more
+        general yet simple approach to searching and is familiar with the
+        "shell globbing" concept found in Unix shells.
+        </t>
+        <t><spanx>regexp</spanx> &mdash; provides for searching using
+        full-blown regular expressions engine. The full syntax is
+        described in
+        <eref target='http://www.tcl.tk/man/tcl8.6/TclCmd/re_syntax.htm'>Tcl re_syntax manual page</eref>.
+        </t>
+        </list>
+</t>
+</list>
+</t>
+</section> <!-- s.ui-searching -->
+</section> <!-- s.user-interface -->
+
+</middle>
+
+  <back>
+
+    <section title="Releases History">
+      <section title="Main changes in 1.1.2+">
+        <t>
+          <list style='symbols'>
+            <t>Dropped Tcl/Tk 8.4 support. Now Tcl/Tk 8.5 is required</t>
+          </list>
+        </t>
+      </section>
+      <section title="Main changes in 1.1.2">
+        <t>
+          <list style='symbols'>
+            <t>Fixed a bug in displaying search results and copying JID from the search results to clipboard</t>
+            <t>Fixed a few bugs with nonexistent canvas tags in Georoster and Poker plugins</t>
+            <t>Fixed a restoring user status from autoaway</t>
+            <t>A few other fixes and minor enhancements</t>
+            <t>This is the last release which supports Tcl/Tk 8.4 (with the exceptions of the OTR
+            and Poker plugins)</t>
+          </list>
+        </t>
+      </section>
+      <section title="Main changes in 1.1.1">
+        <t>
+          <list style='symbols'>
+            <t>Fixed a few bugs in passing URL to web browsers</t>
+            <t>Fixed a regression when message intended to be GPG-encrypted is sent plaintext</t>
+            <t>Fixed a few crashes in OTR plugin</t>
+            <t>A few other fixes and enhancements</t>
+          </list>
+        </t>
+      </section>
+      <section title="Main changes in 1.1">
+        <t>
+          <list style='symbols'>
+            <t>Added new OTR plugin (requires Tcl/Tk 8.5 to operate)</t>
+            <t>Roster versioning (XEP-0237 and RFC-6121)</t>
+            <t>Added new Battleship game plugin</t>
+            <t>A few fixes and enhancements</t>
+          </list>
+        </t>
+      </section>
+      <section title="Main changes in 1.0">
+        <t>
+          <list style='symbols'>
+            <t>Completely rewritten Tkabber internals</t>
+            <t>Dropped Tcl/Tk 8.3 support. Now Tcl/Tk 8.4 is required</t>
+            <t>Partial IPv6 support (requires Tcl/Tk 8.6)</t>
+            <t>Switched from TclGPGME to TclGPG for encryption and signing</t>
+            <t>Added new connection method BOSH (XEP-0124 and XEP-0206)</t>
+            <t>Disabled SSLv2 and enabled TLSv1 TLS options</t>
+            <t>Added user nicknames (XEP-0172) support.</t>
+            <t>Updated the CAPTCHA forms (XEP-0158) support</t>
+            <t>Added metacontacts (XEP-0209) support</t>
+            <t>Implemented multiple proxy profiles</t>
+            <t>Implemented remote controlling from a locally executed script</t>
+            <t>Added new plugins: floatingcontact, poker</t>
+            <t>Rewritten most plugins to support disabling and unloading on the fly</t>
+            <t>A few interface enhancements (search in MUC affiliations lists, proxy management)</t>
+            <t>Many fixes and enhancements</t>
+          </list>
+        </t>
+      </section>
+      <section title="Main changes in 0.11.1">
+        <t>
+          <list style='symbols'>
+            <t>New default sound theme by Serge Yudin</t>
+            <t>Added new plugins: quotelastmsg, singularity, stripes</t>
+            <t>Many fixes and enhancements</t>
+          </list>
+        </t>
+      </section>
+      <section title="Main changes in 0.11.0">
+        <t>
+          <list style='symbols'>
+            <t>New tabbed user interface. Tab headers now occupy several rows and tab bar
+               can be docked to the left and right sides of chat window</t>
+            <t>Roster filter</t>
+            <t>Added support for pixmaps (in particular emoticons) JISP archives (XEP-0038)</t>
+            <t>Added support for SOCKS4a and SOCKS5 proxy for the main connection</t>
+            <t>Added user location support (XEP-0080)</t>
+            <t>Added user mood support (XEP-0107)</t>
+            <t>Added user activity support (XEP-0108)</t>
+            <t>Added user tune support (XEP-0118)</t>
+            <t>Added entity capabilities (XEP-0115 v.1.5, only reporting) support</t>
+            <t>Added basic robot challenges support (XEP-0158, v.0.9)</t>
+            <t>Added partial data forms media element support (XEP-0221, v.0.2, URIs and images only)</t>
+            <t>Roster is now exported to XML instead of Tcl list</t>
+            <t>Added support for entity time (XEP-0202)</t>
+            <t>Tkabber version is now reported in disco#info (XEP-0232)</t>
+            <t>Moved deprecated Jabber Browser (XEP-0011) to an external plugin</t>
+            <t>Moved Jidlink file transfer to an external plugin</t>
+            <t>Added several new plugins: attline, ctcomp, custom-urls, floatinglog, gmail, openurl, presencecmd,
+               receipts</t>
+            <t>Many fixes and enhancements</t>
+          </list>
+        </t>
+      </section>
+      <section title="Main changes in 0.10.0">
+        <t>
+          <list style='symbols'>
+            <t>New artwork by Artem Bannikov</t>
+            <t>Mediated SOCKS5 connection support for file transfer (XEP-0065)</t>
+            <t>Blocking communicaation with users not in roster (using XEP-0016 via simple interface)</t>
+            <t>Translatable outgoing error messages support (based on recipient's xml:lang)</t>
+            <t>Remote controlling clients support (XEP-0146)</t>
+            <t>Extended stanza addressing support (XEP-0033)</t>
+            <t>New chats history tool with search over the all chatlog files</t>
+            <t>Roster item icons are chosen based on Disco queries to item server</t>
+            <t>Search in Disco, Browser, Headlines, RawXML, and Customize windows</t>
+            <t>New internal plugins: abbrev allows to abbreviate words in chat input windows,
+               postpone stores/restores current input window content</t>
+            <t>New external plugins (aniemoticons, latex, tkabber-khim, traffic, renju)</t>
+            <t>Emoticons theme now can be loaded using GUI</t>
+            <t>Most Tkabber's tabs can now be stored on exit and restored on start</t>
+            <t>XMPP ping support (XEP-0199). Reconnecting based on XMPP ping replies</t>
+            <t>Delayed delivery now recognizes XEP-0203 timestamps</t>
+            <t>Added optional 'My Resources' roster group, which contains other connected resources of the same JID</t>
+            <t>Many fixes and enhancements</t>
+          </list>
+        </t>
+      </section>
+
+      <section title="Main changes in 0.9.9">
+        <t>
+          <list style='symbols'>
+            <t>Improved privacy lists interface</t>
+            <t>Support for stream compression (XEP-0138)</t>
+            <t>Support for SRV DNS-records</t>
+            <t>Support for TXT DNS-records (XEP-0156)</t>
+            <t>Support for ad-hoc commands (XEP-0050)</t>
+            <t>Improved headlines support</t>
+            <t>Chat state notification support (XEP-0085)</t>
+            <t>Many fixes and enhancements</t>
+          </list>
+        </t>
+      </section>
+
+      <section title="Main changes in 0.9.8">
+        <t>
+          <list style='symbols'>
+            <t>Support for STARTTLS</t>
+            <t>Reorganized menu</t>
+            <t>Support for searching in chat window</t>
+            <t>Support for annotations about roster items (XEP-0145)</t>
+            <t>Support for conference rooms bookmarks (XEP-0048)</t>
+            <t>Added multilogin support for GPGME</t>
+            <t>Better support for xml:lang</t>
+            <t>Support for service discovery extensions (XEP-0128)</t>
+            <t>Support for NTLM authentication</t>
+            <t>Many fixes and enhancements</t>
+          </list>
+        </t>
+      </section>
+
+      <section title="Main changes in 0.9.7beta">
+        <t>
+          <list style='symbols'>
+            <t>Updated support for file transfer (XEP-0095, XEP-0096, XEP-0047, XEP-0065)</t>
+            <t>Support for colored nicks and messages in conference</t>
+            <t>Better multiple logins support</t>
+            <t>Updated support for xml:lang</t>
+            <t>Support for IDNA (RFC3490)</t>
+            <t>Many fixes and enhancements</t>
+          </list>
+        </t>
+      </section>
+
+      <section title="Main changes in 0.9.6beta">
+        <t>
+          <list style='symbols'>
+            <t>Multiple logins support</t>
+            <t>History now splitted by month</t>
+            <t>Animated emoticons support</t>
+            <t>Many user interface improvements</t>
+            <t>More XMPP support</t>
+            <t>More translations</t>
+            <t>Bugfixes</t>
+          </list>
+        </t>
+      </section>
+
+      <section title="Main changes in 0.9.5beta">
+        <t>
+          <list style='symbols'>
+            <t>Nested roster groups</t>
+            <t>Messages emphasizing</t>
+            <t>User interface improvements</t>
+            <t>Support for XMPP/Jabber MIME Type</t>
+            <t>Bugfixes</t>
+          </list>
+        </t>
+      </section>
+    </section>
+
+
+        <section anchor="XRDB" title="Tk option database resources">
+
+      <t>
+        Here is list of the most essential <spanx>Tkabber</spanx>-specific
+        <spanx>Tk option database</spanx> resources that you need to change look:
+        <list style="hanging">
+          <t hangText="Tkabber.geometry">
+            Geometry of main window.
+          </t>
+          <t hangText="*Chat.chatgeometry"/>
+          <t hangText="*Chat.groupchatgeometry"/>
+          <t hangText="*Customize.geometry"/>
+          <t hangText="*RawXML.geometry"/>
+          <t hangText="*Stats.geometry"/>
+          <t hangText="*Messages.geometry"/>
+          <t hangText="*JDisco.geometry">
+            Geometry of various windows (when not using tabs).
+          </t>
+          <t hangText="*mainRosterWidth">
+            The width of the main roster window.
+          </t>
+          <t hangText="*Chat.inputheight"/>
+          <t hangText="*RawXML.inputheight">
+            Height of input windows in chat and raw XML windows.
+          </t>
+          <t hangText="*Balloon.background"/>
+          <t hangText="*Balloon.foreground">
+            Background and foreground colors of popup balloon.
+          </t>
+          <t hangText="*Balloon.style">
+            Behaviour of popup balloon: can be <spanx style='verb'>delay</spanx> (balloon appeared
+            after some time) and <spanx style='verb'>follow</spanx> (balloon appeared immediately and
+            follows mouse).
+          </t>
+          <t hangText="*JDisco.fill">
+            Color of service discovery browser item name.
+          </t>
+          <t hangText="*JDisco.identitycolor">
+            Color of service discovery browser item identity.
+          </t>
+          <t hangText="*JDisco.featurecolor">
+            Color of service discovery browser entity feature.
+          </t>
+          <t hangText="*JDisco*Tree*background">
+            Background of service discovery browser.
+          </t>
+          <t hangText="*Chat.meforeground">
+            Color of user's messages in chat windows.
+          </t>
+          <t hangText="*Chat.theyforeground">
+            Color of other peoples messages in chat windows.
+          </t>
+          <t hangText="*Chat.serverlabelforeground">
+            Color of label before server message.
+          </t>
+          <t hangText="*Chat.serverforeground">
+            Color of server messages in chat windows.
+          </t>
+          <t hangText="*Chat.errforeground">
+            Color of error messages in chat windows.
+          </t>
+          <t hangText="*Chat.urlforeground">
+            Color of URLs in chat windows.
+          </t>
+          <t hangText="*Chat.urlactiveforeground">
+            Color of mouse highlighted URLs in chat windows.
+          </t>
+          <t hangText="*JDisco.fill">
+            Default color of items in Service Discovery Browser.
+          </t>
+          <t hangText="*JDisco.featurecolor">
+            Default color of feature items in Service Discovery Browser.
+          </t>
+          <t hangText="*JDisco.identitycolor">
+            Default color of identity items in Service Discovery Browser.
+          </t>
+          <t hangText="*JDisco.optioncolor">
+            Default color of option items in Service Discovery Browser.
+          </t>
+          <t hangText="*JDisco*Tree*background">
+            Default color of background in Service Discovery Browser.
+          </t>
+          <t hangText="*alertColor0"/>
+          <t hangText="*alertColor1"/>
+          <t hangText="*alertColor2"/>
+          <t hangText="*alertColor3">
+            Tabs alert colors.
+          </t>
+          <t hangText="*Roster.cbackground">
+            Roster background color.
+          </t>
+          <t hangText="*Roster.groupindent">
+            Indentation for group title.
+          </t>
+          <t hangText="*Roster.groupiconindent">
+            Indentation for group icon.
+          </t>
+          <t hangText="*Roster.jidindent">
+            Indentation for item name.
+          </t>
+          <t hangText="*Roster.jidmultindent">
+            Indentation for item with multiple resources.
+          </t>
+          <t hangText="*Roster.subjidindent">
+            Indentation for item resource.
+          </t>
+          <!-- ???
+        <t hangText="*Roster.subgroupiconindent">
+          ??? Indentation for resource icon.
+        </t>
+          -->
+          <t hangText="*Roster.iconindent">
+            Indentation for item icon.
+          </t>
+          <t hangText="*Roster.subitemtype">
+          </t>
+          <t hangText="*Roster.subiconindent">
+            Indentation for resource icon.
+          </t>
+          <t hangText="*Roster.textuppad">
+            Top pad for item's names.
+          </t>
+          <t hangText="*Roster.textdownpad">
+            Bottom pad for item's names.
+          </t>
+          <t hangText="*Roster.linepad">
+            Vertical distance between items.
+          </t>
+          <t hangText="*Roster.foreground">
+            Color of item's names.
+          </t>
+          <t hangText="*Roster.jidfill">
+            Background of roster item.
+          </t>
+          <t hangText="*Roster.jidhlfill">
+            Background of roster item when mouse is over.
+          </t>
+          <t hangText="*Roster.jidborder">
+            Color of item's border.
+          </t>
+          <t hangText="*Roster.groupfill"/>
+          <t hangText="*Roster.grouphlfill"/>
+          <t hangText="*Roster.groupborder">
+            The same to roster groups.
+          </t>
+          <t hangText="*Roster.groupcfill">
+            Background color of collapsed group.
+          </t>
+          <t hangText="*Roster.stalkerforeground"/>
+          <t hangText="*Roster.unavailableforeground"/>
+          <t hangText="*Roster.dndforeground"/>
+          <t hangText="*Roster.xaforeground"/>
+          <t hangText="*Roster.awayforeground"/>
+          <t hangText="*Roster.availableforeground"/>
+          <t hangText="*Roster.chatforeground">
+            Colors of item name for different presences.
+          </t>
+        </list>
+      </t>
+    </section>
+
+<section title='Documentation TODO'>
+<t>The next revision of this documentation should discuss:
+<list style='symbols'>
+<t>Post-load:
+<list style='symbols'>
+<t><spanx style='verb'>chat_height</spanx> and <spanx style='verb'>chat_width</spanx> (appear to be no-ops).</t>
+</list></t>
+
+<t>Menu-load:
+<list style='symbols'>
+<t><spanx style='verb'>change_password_dialog</spanx></t>
+<t><spanx style='verb'>conference::create_room_dialog</spanx></t>
+<t><spanx style='verb'>disco::browser::open_win</spanx></t>
+<t><spanx style='verb'>message::send_msg</spanx></t>
+<t><spanx style='verb'>privacy::request_lists</spanx></t>
+<t><spanx style='verb'>rawxml::open_window</spanx></t>
+<t><spanx style='verb'>userinfo::show_info_dialog</spanx></t>
+</list></t>
+
+<t>Hooks: the additional payload format.</t>
+</list></t>
+</section>
+
+<section title='Acknowledgements'>
+<t>Rebecca Malamud was kind enough to design the "enlightened feather"
+motif used in the <spanx>Tkabber</spanx> look-and-feel.</t>
+<t>The "new look" appeared in the 0.10.0 release ("golden feather"
+and "blue feather" pixmap themes and the "Earth bulb" logo) was
+designed by Artem Bannikov.</t>
+<t>The new sound theme appeared in 0.11.1 release was created by
+Serge Yudin</t>
+</section>
+
+<section title='Copyrights'>
+<t>Copyright &#xa9; 2002-2025 Alexey Shchepin</t>
+
+<t><spanx>Tkabber</spanx> is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public
+License as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later version.</t>
+
+<t><spanx>Tkabber</spanx> is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+General Public License for more details.</t>
+</section>
+</back>
+</rfc>
+<!--
+vim:ft=xml:ts=8:sw=2:sts=2:et
+-->

@@ -1,0 +1,142 @@
+This file describes a sample startup script
+for Tkabber starkits/starpacks.
+
+I. Purpose.
+
+The "main.tcl" file is the "main startup script" for starkits; it is
+a Tcl script which task is to "bootstrap" the application wrapped in starkit.
+
+Although this script is a sample, it's ready, without any modifications,
+to be used for creation of a working starkit.
+
+Note that throughout this text the "starkit" term is used to refer to
+both Tkabber's starkits and starpacks since there is no difference between them
+in this context.
+
+
+II. Prerequisites.
+
+This scripts expects the starkit's VFS directory to be organised
+in this way:
+VFS_root_dir/ -- starkit's VFS root directory;
+  lib/        -- Tcl/Tk extensions (like BWidget);
+  tkabber/    -- Tkabber's code (tkabber.tcl must be placed here);
+  ...
+  main.tcl    -- the starkit startup script.
+
+
+III. How it works.
+
+Besides the usual starkit initialization which is described in [1], this
+script performs two major tasks:
+* Defines the "starkit_init" Tcl procedure;
+* Sources the main Tkabber script -- "tkabber.tcl".
+
+Tkabber checks if the Tcl command named "starkit_init" is present in the
+global namespace and executes it (without passing any arguments to it) if it
+exists. At the time of calling "starkit_init" several global Tkabber
+variables are guaranteed to exist:
+* "rootdir", which is set to the full pathname of the directory
+  containing the "tkabber.tcl" script;
+* "configdir", which holds the full pathname of the Tkabber's
+  user configuration directory;
+* "toolkit_version", which holds the Tcl interpreter version.
+Also the hooks subsystem is guaranteed to be initialized so that the
+"starkit_init" procedure could make use of Tkabber hooks.
+
+The purpose of the "starkit_init" procedure is to make some preparations
+before the bulk of the Tkabber code is loaded but after Tkabber managed
+to initialize some subsystems/variables which might be crucial for the
+proper initialization of the starkit. The "starkit_init" procedure in
+the "main.tcl" script discussed here performs the following steps:
+
+* Appends the " (starkit)" string to the "toolkit_version" variable.
+  This is done since the toolkit version is reported in response to the
+  XMPP iq:version request, so it helps Tkabber supporters to better
+  know a configuration a particular user runs.
+
+* "Forgets" about a Tcl package named "zlib" which is internal to
+  any tclkit and confuses Tkabber forcing it to think that the XMPP
+  stream compression can be used (which, in fact, requires another package --
+  "ztcl" -- which, in turn, provides another Tcl package named "zlib").
+
+* Looks into two special directories and sources all the files whose
+  names match the "*.kit" pattern. These directories are:
+  * The directory where the running starkit is located;
+  * The Tkabber's user configuration directory (held in the global
+    variable named "configdir").
+  This allows to bring some Tcl/Tk packages wrapped in starkits in.
+  Two popular starkits known to work with Tkabber's starkit are
+  img.kit (containing the Img package) [2] and the snack.kit (containing
+  the Snack sound kit package) [2].
+
+  If one or more of the kit files fail to load, a warning message with
+  collected error messages is shown to the user and the loading
+  process continues after the user dismisses this dialog.
+
+* Restores the "::starkit::topdir" variable which could be mangled by
+  external starkits.
+
+* Sources the main Tkabber's script "tkabber.tcl".
+
+So, the outline of Tkabber bootstrapping process looks like this:
+
+* "main.tcl" is sourced by the tclkit reading the Tkabber's starkit.
+* "main.tcl" creates the global "starkit_init" procedure and sources the
+  main Tkabber script, transferring control to Tkabber's code.
+* Tkabber performs some initialization steps, then finds the "starkit_init"
+  command and executes it, effectively "calling the starkit code out".
+* "starkit_init" does its initialization steps, possibly bringing some
+  external Tcl/Tk packages in, then gives control back to Tkabber.
+* Tkabber then continues with its loading as usually.
+
+
+IV. Differences between 0.10.0 and pre-0.10.0 starkits:
+
+Versions of Tkabber earlier that 0.10.0 had more limited support for
+starkits. Since 0.10.0 Tkabber has received some changes that allow to
+create fully-functional and customizable starkits without patching the
+Tkabber's code (as must have been done earlier).
+
+In short, the differences include:
+
+* The "rootdir" global variable is now initialized based on the actual
+  full pathname of the "tkabber.tcl" script, so that Tkabber's code
+  can now be located in an arbitrary directory in the starkit VFS.
+  Note though that the sample "main.tcl" does make its assumption about
+  where Tkabber's code is located.
+
+* Tkabber now "calls out" the starkit code in the course of its
+  initialization process which differs from the old way the things
+  worked when transferring the control to Tkabber's code was the
+  last thing the starkit's initialization code did.
+
+* The official Tkabber starkits/starpacks made a Tcl package from the
+  Tkabber's source tree. There were not much point to do so, that's why
+  the discussed "main.tcl" just sources the main Tkabber script now.
+
+
+V. Additional stuff.
+
+Ruslan Rakhmanin [3] has created a sample "Windows Tkabber starpack
+tool" which contains all necessary files to build a Tkabber starpack for
+Windows in the Windows environment (Windows 2000 and later is required).
+To build starpack using this tool you only need (recent) Tkabber sources.
+
+Also this starpack tool uses a modified tclkit which contains a full set
+of cp* Windows charsets (which original tclkits lack) thus providing
+the full support for non-Latin-1 alphabets.
+
+There's an article (written in Russian) on the official Tkabber wiki
+describing this tool [4].
+
+A direct link to the RAR-archive containing this tool is [5].
+
+
+VI. Reference materials:
+
+1. http://wiki.tcl.tk/8186
+2. http://mini.net/sdarchive/
+3. xmpp:archimed@jabber.ru
+4. http://ru.tkabber.jabe.ru/index.php/Tkabber_starpack
+5. http://ru.tkabber.jabe.ru/images/ru.tkabber.jabe.ru/a/ad/Tkabber_win32_starpack_template.rar

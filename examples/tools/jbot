@@ -1,0 +1,20 @@
+#!/bin/sh
+#
+
+# PROVIDE: jbot
+# REQUIRE: syslogd
+
+. /etc/rc.subr
+
+name="jbot"
+rcvar=$name
+command="/usr/pkg/bin/jsend.tcl"
+command_interpreter=tclsh
+pidfile="/var/run/${name}.pid"
+command_args="-pidfile $pidfile &"
+
+# the first argument is the destination (or, if "-", use the roster)
+jbot_flags="- -follow /var/log/jbot"
+
+load_rc_config $name
+run_rc_command "$1"

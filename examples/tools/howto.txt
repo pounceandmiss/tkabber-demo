@@ -1,0 +1,102 @@
+[ howto.txt - Thu Mar  6 10:02:15 2003 - a few explanations - /mtr ]
+
+
+ 0. make sure that you have copied the jabberlib-tclxml/ to the library
+    area for your tcl installation, typical names might be:
+
+        /usr/local/lib/tcl/jabberlib-tclxml/
+        /usr/pkg/lib/tcl/jabberlib-tclxml/
+
+
+ 1. all of these scripts look for a file called ".jsendrc.tcl" in the
+    current directory, and then in the home directory. if present, this
+    file can be used to define a tcl list called "args" that contains
+    default key/value pairs. e.g.,
+
+        % cat > ~/.jsendrc.tcl
+        set args {-from fred@example.com/bedrock -password wilma}
+        ^D
+        % chmod 0600 ~/.jsendrc.tcl
+
+
+ 2. the jsend.tcl script is used from the shell to send jabber
+    messages. it operates in two modes: one-shot and following.
+
+    here's an example of the one-shot mode:
+
+        % jsend.tcl barney@example.com -body "hello world."
+
+    in contrast, following mode is similar to the "tail" command:
+
+        % jsend.tcl barney@example.com -follow /var/log/syslog &
+
+
+ 3. the jsend.tcl script has a lot of options, type
+
+        % jsend.tcl -help
+
+    to see them all. the command syntax is:
+
+        % jsend.tcl "recipient" -k1 v1 -k2 v2 ...
+
+    for example, by default, the jsend.tcl script will want to use tls
+    to talk to its jabber server, if you want to use plaintext instead,
+    use
+
+        % jsend.tcl barney@example.com -tls false
+
+    if you use "-" for the recipient, then the jsend.tcl script will
+    send to every subscriber on the roster of the user that it's logged
+    in as, e.g.,
+
+        % jsend.tcl - -from fred@example.com -body "hello world."
+
+    will send "hello world." to everyone on fred's roster.
+
+
+ 4. you may want to run the jsend.tcl script at system startup. the
+    jbot script can be put in /etc/rc.d/ on netbsd systems. you'll need
+    to:
+
+        - edit it to reflect where you've installed the jsend.tcl
+          script; and,
+
+        - decide whether to put the jabber login information in the rc
+          script or in the command line arguments
+
+    you can use the jbot script as the basis for writing your own
+    startup script on bsd-derived systems.
+
+
+ 5. the rssbot.tcl script runs as an rss/jabber gateway.  the gateway
+    accepts commands from the subscribers on the roster of the user that
+    it's logged in as.
+
+    the commands allow each subscriber to manage which RSS/RDF files are
+    monitored, and so on.
+
+
+ 6. to find out about the options available in the rssbot.tcl script,
+    type
+
+        % rssbot.tcl -help
+
+    the command syntax for the rssbot.tcl script is:
+
+        % rssbot.tcl -k1 v1 -k2 2
+
+
+ 7. you probably want to run the rssbot.tcl script at system
+    startup. the rssbot script can be put in /etc/rc.d/ on netbsd
+    systems.
+
+
+ 8. neither the jsend.tcl nor rssbot.tcl scripts manage their
+    roster. you'll need to login to a jabber server and configure their
+    roster accordingly.
+
+    why? because the roster acts as an access control mechanism for each
+    script. if you want random folks to arbitrarily access these
+    services, modify the scripts to taste.
+
+                                  #######

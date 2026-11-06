@@ -1,0 +1,152 @@
+! Main window geometry
+!!Tkabber.geometry:                   788x550-70+100
+!Tkabber.geometry:                  200x350-70+100
+
+! Chat window geometry (in no tabs mode)
+!!*Chat.geometry:                     500x500
+
+! Browser and Headlines window geometry (in no tabs mode)
+!!*JBrowser.geometry:                 500x500
+
+! Roster width (tabbed interface only)
+!!Tkabber.mainRosterWidth:            120
+
+! Roster width in groupchat windows
+!!Tkabber.chatRosterWidth:            90
+
+*background:                        ForestGreen
+*foreground:                        LawnGreen
+*readonlyBackground:                ForestGreen
+*disabledBackground:                ForestGreen
+*disabledForeground:                PaleGreen3
+*activeBackground:                  PaleGreen3
+*activeForeground:                  DarkOliveGreen
+*selectBackground:                  LawnGreen
+*selectForeground:                  ForestGreen
+*inactiveSelectBackground:          LawnGreen
+*highlightBackground:               ForestGreen
+*highlightForeground:               LawnGreen
+*selectColor:                       MediumSeaGreen
+*Menu*selectColor:                  LawnGreen
+*selectBorderWidth:                 0
+*insertBackground:                  LawnGreen
+*troughColor:                       ForestGreen
+*errorForeground:                   orange
+!!*font:                              {Arial 10}
+
+*ProgressBar.foreground:            PaleGreen2
+
+!!*Spinbox.borderWidth:               1
+*Spinbox.background:                ForestGreen
+*Spinbox.buttonBackground:          ForestGreen
+!!*SpinBox.borderWidth:               1
+*SpinBox*Entry*highlightBackground: ForestGreen
+!!*ComboBox.borderWidth:              1
+*ArrowButton.borderWidth:           0
+*ArrowButton.highlightThickness:    0
+
+*Mclistbox.background:              ForestGreen
+*Mclistbox.labelActiveBackground:   PaleGreen3
+*Mclistbox.labelBackground:         ForestGreen
+*Mclistbox.labelForeground:         LawnGreen
+*Mclistbox.labelActiveForeground:   DarkOliveGreen
+
+
+*Roster.subitemtype:                3
+*Roster.cbackground:                ForestGreen
+*Roster.metajidfill:                #117811
+*Roster.metajidhlfill:              #117811
+*Roster.metajidborder:              #117811
+*Roster.jidfill:                    ForestGreen
+*Roster.jidhlfill:                  ForestGreen
+*Roster.jidborder:                  ForestGreen
+*Roster.groupfill:                  DarkGreen
+*Roster.groupcfill:                 DarkGreen
+*Roster.grouphlfill:                DarkGreen
+*Roster.groupborder:                DarkGreen
+!!*Roster.groupindent:                21
+!!*Roster.jidindent:                  42
+!!*Roster.subjidindent:               62
+!!*Roster.groupiconindent:            2
+!!*Roster.subgroupiconindent:         2
+!!*Roster.iconindent:                 21
+!!*Roster.subiconindent:              42
+!!*Roster.textuppad:                  0
+!!*Roster.textdownpad:                0
+!!*Roster.linepad:                    2
+*Roster.stalkerforeground:          LimeGreen
+*Roster.unavailableforeground:      PaleGreen2
+*Roster.dndforeground:              PaleGreen3
+*Roster.xaforeground:               PaleGreen1
+*Roster.awayforeground:             PaleGreen
+*Roster.availableforeground:        LawnGreen
+*Roster.chatforeground:             LawnGreen
+
+*Chat*Text*Label.background:        ForestGreen
+
+*Chat.theyforeground:               DarkSeaGreen2
+*Chat.meforeground:                 DarkOliveGreen2
+*Chat.serverlabelforeground:        DarkSeaGreen3
+*Chat.serverforeground:             DarkSeaGreen3
+*Chat.infoforeground:               DarkSeaGreen2
+*Chat.errforeground:                orange
+*urlforeground:                     DarkOliveGreen2
+*urlactiveforeground:               Green
+*Text.errorColor:                   orange
+*Text.comboColor:                   Yellow
+
+*alertColor0:                       PaleGreen3
+*alertColor1:                       PaleGreen2
+*alertColor2:                       PaleGreen3
+*alertColor3:                       LawnGreen
+
+*JBrowser.fill:                     LawnGreen
+*JBrowser.activefill:               White
+*JBrowser.border:                   Pink
+*JBrowser.nscolor:                  MediumSeaGreen
+*JBrowser.nsactivecolor:            Blue
+
+*JDisco.fill:                       LawnGreen
+*JDisco.activefill:                 White
+*JDisco.border:                     Pink
+*JDisco.featurecolor:               MediumSeaGreen
+*JDisco.identitycolor:              MediumSeaGreen
+*JDisco.optioncolor:                MediumSeaGreen
+*Tree*background:                   ForestGreen
+*linesfill:                         LawnGreen
+*crossfill:                         LawnGreen
+
+*Balloon*background:                ForestGreen
+*Balloon*foreground:                PaleGreen
+
+*DynamicHelp.background:            ForestGreen
+*DynamicHelp.foreground:            PaleGreen
+
+*Listbox.background:                ForestGreen
+*Listbox.foreground:                PaleGreen
+!!*Listbox.borderWidth:               1
+
+*Text.background:                   ForestGreen
+*Text.foreground:                   PaleGreen
+!!*Text.borderWidth:                  1
+
+*Entry.background:                  ForestGreen
+*Entry.foreground:                  LawnGreen
+!!*Entry.borderWidth:                 1
+
+*NoteBook*Entry.background:         ForestGreen
+*NoteBook*Entry.disabledBackground: ForestGreen
+*NoteBook*Entry.foreground:         LawnGreen
+
+!!*Button.borderWidth:                1
+
+!!*Menu.activeBorderWidth:            1
+!!*Menu.borderWidth:                  1
+!!*Menubutton.borderWidth:            1
+
+*Buttonbox*borderWidth:             0
+*Buttonbox*activeBorderWidth:       0
+
+*Customize.varforeground:           DarkOliveGreen2
+
+! vim:ft=xdefaults:ts=8:sw=4:sts=4:et

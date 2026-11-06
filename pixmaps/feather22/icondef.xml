@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<icondef>
+  <meta>
+    <name>Feather 22</name>
+    <version>1.0</version>
+    <description>Tkabber's Feather 22 Iconset.</description>
+    <creation>2006-01-21</creation>
+  </meta>
+  <!-- Roster icons -->
+  <icon>
+    <image xmlns='tkimage'>roster/user/chat</image>
+    <object mime="image/gif">roster/available-chat.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/available</image>
+    <object mime="image/gif">roster/available.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/away</image>
+    <object mime="image/gif">roster/available-away.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/xa</image>
+    <object mime="image/gif">roster/available-xa.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/dnd</image>
+    <object mime="image/gif">roster/available-dnd.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/invisible</image>
+    <object mime="image/gif">roster/invisible.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/unavailable</image>
+    <object mime="image/gif">roster/unavailable.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/error</image>
+    <object mime="image/gif">roster/unavailable.gif</object>
+  </icon>
+</icondef>
+
+<!-- vim:ft=xml:ts=8:sw=2:sts=2:et
+-->

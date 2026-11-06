@@ -1,0 +1,503 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<icondef>
+  <meta>
+    <name>Default</name>
+    <version>2.1t</version>
+    <description>Tkabber's Default Style</description>
+    <author>Artem Bannikov</author>
+  </meta>
+  <!-- Tkabber logo -->
+  <icon>
+    <image xmlns='tkimage'>tkabber/logo</image>
+    <object mime="image/gif">tkabber/tkabber-logo.gif</object>
+  </icon>
+  <!-- Toolbar buttons -->
+  <icon>
+    <image xmlns='tkimage'>toolbar/add-user</image>
+    <object mime="image/gif">tkabber/toolbar-add-user.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>toolbar/disco</image>
+    <object mime="image/gif">tkabber/toolbar-disco.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>toolbar/join-conference</image>
+    <object mime="image/gif">tkabber/toolbar-join-conference.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>toolbar/show-offline</image>
+    <object mime="image/gif">tkabber/toolbar-show-offline.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>toolbar/show-online</image>
+    <object mime="image/gif">tkabber/toolbar-show-online.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>toolbar/gpg-signed</image>
+    <object mime="image/gif">tkabber/gpg-signed.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>toolbar/gpg-unsigned</image>
+    <object mime="image/gif">tkabber/gpg-unsigned.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>toolbar/gpg-encrypted</image>
+    <object mime="image/gif">tkabber/gpg-encrypted.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>toolbar/gpg-unencrypted</image>
+    <object mime="image/gif">tkabber/gpg-unencrypted.gif</object>
+  </icon>
+  <!-- GPG icons -->
+  <icon>
+    <image xmlns='tkimage'>gpg/vsigned</image>
+    <object mime="image/gif">tkabber/gpg-vsigned.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>gpg/signed</image>
+    <object mime="image/gif">tkabber/gpg-signed.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>gpg/badsigned</image>
+    <object mime="image/gif">tkabber/gpg-badsigned.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>gpg/encrypted</image>
+    <object mime="image/gif">tkabber/gpg-encrypted.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>gpg/badencrypted</image>
+    <object mime="image/gif">tkabber/gpg-badencrypted.gif</object>
+  </icon>
+  <!-- Browser and Disco icons -->
+  <icon>
+    <image xmlns='tkimage'>browser/server</image>
+    <object mime="image/gif">services/server.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>browser/client</image>
+    <object mime="image/gif">roster/available.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>browser/user</image>
+    <object mime="image/gif">roster/available.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>browser/conference</image>
+    <object mime="image/gif">roster/conference-available.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>browser/headline</image>
+    <object mime="image/gif">services/rss_online.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>browser/directory</image>
+    <object mime="image/gif">services/jud.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>browser/jud</image>
+    <object mime="image/gif">services/jud.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>browser/sms</image>
+    <object mime="image/gif">services/sms.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>browser/aim</image>
+    <object mime="image/gif">services/aim_online.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>browser/icq</image>
+    <object mime="image/gif">services/icq_online.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>browser/mrim</image>
+    <object mime="image/gif">services/mrim_online.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>browser/msn</image>
+    <object mime="image/gif">services/msn_online.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>browser/yahoo</image>
+    <object mime="image/gif">services/yahoo_online.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>browser/gadu-gadu</image>
+    <object mime="image/gif">services/gg_online.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>browser/weather</image>
+    <object mime="image/gif">services/weather_online.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>browser/x-weather</image>
+    <object mime="image/gif">services/weather_online.gif</object>
+  </icon>
+  <!-- Docking icons -->
+  <icon>
+    <image xmlns='tkimage'>docking/blank</image>
+    <object mime="image/gif">docking/blank.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>docking/chat</image>
+    <object mime="image/gif">docking/available-chat.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>docking/available</image>
+    <object mime="image/gif">docking/available.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>docking/away</image>
+    <object mime="image/gif">docking/available-away.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>docking/xa</image>
+    <object mime="image/gif">docking/available-xa.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>docking/dnd</image>
+    <object mime="image/gif">docking/available-dnd.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>docking/invisible</image>
+    <object mime="image/gif">docking/invisible.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>docking/unavailable</image>
+    <object mime="image/gif">docking/unavailable.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>docking/message</image>
+    <object mime="image/gif">docking/message.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>docking/message-personal</image>
+    <object mime="image/gif">docking/message-personal.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>docking/message-server</image>
+    <object mime="image/gif">docking/message-server.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>docking/tkabber</image>
+    <object mime="image/ico">docking/tkabber.ico</object>
+  </icon>
+  <!-- Roster icons -->
+  <icon>
+    <image xmlns='tkimage'>roster/user/chat</image>
+    <object mime="image/gif">roster/available-chat.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/available</image>
+    <object mime="image/gif">roster/available.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/away</image>
+    <object mime="image/gif">roster/available-away.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/xa</image>
+    <object mime="image/gif">roster/available-xa.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/dnd</image>
+    <object mime="image/gif">roster/available-dnd.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/invisible</image>
+    <object mime="image/gif">roster/invisible.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/unavailable</image>
+    <object mime="image/gif">roster/unavailable.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/unsubscribed</image>
+    <object mime="image/gif">roster/stalker.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/error</image>
+    <object mime="image/gif">roster/unavailable.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/conference/available</image>
+    <object mime="image/gif">roster/conference-available.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/conference/unavailable</image>
+    <object mime="image/gif">roster/conference-unavailable.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/group/closed</image>
+    <object mime="image/gif">roster/group-closed.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/group/opened</image>
+    <object mime="image/gif">roster/group-opened.gif</object>
+  </icon>
+  <!-- Roster transport icons -->
+  <!-- AIM -->
+  <icon>
+    <image xmlns='tkimage'>services/aim/away</image>
+    <object mime="image/gif">services/aim_away.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/aim/chat</image>
+    <object mime="image/gif">services/aim_chat.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/aim/dnd</image>
+    <object mime="image/gif">services/aim_dnd.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/aim/unavailable</image>
+    <object mime="image/gif">services/aim_offline.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/aim/available</image>
+    <object mime="image/gif">services/aim_online.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/aim/xa</image>
+    <object mime="image/gif">services/aim_xa.gif</object>
+  </icon>
+  <!-- Gadu-Gadu -->
+  <icon>
+    <image xmlns='tkimage'>services/gadu-gadu/away</image>
+    <object mime="image/gif">services/gg_away.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/gadu-gadu/chat</image>
+    <object mime="image/gif">services/gg_chat.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/gadu-gadu/dnd</image>
+    <object mime="image/gif">services/gg_dnd.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/gadu-gadu/unavailable</image>
+    <object mime="image/gif">services/gg_offline.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/gadu-gadu/available</image>
+    <object mime="image/gif">services/gg_online.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/gadu-gadu/xa</image>
+    <object mime="image/gif">services/gg_xa.gif</object>
+  </icon>
+  <!-- ICQ -->
+  <icon>
+    <image xmlns='tkimage'>services/icq/away</image>
+    <object mime="image/gif">services/icq_away.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/icq/chat</image>
+    <object mime="image/gif">services/icq_chat.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/icq/dnd</image>
+    <object mime="image/gif">services/icq_dnd.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/icq/unavailable</image>
+    <object mime="image/gif">services/icq_offline.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/icq/available</image>
+    <object mime="image/gif">services/icq_online.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/icq/xa</image>
+    <object mime="image/gif">services/icq_xa.gif</object>
+  </icon>
+  <!-- Jabber User Directory -->
+  <icon>
+    <image xmlns='tkimage'>services/jud</image>
+    <object mime="image/gif">services/jud.gif</object>
+  </icon>
+  <!-- MSN -->
+  <icon>
+    <image xmlns='tkimage'>services/msn/away</image>
+    <object mime="image/gif">services/msn_away.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/msn/chat</image>
+    <object mime="image/gif">services/msn_chat.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/msn/dnd</image>
+    <object mime="image/gif">services/msn_dnd.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/msn/unavailable</image>
+    <object mime="image/gif">services/msn_offline.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/msn/available</image>
+    <object mime="image/gif">services/msn_online.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/msn/xa</image>
+    <object mime="image/gif">services/msn_xa.gif</object>
+  </icon>
+  <!-- RSS -->
+  <icon>
+    <image xmlns='tkimage'>services/rss/away</image>
+    <object mime="image/gif">services/rss_online.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/rss/chat</image>
+    <object mime="image/gif">services/rss_online.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/rss/dnd</image>
+    <object mime="image/gif">services/rss_online.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/rss/unavailable</image>
+    <object mime="image/gif">services/rss_offline.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/rss/available</image>
+    <object mime="image/gif">services/rss_online.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/rss/xa</image>
+    <object mime="image/gif">services/rss_online.gif</object>
+  </icon>
+  <!-- SMS -->
+  <icon>
+    <image xmlns='tkimage'>services/sms</image>
+    <object mime="image/gif">services/sms.gif</object>
+  </icon>
+  <!-- Weather -->
+  <icon>
+    <image xmlns='tkimage'>services/weather/away</image>
+    <object mime="image/gif">services/weather_away.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/weather/chat</image>
+    <object mime="image/gif">services/weather_chat.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/weather/dnd</image>
+    <object mime="image/gif">services/weather_dnd.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/weather/unavailable</image>
+    <object mime="image/gif">services/weather_offline.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/weather/available</image>
+    <object mime="image/gif">services/weather_online.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/weather/xa</image>
+    <object mime="image/gif">services/weather_xa.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/x-weather/away</image>
+    <object mime="image/gif">services/weather_away.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/x-weather/chat</image>
+    <object mime="image/gif">services/weather_chat.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/x-weather/dnd</image>
+    <object mime="image/gif">services/weather_dnd.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/x-weather/unavailable</image>
+    <object mime="image/gif">services/weather_offline.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/x-weather/available</image>
+    <object mime="image/gif">services/weather_online.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/x-weather/xa</image>
+    <object mime="image/gif">services/weather_xa.gif</object>
+  </icon>
+  <!-- Yahoo! -->
+  <icon>
+    <image xmlns='tkimage'>services/yahoo/away</image>
+    <object mime="image/gif">services/yahoo_away.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/yahoo/chat</image>
+    <object mime="image/gif">services/yahoo_chat.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/yahoo/dnd</image>
+    <object mime="image/gif">services/yahoo_dnd.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/yahoo/unavailable</image>
+    <object mime="image/gif">services/yahoo_offline.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/yahoo/available</image>
+    <object mime="image/gif">services/yahoo_online.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/yahoo/xa</image>
+    <object mime="image/gif">services/yahoo_xa.gif</object>
+  </icon>
+  <!-- MRIM -->
+  <icon>
+    <image xmlns='tkimage'>services/mrim/away</image>
+    <object mime="image/gif">services/mrim_away.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/mrim/chat</image>
+    <object mime="image/gif">services/mrim_online.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/mrim/dnd</image>
+    <object mime="image/gif">services/mrim_away.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/mrim/unavailable</image>
+    <object mime="image/gif">services/mrim_offline.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/mrim/available</image>
+    <object mime="image/gif">services/mrim_online.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/mrim/xa</image>
+    <object mime="image/gif">services/mrim_away.gif</object>
+  </icon>
+  <!-- Chat window bookmark -->
+  <icon>
+    <image xmlns='tkimage'>chat/bookmark/red</image>
+    <object mime="image/gif">tkabber/chat-bookmark-red.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>chat/bookmark/green</image>
+    <object mime="image/gif">tkabber/chat-bookmark-green.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>chat/bookmark/blue</image>
+    <object mime="image/gif">tkabber/chat-bookmark-blue.gif</object>
+  </icon>
+  <!-- Extended address icon -->
+  <icon>
+    <image xmlns='tkimage'>xaddress/info/red</image>
+    <object mime="image/gif">tkabber/xaddress-red.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>xaddress/info/green</image>
+    <object mime="image/gif">tkabber/xaddress-green.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>xaddress/info/blue</image>
+    <object mime="image/gif">tkabber/xaddress-blue.gif</object>
+  </icon>
+</icondef>
+
+<!-- vim:ft=xml:ts=8:sw=2:sts=2:et
+-->

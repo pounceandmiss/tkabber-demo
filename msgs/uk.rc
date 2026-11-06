@@ -1,0 +1,53 @@
+! uk.rc --
+!
+!       Definition of Ukrainian resources for BWidget
+!
+! Author: Artem Bondarenko
+
+! --- symbolic names of buttons -----------------------------------------------
+
+*abortName:   Перервати
+*retryName:   Повторити
+*ignoreName:  Ігнорувати
+*okName:      Продовжити
+*cancelName:  Відмінити
+*yesName:     Так
+*noName:      Ні
+
+
+! --- symbolic names of label of SelectFont dialog ----------------------------
+
+*boldName:       Напівжирний
+*italicName:     Курсивний
+*underlineName:  Підкреслений
+*overstrikeName: Перекреслений
+*fontName:       Шрифт
+*sizeName:       Розмір
+*styleName:      Вигляд
+
+
+! --- symbolic names of label of PasswdDlg dialog -----------------------------
+
+*loginName:    Ім'я
+*passwordName: Пароль
+
+
+! --- resource for SelectFont dialog ------------------------------------------
+
+*SelectFont.title:          Вибір шрифту
+*SelectFont.sampletext:     Sample text, приклад тексту
+
+
+! --- resource for MessageDlg dialog ------------------------------------------
+
+*MessageDlg.noneTitle:      Повідомлення
+*MessageDlg.infoTitle:      Інформація
+*MessageDlg.questionTitle:  Питання
+*MessageDlg.warningTitle:   Увага!
+*MessageDlg.errorTitle:     Помилка
+
+! --- resource for PasswdDlg dialog -------------------------------------------
+
+*PasswdDlg.title:  Уведення імені та паролю
+
+! vim:ft=xdefaults:ts=8:sw=4:sts=4:et

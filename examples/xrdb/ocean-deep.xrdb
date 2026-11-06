@@ -1,0 +1,375 @@
+! Ocean Deep theme for Tkabber
+! (c) 2004 Badlop
+! 2004-06-26
+! Based on Ocean Deep colour theme for Vim
+
+! --------------------------------------------------------------- GEOMETRY ----
+
+! Main window geometry
+!   [horizontal size]
+!   x[vertical size]
+!   -[separation with right screen edge]
+!   +[separation with upper screen edge]
+!!Tkabber.geometry:                           700x520-30+170
+
+! Roster width (tabbed interface only)
+!!Tkabber.mainRosterWidth:                    150
+
+! Roster width in groupchat windows
+!!Tkabber.chatRosterWidth:                    80
+
+! Chat window geometry (in no tabs mode)
+!!*Chat.geometry:                             300x500-70+350
+!!*Chat.groupchatgeometry:                    600x500
+!!*Chat.chatgeometry:                         500x500
+
+! Other windows geometry (in no tabs mode)
+!!*JBrowser.geometry:                         350x350
+!!*JDisco.geometry:                           500x500
+!!*Customize.geometry:                        600x500
+!!*RawXML.geometry:                           500x500
+!!*Messages.geometry:                         600x500
+
+! ------------------------------------------------------------ MAIN WINDOW ----
+
+! Font for drawing text (except chats and roster font)
+!*font:                                     {Arial 10}
+
+! Main font color
+*foreground:                                #d5faff
+
+! Color of insertion cursor
+*insertBackground:                          #ffbbbb
+
+! Background of all windows and tabs
+*background:                                #103040
+
+! Menu colors (main Tkabber menus...)
+*Menu.background:                           #01476a
+*Menu.activeBackground:                     #01656a
+
+! ---------------------------------------------------------------- WIDGETS ----
+
+! ------------------------------------------- PROGRESS BAR ----
+
+! Scrollbar bed color
+*troughColor:                               #0F4866
+!!*Scrollbar.width:                           8
+
+! Currently there is only progressbar (at the splash screen)
+*ProgressBar.foreground:                    #0F4866
+
+! ------------------------------------------- RADIO BUTTON ----
+
+! Colors and border width selected item (in radialbutton)
+*selectBackground:                          #005a56
+*selectForeground:                          #fffeff
+*selectBorderWidth:                         0
+*inactiveSelectBackground:                  #005a56
+
+*errorForeground:                           #ff7f50
+
+! ---------------------------------------------- CHECK BOX ----
+
+! Checkbox background
+*selectColor:                               #0c232a
+*Menu*selectColor:                          #d5faff
+
+! ----------------------------------------------- TEXT BOX ----
+
+! Disabled Text boxes
+*disabledBackground:                        #103040
+*disabledForeground:                        #85aaaf
+
+! Textbox entry (like user: in Login window)
+*Entry.background:                          #0c232e
+*Entry.foreground:                          #fffefe
+*Entry.disabledBackground:                  #103040
+*Entry.readonlyBackground:                  #103040
+!!*Entry.borderWidth:                         1
+
+! Textbox like in VCard editor
+*NoteBook*Entry.background:                 #0c232e
+*NoteBook*Entry.disabledBackground:         #103040
+*NoteBook*Entry.foreground:                 #fffffe
+
+! ----------------------------------------------- LIST BOX ----
+
+!* Colors for multicolumn listboxes (as in search result window)
+*Mclistbox.background:                      #0c232e
+*Mclistbox.labelActiveBackground:           #1d5875
+*Mclistbox.labelBackground:                 #0F4866
+*Mclistbox.labelForeground:                 #d5faff
+*Mclistbox.labelActiveForeground:           #d5faff
+
+! ---------------------------------------------- TOOL TIPS ----
+
+! Tooltip options
+*Balloon*background:                        #0c232e
+*Balloon*foreground:                        #fffbfb
+*DynamicHelp.background:                    #0c232e
+*DynamicHelp.foreground:                    #ffffff
+*Baloon.style:                              delay
+
+! Listbox widget (like in Customize->Chat->vcard-items)
+*Listbox.background:                        #0c232e
+*Listbox.foreground:                        #ffffff
+!!*Listbox.borderWidth:                       1
+
+! ------------------------------------------------ BUTTONS ----
+
+!!*Button.borderWidth:                        1
+
+!!*Menu.activeBorderWidth:                    1
+!!*Menu.borderWidth:                          1
+!!*Menubutton.borderWidth:                    1
+
+*Buttonbox*borderWidth:                     0
+*Buttonbox*activeBorderWidth:               0
+
+*Search.itemBackground:                     #ffffff
+
+!* Flatten ComboBox and ArrowButton +++
+!!*Spinbox.borderWidth:                       1
+*Spinbox.background:                        #0c232e
+*Spinbox.buttonBackground:                  #103040
+!!*SpinBox.borderWidth:                       1
+*SpinBox*Entry*highlightBackground:         #0c232e
+!!*ComboBox.borderWidth:                      1
+!!*ArrowButton*borderWidth:                   1
+*ArrowButton.borderWidth:                   0
+*ArrowButton.highlightThickness:            0
+
+! Button and Menubutton colors
+! Generic button
+*Button.background:                         #0F4866
+
+! Button background when mouse is over it
+*Button.activeBackground:                   #1d5875
+
+! Generic menubutton (like in Login window->Profiles)
+*Menubutton.background:                     #0F4864
+*Menubutton.activeBackground:               #1d5875
+
+! Buttons in chat and message windows
+*Chat*Button.background:                    #103040
+! Button with JID in Chat window
+*Chat*Menubutton.background:                #0f4864
+*Message*Menubutton.background:             #0f4863
+
+! Common button background
+*bbox.Button.background:                    #0f4865
+
+! ---------------------------------------------------------------- TOOLBAR ----
+
+! Main toolbar buttons
+*mainframe.topf.tb0.bbox.Button.background: #103040
+
+! Sign/encrypt message buttons
+*bottom.buttons1.Button.background:         #103040
+
+! ----------------------------------------------------------------- ROSTER ----
+
+! Type of subitem in roster (1 - display number of resources,
+! 2 - display arrow, 3 - display both, 0 - display nothing
+*Roster.subitemtype:                        3
+
+! --------------------------------------------------- JIDS ----
+
+! Roster background color
+*Roster.cbackground:                        #0c232e
+
+! Inactive metaJID background color
+*Roster.metajidfill:                        #123a45
+
+! Active metaJID background color
+*Roster.metajidhlfill:                      #014d72
+
+! Color of border around metaJID
+*Roster.metajidborder:                      #123a45
+
+! Inactive JID background color
+*Roster.jidfill:                            #0c232b
+
+! Active JID background color
+*Roster.jidhlfill:                          #004567
+
+! Color of border around JID
+*Roster.jidborder:                          #0c232c
+
+! ------------------------------------------------- GROUPS ----
+
+! Inactive group background color
+*Roster.groupfill:                          #18515f
+
+! Inactive closed group background color
+*Roster.groupcfill:                         #1b485f
+
+! Active group background color
+*Roster.grouphlfill:                        #03557d
+
+! Color of border around group
+*Roster.groupborder:                        #103041
+
+! ---------------------------------------------- POSITIONS ----
+
+! Indent of group names
+!!*Roster.groupindent:                        21
+
+! Indent of JIDs
+!!*Roster.jidindent:                          42
+
+! Indent of second order JIDs
+! (resources for those who is logged in multiple times)
+!!*Roster.subjidindent:                       62
+
+! Indent of group icons (closed or open arrow icon)
+!!*Roster.groupiconindent:                    2
+
+! Indent of group icons when subitemtype is 2 or 3
+!!*Roster.subgroupiconindent:                 2
+
+! Indent of regular JID icons (status icon)
+!!*Roster.iconindent:                         21
+
+! Indent of second order JID icons
+!!*Roster.subiconindent:                      42
+
+! Additional amount of text height
+!!*Roster.textuppad:                          0
+!!*Roster.textdownpad:                        0
+
+! Vertical distance between adjacent items
+!!*Roster.linepad:                            2
+
+! ----------------------------------------------- PRESENCE ----
+
+! Foregrounds of JID label
+! (stalkerforeground is for contacts with pending subscription)
+*Roster.stalkerforeground:                  #d2b48c
+
+! Other colors are selfexplanatory
+*Roster.unavailableforeground:              #b8b8b8
+*Roster.dndforeground:                      #ffc1c1
+*Roster.xaforeground:                       #c1cdcd
+*Roster.awayforeground:                     #c1cdcd
+*Roster.availableforeground:                #ffffff
+*Roster.chatforeground:                     #ffffff
+
+! ------------------------------------------------------------------- TABS ----
+
+! Colors used when mouse is over the item (a tab header)
+*activeBackground:                          #1d5875
+*activeForeground:                          #d7f2ff
+
+! Colors of tab labels font (when in tabbed mode)
+*NoteBook*Entry.readonlyBackground:         #1e3837
+! Usual color
+*alertColor0:                               #ffffff
+
+! Color when server message is arrived
+*alertColor1:                               #ff69b4
+
+! Color when message is arrived
+*alertColor2:                               #add8e6
+
+! Color when personally addressed message is arrived
+*alertColor3:                               #ff7f50
+
+! ------------------------------------------------------------------- CHAT ----
+
+! Text in chats, messages
+*Text.background:                           #0c232e
+*Text.foreground:                           #fbfffe
+!!*Text.borderWidth:                          1
+
+! Colors in chat and groupchat windows
+*Chat*Text*Label.background:                #66685e
+
+! Color of other people nicknames
+*Chat.theyforeground:                       #ff7f50
+
+! Color of my nickname
+*Chat.meforeground:                         #add8e6
+
+! Colors of server messages (--- foo leave the room)
+*Chat.serverlabelforeground:                #caff70
+*Chat.serverforeground:                     #ff69b4
+
+! Color of info & error messages
+*Chat.infoforeground:                       #add8e6
+*Chat.errforeground:                        #ff6a6a
+
+! Color of inactive urls in text
+*urlforeground:                             #add8e6
+
+! Color of active urls in text
+*urlactiveforeground:                       #add8e6
+
+! Colors of erroneous words (when ispell module is using)
+*Text.errorColor:                           #ff7f50
+*Text.comboColor:                           #add8e6
+
+*Chat.inputheight:                          3
+
+! -------------------------------------------------------------- DISCOVERY ----
+
+! Colors for browser and discovery service windows
+
+! Window background
+*Tree*background:                           #0c232e
+! lines in the tree
+*linesfill:                                 #d5fafa
+! [+] and [-] tree symbols
+*crossfill:                                 #d5fafa
+
+! ---------------------------------------------- J BROWSER ----
+
+! Jabber Browser
+! Nodes names font color ('Public Conferencing'...)
+*JBrowser.fill:                             #ffffff
+! Nodes atributes font color ('Search', 'Register'...)
+*JBrowser.nscolor:                          #b8b8b8
+!!*JBrowser.levelindent:                      24
+!!*JBrowser.indent:                           3
+!!*JBrowser.nsindent:                         2
+!!*JBrowser.linepad:                          2
+!!*JBrowser.toppad:                           1
+!!*JBrowser.bottompad:                        1
+!!*JBrowser.icontextpad:                      2
+
+! -------------------------------------------- J DISCOVERY ----
+
+! Jabber Discovery
+! Subnodes
+*JDisco.fill:                               #ffffff
+! Features available
+*JDisco.featurecolor:                       #b8b8b8
+! Identity name
+*JDisco.identitycolor:                      #b4eeb4
+*JDisco.optioncolor:                        #ff69b4
+
+! ------------------------------------------------------------------ MORE ----
+
+! ----------------------------------------------------------------------  ----
+
+*Customize.varforeground:                   #D5FAFA
+*Customize.groupnameforeground:             #D5FAFA
+
+*RawXML.inforeground:                       #e0c3c3
+*RawXML.outforeground:                      #a3a3ff
+*RawXML.intagforeground:                    #e0c3c3
+*RawXML.inattrforeground:                   #e0c3c3
+*RawXML.invalueforeground:                  #d1aef2
+*RawXML.incdataforeground:                  #b2dcff
+*RawXML.outtagforeground:                   #efb3ef
+*RawXML.outattrforeground:                  #efb3ef
+*RawXML.outvalueforeground:                 #c9ffc9
+*RawXML.outcdataforeground:                 #b6b6f9
+*RawXML.inputheight:                        4
+
+!* Color of traversal highlight rectangle
+*highlightBackground:                       #103040
+*highlightColor:                            #d5faff
+
+! vim:ft=xdefaults:ts=8:sw=4:sts=4:et

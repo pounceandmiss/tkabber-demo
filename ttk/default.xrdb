@@ -1,0 +1,10 @@
+! default.xrdb --
+!
+!       Default resources for the Ttk interface.
+
+! placeholder foreground is new in Tk 9 and it causes
+! crashes when ttk is used, so define it here
+
+*placeholderForeground: #aaaaaa
+
+! vim:ft=xdefaults:ts=8:sw=4:sts=4:et

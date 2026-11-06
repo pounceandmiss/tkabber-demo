@@ -1,0 +1,2277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head profile="http://www.w3.org/2006/03/hcard http://dublincore.org/documents/2008/08/04/dc-html/">
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Tkabber 1.1.2+</title>
+
+  <style type="text/css" title="Xml2Rfc (sans serif)">
+  /*<![CDATA[*/
+	  a {
+	  text-decoration: none;
+	  }
+      /* info code from SantaKlauss at http://www.madaboutstyle.com/tooltip2.html */
+      a.info {
+          /* This is the key. */
+          position: relative;
+          z-index: 24;
+          text-decoration: none;
+      }
+      a.info:hover {
+          z-index: 25;
+          color: #FFF; background-color: #900;
+      }
+      a.info span { display: none; }
+      a.info:hover span.info {
+          /* The span will display just on :hover state. */
+          display: block;
+          position: absolute;
+          font-size: smaller;
+          top: 2em; left: -5em; width: 15em;
+          padding: 2px; border: 1px solid #333;
+          color: #900; background-color: #EEE;
+          text-align: left;
+      }
+	  a.smpl {
+	  color: black;
+	  }
+	  a:hover {
+	  text-decoration: underline;
+	  }
+	  a:active {
+	  text-decoration: underline;
+	  }
+	  address {
+	  margin-top: 1em;
+	  margin-left: 2em;
+	  font-style: normal;
+	  }
+	  body {
+	  color: black;
+	  font-family: verdana, helvetica, arial, sans-serif;
+	  font-size: 10pt;
+	  max-width: 55em;
+	  
+	  }
+	  cite {
+	  font-style: normal;
+	  }
+	  dd {
+	  margin-right: 2em;
+	  }
+	  dl {
+	  margin-left: 2em;
+	  }
+	
+	  ul.empty {
+	  list-style-type: none;
+	  }
+	  ul.empty li {
+	  margin-top: .5em;
+	  }
+	  dl p {
+	  margin-left: 0em;
+	  }
+	  dt {
+	  margin-top: .5em;
+	  }
+	  h1 {
+	  font-size: 14pt;
+	  line-height: 21pt;
+	  page-break-after: avoid;
+	  }
+	  h1.np {
+	  page-break-before: always;
+	  }
+	  h1 a {
+	  color: #333333;
+	  }
+	  h2 {
+	  font-size: 12pt;
+	  line-height: 15pt;
+	  page-break-after: avoid;
+	  }
+	  h3, h4, h5, h6 {
+	  font-size: 10pt;
+	  page-break-after: avoid;
+	  }
+	  h2 a, h3 a, h4 a, h5 a, h6 a {
+	  color: black;
+	  }
+	  img {
+	  margin-left: 3em;
+	  }
+	  li {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  ol {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  ol p {
+	  margin-left: 0em;
+	  }
+	  p {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  pre {
+	  margin-left: 3em;
+	  background-color: lightyellow;
+	  padding: .25em;
+	  }
+	  pre.text2 {
+	  border-style: dotted;
+	  border-width: 1px;
+	  background-color: #f0f0f0;
+	  width: 69em;
+	  }
+	  pre.inline {
+	  background-color: white;
+	  padding: 0em;
+	  }
+	  pre.text {
+	  border-style: dotted;
+	  border-width: 1px;
+	  background-color: #f8f8f8;
+	  width: 69em;
+	  }
+	  pre.drawing {
+	  border-style: solid;
+	  border-width: 1px;
+	  background-color: #f8f8f8;
+	  padding: 2em;
+	  }
+	  table {
+	  margin-left: 2em;
+	  }
+	  table.tt {
+	  vertical-align: top;
+	  }
+	  table.full {
+	  border-style: outset;
+	  border-width: 1px;
+	  }
+	  table.headers {
+	  border-style: outset;
+	  border-width: 1px;
+	  }
+	  table.tt td {
+	  vertical-align: top;
+	  }
+	  table.full td {
+	  border-style: inset;
+	  border-width: 1px;
+	  }
+	  table.tt th {
+	  vertical-align: top;
+	  }
+	  table.full th {
+	  border-style: inset;
+	  border-width: 1px;
+	  }
+	  table.headers th {
+	  border-style: none none inset none;
+	  border-width: 1px;
+	  }
+	  table.left {
+	  margin-right: auto;
+	  }
+	  table.right {
+	  margin-left: auto;
+	  }
+	  table.center {
+	  margin-left: auto;
+	  margin-right: auto;
+	  }
+	  caption {
+	  caption-side: bottom;
+	  font-weight: bold;
+	  font-size: 9pt;
+	  margin-top: .5em;
+	  }
+	
+	  table.header {
+	  border-spacing: 1px;
+	  width: 95%;
+	  font-size: 10pt;
+	  color: white;
+	  }
+	  td.top {
+	  vertical-align: top;
+	  }
+	  td.topnowrap {
+	  vertical-align: top;
+	  white-space: nowrap; 
+	  }
+	  table.header td {
+	  background-color: gray;
+	  width: 50%;
+	  }
+	  table.header a {
+	  color: white;
+	  }
+	  td.reference {
+	  vertical-align: top;
+	  white-space: nowrap;
+	  padding-right: 1em;
+	  }
+	  thead {
+	  display:table-header-group;
+	  }
+	  ul.toc, ul.toc ul {
+	  list-style: none;
+	  margin-left: 1.5em;
+	  margin-right: 0em;
+	  padding-left: 0em;
+	  }
+	  ul.toc li {
+	  line-height: 150%;
+	  font-weight: bold;
+	  font-size: 10pt;
+	  margin-left: 0em;
+	  margin-right: 0em;
+	  }
+	  ul.toc li li {
+	  line-height: normal;
+	  font-weight: normal;
+	  font-size: 9pt;
+	  margin-left: 0em;
+	  margin-right: 0em;
+	  }
+	  li.excluded {
+	  font-size: 0pt;
+	  }
+	  ul p {
+	  margin-left: 0em;
+	  }
+	
+	  .comment {
+	  background-color: yellow;
+	  }
+	  .center {
+	  text-align: center;
+	  }
+	  .error {
+	  color: red;
+	  font-style: italic;
+	  font-weight: bold;
+	  }
+	  .figure {
+	  font-weight: bold;
+	  text-align: center;
+	  font-size: 9pt;
+	  }
+	  .filename {
+	  color: #333333;
+	  font-weight: bold;
+	  font-size: 12pt;
+	  line-height: 21pt;
+	  text-align: center;
+	  }
+	  .fn {
+	  font-weight: bold;
+	  }
+	  .hidden {
+	  display: none;
+	  }
+	  .left {
+	  text-align: left;
+	  }
+	  .right {
+	  text-align: right;
+	  }
+	  .title {
+	  color: #990000;
+	  font-size: 18pt;
+	  line-height: 18pt;
+	  font-weight: bold;
+	  text-align: center;
+	  margin-top: 36pt;
+	  }
+	  .vcardline {
+	  display: block;
+	  }
+	  .warning {
+	  font-size: 14pt;
+	  background-color: yellow;
+	  }
+	
+	
+	  @media print {
+	  .noprint {
+		display: none;
+	  }
+	
+	  a {
+		color: black;
+		text-decoration: none;
+	  }
+	
+	  table.header {
+		width: 90%;
+	  }
+	
+	  td.header {
+		width: 50%;
+		color: black;
+		background-color: white;
+		vertical-align: top;
+		font-size: 12pt;
+	  }
+	
+	  ul.toc a::after {
+		content: leader('.') target-counter(attr(href), page);
+	  }
+	
+	  ul.ind li li a {
+		content: target-counter(attr(href), page);
+	  }
+	
+	  .print2col {
+		column-count: 2;
+		-moz-column-count: 2;
+		column-fill: auto;
+	  }
+	  }
+	
+	  @page {
+	  @top-left {
+		   content: "Internet-Draft"; 
+	  } 
+	  @top-right {
+		   content: "December 2010"; 
+	  } 
+	  @top-center {
+		   content: "Abbreviated Title";
+	  } 
+	  @bottom-left {
+		   content: "Doe"; 
+	  } 
+	  @bottom-center {
+		   content: "Expires June 2011"; 
+	  } 
+	  @bottom-right {
+		   content: "[Page " counter(page) "]"; 
+	  } 
+	  }
+	
+	  @page:first { 
+		@top-left {
+		  content: normal;
+		}
+		@top-right {
+		  content: normal;
+		}
+		@top-center {
+		  content: normal;
+		}
+	  }
+  /*]]>*/
+  </style>
+
+  <link href="#rfc.toc" rel="Contents"/>
+<link href="#rfc.section.1" rel="Chapter" title="1 Features"/>
+<link href="#rfc.section.2" rel="Chapter" title="2 Requirements"/>
+<link href="#rfc.section.3" rel="Chapter" title="3 Download, install and run"/>
+<link href="#rfc.section.4" rel="Chapter" title="4 Upgrading"/>
+<link href="#rfc.section.4.1" rel="Chapter" title="4.1 Upgrading from version 1.0, 1.1 or 1.1.1"/>
+<link href="#rfc.section.4.2" rel="Chapter" title="4.2 Upgrading from version 0.11.0 or 0.11.1"/>
+<link href="#rfc.section.4.2.1" rel="Chapter" title="4.2.1 External plugins"/>
+<link href="#rfc.section.4.2.2" rel="Chapter" title="4.2.2 Configuration options"/>
+<link href="#rfc.section.4.3" rel="Chapter" title="4.3 Upgrading from version 0.10.0"/>
+<link href="#rfc.section.4.3.1" rel="Chapter" title="4.3.1 Configuration options"/>
+<link href="#rfc.section.4.3.1.1" rel="Chapter" title="4.3.1.1 Proxy servers"/>
+<link href="#rfc.section.4.3.1.2" rel="Chapter" title="4.3.1.2 Resources to control fonts"/>
+<link href="#rfc.section.4.3.1.3" rel="Chapter" title="4.3.1.3 Keep-alives and dead link detection"/>
+<link href="#rfc.section.4.3.1.4" rel="Chapter" title="4.3.1.4 Resources to control appearance of balloon windows"/>
+<link href="#rfc.section.4.3.1.5" rel="Chapter" title="4.3.1.5 Support for external XML parser"/>
+<link href="#rfc.section.4.3.2" rel="Chapter" title="4.3.2 User interface"/>
+<link href="#rfc.section.4.3.2.1" rel="Chapter" title="4.3.2.1 System tray icon mouse gestures"/>
+<link href="#rfc.section.4.3.2.2" rel="Chapter" title="4.3.2.2 New tab management widget"/>
+<link href="#rfc.section.4.3.2.3" rel="Chapter" title="4.3.2.3 Window splitters"/>
+<link href="#rfc.section.4.4" rel="Chapter" title="4.4 Upgrading from version 0.9.9"/>
+<link href="#rfc.section.5" rel="Chapter" title="5 Configuration"/>
+<link href="#rfc.section.5.1" rel="Chapter" title="5.1 Pre-load"/>
+<link href="#rfc.section.5.1.1" rel="Chapter" title="5.1.1 Tabbed Interface"/>
+<link href="#rfc.section.5.1.2" rel="Chapter" title="5.1.2 Fonts and colors"/>
+<link href="#rfc.section.5.1.3" rel="Chapter" title="5.1.3 Cryptography by default"/>
+<link href="#rfc.section.5.1.4" rel="Chapter" title="5.1.4 Debugging Output"/>
+<link href="#rfc.section.5.1.5" rel="Chapter" title="5.1.5 Splash window"/>
+<link href="#rfc.section.5.1.6" rel="Chapter" title="5.1.6 I18n/L10n"/>
+<link href="#rfc.section.5.1.7" rel="Chapter" title="5.1.7 Browse URL"/>
+<link href="#rfc.section.5.1.8" rel="Chapter" title="5.1.8 Searching"/>
+<link href="#rfc.section.5.2" rel="Chapter" title="5.2 Post-load"/>
+<link href="#rfc.section.5.2.1" rel="Chapter" title="5.2.1 Look-and-Feel"/>
+<link href="#rfc.section.5.2.2" rel="Chapter" title="5.2.2 The system tray icon (for Unix)"/>
+<link href="#rfc.section.5.2.3" rel="Chapter" title="5.2.3 The Autoaway Module"/>
+<link href="#rfc.section.5.2.4" rel="Chapter" title="5.2.4 The Avatar Module"/>
+<link href="#rfc.section.5.2.5" rel="Chapter" title="5.2.5 The Chat Module"/>
+<link href="#rfc.section.5.2.6" rel="Chapter" title="5.2.6 The Clientinfo Module"/>
+<link href="#rfc.section.5.2.7" rel="Chapter" title="5.2.7 The Conferenceinfo Module"/>
+<link href="#rfc.section.5.2.8" rel="Chapter" title="5.2.8 The Cryptographic Module"/>
+<link href="#rfc.section.5.2.9" rel="Chapter" title="5.2.9 The Emoticons Module"/>
+<link href="#rfc.section.5.2.10" rel="Chapter" title="5.2.10 The File Transfer Module"/>
+<link href="#rfc.section.5.2.11" rel="Chapter" title="5.2.11 The Groupchat Module"/>
+<link href="#rfc.section.5.2.12" rel="Chapter" title="5.2.12 The Ispell Module"/>
+<link href="#rfc.section.5.2.13" rel="Chapter" title="5.2.13 The Stream Initiation Module"/>
+<link href="#rfc.section.5.2.14" rel="Chapter" title="5.2.14 The Logger Module"/>
+<link href="#rfc.section.5.2.15" rel="Chapter" title="5.2.15 The Proxy Module"/>
+<link href="#rfc.section.5.2.16" rel="Chapter" title="5.2.16 The Login Module"/>
+<link href="#rfc.section.5.2.17" rel="Chapter" title="5.2.17 The Message Module"/>
+<link href="#rfc.section.5.2.18" rel="Chapter" title="5.2.18 The Raw XML Input Module"/>
+<link href="#rfc.section.5.2.19" rel="Chapter" title="5.2.19 The Roster Module"/>
+<link href="#rfc.section.5.2.20" rel="Chapter" title="5.2.20 The Sound Module"/>
+<link href="#rfc.section.5.3" rel="Chapter" title="5.3 Menu-load"/>
+<link href="#rfc.section.5.3.1" rel="Chapter" title="5.3.1 The Avatar Module"/>
+<link href="#rfc.section.5.3.2" rel="Chapter" title="5.3.2 The Browser Module"/>
+<link href="#rfc.section.5.3.3" rel="Chapter" title="5.3.3 The Groupchat Module"/>
+<link href="#rfc.section.5.3.4" rel="Chapter" title="5.3.4 The Login Module"/>
+<link href="#rfc.section.5.3.5" rel="Chapter" title="5.3.5 The Message Module"/>
+<link href="#rfc.section.5.3.6" rel="Chapter" title="5.3.6 The Presence Module"/>
+<link href="#rfc.section.5.3.7" rel="Chapter" title="5.3.7 Miscellany"/>
+<link href="#rfc.section.5.4" rel="Chapter" title="5.4 Final-Load"/>
+<link href="#rfc.section.6" rel="Chapter" title="6 Extensibility"/>
+<link href="#rfc.section.6.1" rel="Chapter" title="6.1 Message Hooks"/>
+<link href="#rfc.section.6.2" rel="Chapter" title="6.2 Chat Hooks"/>
+<link href="#rfc.section.6.3" rel="Chapter" title="6.3 Login Hooks"/>
+<link href="#rfc.section.6.4" rel="Chapter" title="6.4 Presence Hooks"/>
+<link href="#rfc.section.6.5" rel="Chapter" title="6.5 Info/Query Hook"/>
+<link href="#rfc.section.6.6" rel="Chapter" title="6.6 Roster Hooks"/>
+<link href="#rfc.section.6.7" rel="Chapter" title="6.7 Miscellaneous Hooks"/>
+<link href="#rfc.section.7" rel="Chapter" title="7 User Interface basics"/>
+<link href="#rfc.section.7.1" rel="Chapter" title="7.1 Searching"/>
+<link href="#rfc.appendix.A" rel="Chapter" title="A Releases History"/>
+<link href="#rfc.appendix.A.1" rel="Chapter" title="A.1 Main changes in 1.1.2+"/>
+<link href="#rfc.appendix.A.2" rel="Chapter" title="A.2 Main changes in 1.1.2"/>
+<link href="#rfc.appendix.A.3" rel="Chapter" title="A.3 Main changes in 1.1.1"/>
+<link href="#rfc.appendix.A.4" rel="Chapter" title="A.4 Main changes in 1.1"/>
+<link href="#rfc.appendix.A.5" rel="Chapter" title="A.5 Main changes in 1.0"/>
+<link href="#rfc.appendix.A.6" rel="Chapter" title="A.6 Main changes in 0.11.1"/>
+<link href="#rfc.appendix.A.7" rel="Chapter" title="A.7 Main changes in 0.11.0"/>
+<link href="#rfc.appendix.A.8" rel="Chapter" title="A.8 Main changes in 0.10.0"/>
+<link href="#rfc.appendix.A.9" rel="Chapter" title="A.9 Main changes in 0.9.9"/>
+<link href="#rfc.appendix.A.10" rel="Chapter" title="A.10 Main changes in 0.9.8"/>
+<link href="#rfc.appendix.A.11" rel="Chapter" title="A.11 Main changes in 0.9.7beta"/>
+<link href="#rfc.appendix.A.12" rel="Chapter" title="A.12 Main changes in 0.9.6beta"/>
+<link href="#rfc.appendix.A.13" rel="Chapter" title="A.13 Main changes in 0.9.5beta"/>
+<link href="#rfc.appendix.B" rel="Chapter" title="B Tk option database resources"/>
+<link href="#rfc.appendix.C" rel="Chapter" title="C Documentation TODO"/>
+<link href="#rfc.appendix.D" rel="Chapter" title="D Acknowledgements"/>
+<link href="#rfc.appendix.E" rel="Chapter" title="E Copyrights"/>
+<link href="#rfc.authors" rel="Chapter"/>
+
+
+  <meta name="generator" content="xml2rfc version 2.5.1 - http://tools.ietf.org/tools/xml2rfc" />
+  <link rel="schema.dct" href="http://purl.org/dc/terms/" />
+
+  <meta name="dct.creator" content="Shchepin, A., Rose, M., Golovan, S., Litvak, M., and K. Khomoutov" />
+  <meta name="dct.identifier" content="urn:ietf:id:" />
+  <meta name="dct.issued" scheme="ISO8601" content="2015-3" />
+  <meta name="dct.abstract" content="" />
+  <meta name="description" content="" />
+
+</head>
+
+<body>
+
+  <table class="header">
+    <tbody>
+    
+    	<tr>
+  <td class="left"></td>
+  <td class="right">A. Shchepin</td>
+</tr>
+<tr>
+  <td class="left"></td>
+  <td class="right">Process-One</td>
+</tr>
+<tr>
+  <td class="left"></td>
+  <td class="right">M. Rose</td>
+</tr>
+<tr>
+  <td class="left"></td>
+  <td class="right">Dover Beach Consulting, Inc.</td>
+</tr>
+<tr>
+  <td class="left"></td>
+  <td class="right">S. Golovan</td>
+</tr>
+<tr>
+  <td class="left"></td>
+  <td class="right">New Economic School</td>
+</tr>
+<tr>
+  <td class="left"></td>
+  <td class="right">M. Litvak</td>
+</tr>
+<tr>
+  <td class="left"></td>
+  <td class="right">Colocall Ltd.</td>
+</tr>
+<tr>
+  <td class="left"></td>
+  <td class="right">K. Khomoutov</td>
+</tr>
+<tr>
+  <td class="left"></td>
+  <td class="right">Service 007</td>
+</tr>
+<tr>
+  <td class="left"></td>
+  <td class="right">March 2015</td>
+</tr>
+
+    	
+    </tbody>
+  </table>
+
+  <p class="title">Tkabber 1.1.2+<br />
+  <span class="filename"></span></p>
+  
+  <h1 id="rfc.abstract">
+  <a href="#rfc.abstract">Abstract</a>
+</h1>
+<p><em>Tkabber</em> is an open source Jabber client, written in <em>Tcl/Tk</em>.  This memo describes the installation, configuration, and extension of <em>Tkabber</em>.</p>
+
+  
+  <hr class="noprint" />
+  <h1 class="np" id="rfc.toc"><a href="#rfc.toc">Table of Contents</a></h1>
+  <ul class="toc">
+
+  	<li>1.   <a href="#rfc.section.1">Features</a></li>
+<li>2.   <a href="#rfc.section.2">Requirements</a></li>
+<li>3.   <a href="#rfc.section.3">Download, install and run</a></li>
+<li>4.   <a href="#rfc.section.4">Upgrading</a></li>
+<ul><li>4.1.   <a href="#rfc.section.4.1">Upgrading from version 1.0, 1.1 or 1.1.1</a></li>
+<li>4.2.   <a href="#rfc.section.4.2">Upgrading from version 0.11.0 or 0.11.1</a></li>
+<ul><li>4.2.1.   <a href="#rfc.section.4.2.1">External plugins</a></li>
+<li>4.2.2.   <a href="#rfc.section.4.2.2">Configuration options</a></li>
+</ul><li>4.3.   <a href="#rfc.section.4.3">Upgrading from version 0.10.0</a></li>
+<ul><li>4.3.1.   <a href="#rfc.section.4.3.1">Configuration options</a></li>
+<ul><li>4.3.1.1.   <a href="#rfc.section.4.3.1.1">Proxy servers</a></li>
+<li>4.3.1.2.   <a href="#rfc.section.4.3.1.2">Resources to control fonts</a></li>
+<li>4.3.1.3.   <a href="#rfc.section.4.3.1.3">Keep-alives and dead link detection</a></li>
+<li>4.3.1.4.   <a href="#rfc.section.4.3.1.4">Resources to control appearance of balloon windows</a></li>
+<li>4.3.1.5.   <a href="#rfc.section.4.3.1.5">Support for external XML parser</a></li>
+</ul><li>4.3.2.   <a href="#rfc.section.4.3.2">User interface</a></li>
+<ul><li>4.3.2.1.   <a href="#rfc.section.4.3.2.1">System tray icon mouse gestures</a></li>
+<li>4.3.2.2.   <a href="#rfc.section.4.3.2.2">New tab management widget</a></li>
+<li>4.3.2.3.   <a href="#rfc.section.4.3.2.3">Window splitters</a></li>
+</ul></ul><li>4.4.   <a href="#rfc.section.4.4">Upgrading from version 0.9.9</a></li>
+</ul><li>5.   <a href="#rfc.section.5">Configuration</a></li>
+<ul><li>5.1.   <a href="#rfc.section.5.1">Pre-load</a></li>
+<ul><li>5.1.1.   <a href="#rfc.section.5.1.1">Tabbed Interface</a></li>
+<li>5.1.2.   <a href="#rfc.section.5.1.2">Fonts and colors</a></li>
+<li>5.1.3.   <a href="#rfc.section.5.1.3">Cryptography by default</a></li>
+<li>5.1.4.   <a href="#rfc.section.5.1.4">Debugging Output</a></li>
+<li>5.1.5.   <a href="#rfc.section.5.1.5">Splash window</a></li>
+<li>5.1.6.   <a href="#rfc.section.5.1.6">I18n/L10n</a></li>
+<li>5.1.7.   <a href="#rfc.section.5.1.7">Browse URL</a></li>
+<li>5.1.8.   <a href="#rfc.section.5.1.8">Searching</a></li>
+</ul><li>5.2.   <a href="#rfc.section.5.2">Post-load</a></li>
+<ul><li>5.2.1.   <a href="#rfc.section.5.2.1">Look-and-Feel</a></li>
+<li>5.2.2.   <a href="#rfc.section.5.2.2">The system tray icon (for Unix)</a></li>
+<li>5.2.3.   <a href="#rfc.section.5.2.3">The Autoaway Module</a></li>
+<li>5.2.4.   <a href="#rfc.section.5.2.4">The Avatar Module</a></li>
+<li>5.2.5.   <a href="#rfc.section.5.2.5">The Chat Module</a></li>
+<li>5.2.6.   <a href="#rfc.section.5.2.6">The Clientinfo Module</a></li>
+<li>5.2.7.   <a href="#rfc.section.5.2.7">The Conferenceinfo Module</a></li>
+<li>5.2.8.   <a href="#rfc.section.5.2.8">The Cryptographic Module</a></li>
+<li>5.2.9.   <a href="#rfc.section.5.2.9">The Emoticons Module</a></li>
+<li>5.2.10.   <a href="#rfc.section.5.2.10">The File Transfer Module</a></li>
+<li>5.2.11.   <a href="#rfc.section.5.2.11">The Groupchat Module</a></li>
+<li>5.2.12.   <a href="#rfc.section.5.2.12">The Ispell Module</a></li>
+<li>5.2.13.   <a href="#rfc.section.5.2.13">The Stream Initiation Module</a></li>
+<li>5.2.14.   <a href="#rfc.section.5.2.14">The Logger Module</a></li>
+<li>5.2.15.   <a href="#rfc.section.5.2.15">The Proxy Module</a></li>
+<li>5.2.16.   <a href="#rfc.section.5.2.16">The Login Module</a></li>
+<li>5.2.17.   <a href="#rfc.section.5.2.17">The Message Module</a></li>
+<li>5.2.18.   <a href="#rfc.section.5.2.18">The Raw XML Input Module</a></li>
+<li>5.2.19.   <a href="#rfc.section.5.2.19">The Roster Module</a></li>
+<li>5.2.20.   <a href="#rfc.section.5.2.20">The Sound Module</a></li>
+</ul><li>5.3.   <a href="#rfc.section.5.3">Menu-load</a></li>
+<ul><li>5.3.1.   <a href="#rfc.section.5.3.1">The Avatar Module</a></li>
+<li>5.3.2.   <a href="#rfc.section.5.3.2">The Browser Module</a></li>
+<li>5.3.3.   <a href="#rfc.section.5.3.3">The Groupchat Module</a></li>
+<li>5.3.4.   <a href="#rfc.section.5.3.4">The Login Module</a></li>
+<li>5.3.5.   <a href="#rfc.section.5.3.5">The Message Module</a></li>
+<li>5.3.6.   <a href="#rfc.section.5.3.6">The Presence Module</a></li>
+<li>5.3.7.   <a href="#rfc.section.5.3.7">Miscellany</a></li>
+</ul><li>5.4.   <a href="#rfc.section.5.4">Final-Load</a></li>
+</ul><li>6.   <a href="#rfc.section.6">Extensibility</a></li>
+<ul><li>6.1.   <a href="#rfc.section.6.1">Message Hooks</a></li>
+<li>6.2.   <a href="#rfc.section.6.2">Chat Hooks</a></li>
+<li>6.3.   <a href="#rfc.section.6.3">Login Hooks</a></li>
+<li>6.4.   <a href="#rfc.section.6.4">Presence Hooks</a></li>
+<li>6.5.   <a href="#rfc.section.6.5">Info/Query Hook</a></li>
+<li>6.6.   <a href="#rfc.section.6.6">Roster Hooks</a></li>
+<li>6.7.   <a href="#rfc.section.6.7">Miscellaneous Hooks</a></li>
+</ul><li>7.   <a href="#rfc.section.7">User Interface basics</a></li>
+<ul><li>7.1.   <a href="#rfc.section.7.1">Searching</a></li>
+</ul><li>Appendix A.   <a href="#rfc.appendix.A">Releases History</a></li>
+<ul><li>A.1.   <a href="#rfc.appendix.A.1">Main changes in 1.1.2+</a></li>
+<li>A.2.   <a href="#rfc.appendix.A.2">Main changes in 1.1.2</a></li>
+<li>A.3.   <a href="#rfc.appendix.A.3">Main changes in 1.1.1</a></li>
+<li>A.4.   <a href="#rfc.appendix.A.4">Main changes in 1.1</a></li>
+<li>A.5.   <a href="#rfc.appendix.A.5">Main changes in 1.0</a></li>
+<li>A.6.   <a href="#rfc.appendix.A.6">Main changes in 0.11.1</a></li>
+<li>A.7.   <a href="#rfc.appendix.A.7">Main changes in 0.11.0</a></li>
+<li>A.8.   <a href="#rfc.appendix.A.8">Main changes in 0.10.0</a></li>
+<li>A.9.   <a href="#rfc.appendix.A.9">Main changes in 0.9.9</a></li>
+<li>A.10.   <a href="#rfc.appendix.A.10">Main changes in 0.9.8</a></li>
+<li>A.11.   <a href="#rfc.appendix.A.11">Main changes in 0.9.7beta</a></li>
+<li>A.12.   <a href="#rfc.appendix.A.12">Main changes in 0.9.6beta</a></li>
+<li>A.13.   <a href="#rfc.appendix.A.13">Main changes in 0.9.5beta</a></li>
+</ul><li>Appendix B.   <a href="#rfc.appendix.B">Tk option database resources</a></li>
+<li>Appendix C.   <a href="#rfc.appendix.C">Documentation TODO</a></li>
+<li>Appendix D.   <a href="#rfc.appendix.D">Acknowledgements</a></li>
+<li>Appendix E.   <a href="#rfc.appendix.E">Copyrights</a></li>
+<li><a href="#rfc.authors">Authors' Addresses</a></li>
+
+
+  </ul>
+
+  <h1 id="rfc.section.1"><a href="#rfc.section.1">1.</a> <a href="#s.features" id="s.features">Features</a></h1>
+<p><a href="http://tkabber.jabber.ru/">Tkabber</a> provides a <em>Tcl/Tk</em> interface to the <a href="http://www.jabber.org/">Jabber/XMPP</a> instant messaging and presence service.</p>
+<p><em>Tcl/Tk</em> is a graphical scripting language that runs on the Unix, Windows, and Macintosh platforms.  The choice of <em>Tcl/Tk</em> for a Jabber client is three-fold: </p>
+
+<ul>
+  <li>it is portable: once you install a <em>Tcl/Tk</em> interpreter on your system, the <em>Tkabber</em> script "just runs" &#8212; without having to compile anything;</li>
+  <li>it is customizable: <em>Tkabber</em> reads a configuration file when it starts that tells it the settings of various parameters; and,</li>
+  <li>it is extensible: the configuration file is actually a <em>Tcl</em> script, so you can replace or augment entire portions of <em>Tkabber</em> (if you're so inclined).</li>
+</ul>
+<p><em>Tkabber</em> is fully-featured: </p>
+
+<dl>
+  <dt>sessions:</dt>
+  <dd style="margin-left: 8">
+    <ul>
+      <li>TCP, BOSH and HTTP-polling session transports</li>
+      <li>XMPP SRV and TXT DNS-records handling</li>
+      <li>hashed passwords</li>
+      <li>SASL authentication</li>
+      <li>encrypted sessions (if you install an optional extension)</li>
+      <li>compressed sessions (if you install an optional extension)</li>
+      <li>login via SOCKS4a, SOCKS5 or HTTPS proxy</li>
+      <li>IPv6 support (from Tcl/Tk 8.6)</li>
+      <li>user-defined hooks for connection establishment and release </li>
+      <li>XMPP/Jabber MIME type</li>
+    </ul>
+    <p> </p>
+  </dd>
+  <dt>messages:</dt>
+  <dd style="margin-left: 8">
+    <ul>
+      <li>privacy rules</li>
+      <li>GPG-signed/encrypted messages (if you install an optional extension) </li>
+      <li>Off-the-record (<a href="https://otr.cypherpunks.ca/">OTR</a>) messaging</li>
+      <li>file transfers (HTTP, SOCKS bytestream, DTCP and IBB transports)</li>
+      <li>groupchat (GroupChat-1.0 and Multi-User Chat conferencing protocols) </li>
+      <li>headline messages</li>
+      <li>message events</li>
+      <li>completions of nick and commands</li>
+      <li>hyperlinks</li>
+      <li>emoticons</li>
+      <li>user-defined hooks for messages arriving and chat window events</li>
+    </ul>
+  </dd>
+  <dt>presence:</dt>
+  <dd style="margin-left: 8">
+    <ul>
+      <li>signed presence (if you install an optional extension)</li>
+      <li>avatars</li>
+      <li>browsing</li>
+      <li>groupchat and roster invitations</li>
+      <li>conference room bookmarks</li>
+      <li>annotations about roster items</li>
+      <li>vCards</li>
+      <li>user-defined hooks for presence changes</li>
+    </ul>
+  </dd>
+  <dt>windowing:</dt>
+  <dd style="margin-left: 8">
+    <ul>
+      <li>configurable look-and-feel via a resources database</li>
+      <li>unicode</li>
+      <li>tabbed/non-tabbed interface</li>
+      <li>sound notifications</li>
+      <li>nested roster groups</li>
+      <li>roster metacontacts</li>
+      <li>auto-away</li>
+      <li>for Unix: spell checking, KDE or freedesktop docking, and WMaker icons </li>
+      <li>for Windows: taskbar icons </li>
+    </ul>
+    <p> </p>
+  </dd>
+</dl>
+
+<p> </p>
+<h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#s.requirements" id="s.requirements">Requirements</a></h1>
+<p id="rfc.section.2.p.1">You should already have installed: <em>tcllib</em> and <em>BWidget</em> are script libraries &#8212; no compiling is necessary.  In the case of <em>Tcl/Tk</em>, there are many ready-made binary packages available on the download site.</p>
+
+<ul>
+  <li><a href="http://sourceforge.net/project/showfiles.php?group_id=10894">Tcl/Tk version 8.5.8</a> (or later, Tcl/Tk 8.6.3 or later is recommended). Note, that if you want to use Tkabber in IPv6 environment, you'll have to install Tcl/Tk 8.6.</li>
+  <li><a href="http://sourceforge.net/project/showfiles.php?group_id=12883">tcllib version 1.8</a> (or later, tcllib 1.16 or later is required for SCRAM SASL mechanism support). </li>
+  <li><a href="http://sourceforge.net/project/showfiles.php?group_id=12883">BWidget 1.9</a> (or later)</li>
+</ul>
+
+<p> Most systems already come with these packages pre-installed.  If not, various Unix systems have them available as ready-made packages.  Otherwise, go to the URLs above and click on the appropriate download link for your system.  Both </p>
+<p id="rfc.section.2.p.2">The <a href="http://www.activestate.com/Products/ActiveTcl">ActiveTcl</a> distribution contains all three packages (along with the <em>tls</em> and <em>Img</em> package mentioned below); so, you may want to use that instead of three separate downloads.</p>
+<p id="rfc.section.2.p.3">At your discretion, there are several optional packages that you may also install.  <em>Tkabber</em> will run just fine without them, but if they're available <em>Tkabber</em> will make additional features available to you.  So, here's the list: </p>
+
+<ul>
+  <li>By default, the Tcl's DNS package uses TCP for its communication with DNS servers.  If your DNS server requires usin UDP then you may want to install <a href="http://sourceforge.net/projects/tcludp/">Tcl UDP extension</a> version 1.0.8 (or later). This extension works both for Unix and Windows.  <br/><br/> </li>
+  <li>By default, communications between the server and client take place over a plaintext connection.  While this may not be a problem in some local, wired environments, if your server is distant or your client is wireless, then you may want to encrypt all the client/server traffic.  <br/> Accordingly, you may to install <a href="http://sourceforge.net/project/showfiles.php?group_id=13248">tls version 1.4.1</a> (or later).  This package works on both Unix and Windows.  Note that if you're using Unix, then you'll also need to have <em>OpenSSL</em> installed.  Fortunately, this comes preinstalled on many Unix systems.  If it's not on your system, check <a href="http://www.openssl.org/source/">OpenSSL source page</a>.  (The Windows distribution of <em>tls</em> comes with all the necessary DLLs.) <br/><br/> </li>
+  <li><em>Tcl/Tk</em> supports only a small number of image formats (i.e., bitmaps, GIFs and portable pixmaps).  If presence information contains avatars, these may be in other formats (e.g., PNGs or JPGs).  <br/> Accordingly, you may want to install <a href="http://sourceforge.net/projects/tkimg/">Img version 1.2</a> (or later).  This package works on both Unix and Windows.  <br/><br/> </li>
+  <li>Tkabber comes bundled with pure-Tcl XML parser. If its performance is insufficient, you may want to install <a href="http://www.tdom.org/">tDOM version 0.8.0</a> (or later) and use expat based XML parser.  <br/><br/> </li>
+  <li>Another option in Unix is to compress connection between client and server (it currently disables encryption).  <br/> There's no special requirements for traffic compression in Tcl/Tk 8.6, but if you're using Tcl/Tk 8.5 and want to compress traffic you should install <a href="https://gna.org/projects/ztcl/">ZTcl version 1.0b4</a> (or later) and <a href="https://gna.org/projects/ztcl/">Tclmore version 0.7b1</a> (or later).  <br/> (At the time of 0.11.0 release <em>ZTcl</em> and <em>Tclmore</em> home page were unavailable, so you may grab them from <a href="http://sgolovan.nes.ru/jabber/ztcl/">a mirror</a>.) <br/><br/> </li>
+  <li>By default, end-to-end communications between two or more Jabber clients is plaintext.  Depending on your environment, this may not be a problem for you.  Alternatively, you may want to digitally-sign all of your outgoing messages, and allow others to encrypt their messages to you.  <br/> Accordingly, you may want to install the <em>TclGPG</em> package.  Depending on what's already installed on your system, you may have to download upto two software bits: <ul><li><a href="https://chiselapp.com/user/sgolovan/repository/tclgpg/">TclGPG</a> (available only in a <a href="http://fossil-scm.org">Fossil</a> repository at present);</li><li><a href="http://www.gnupg.org/download.html">GPG version 1.0.7</a> (or later).</li></ul><p> </p><br/> Another alternative is to use <a href="https://otr.cypherpunks.ca/">Off-the-record messaging protocol</a>, if your contact supports it. The OTR plugin is included into <em>Tkabber plugins collection</em> starting from version 1.1 and requires a few packages from <em>Tcllib</em>, namely the <em>aes</em>, <em>asn</em>, <em>base64</em>, <em>math::bignum</em>, <em>sha1</em>, <em>sha256</em> packages. Also, if you're using Windows, the <a href="http://memchan.sourceforge.net/">Memchan</a> extension has to be installed to run the OTR plugin.  <br/><br/> </li>
+  <li>If you're running Unix or Windows, then you may want <em>Tkabber</em> to play predefined sounds when message or presence arrives.  <br/> Accordingly, you may want to install <a href="http://www.speech.kth.se/snack/download.html">Snack version 2.2.10</a> (or later).  <br/><br/> </li>
+  <li>If you're running Unix, then you may want <em>Tkabber</em> to use the docking tray.  <br/> Accordingly, you may want to install <a href="http://sw4me.com/wiki/Tktray">tktray version 1.3</a> (or later) for freedesktop icon (supported by modern <em>KDE</em> and <em>GNOME</em>).  <br/><br/> </li>
+  <li>If you're running Windows, then you may want <em>Tkabber</em> to use the system tray.  <br/> Accordingly, you may want to install <a href="http://sourceforge.net/projects/tktable/">Winico version 0.6</a> (or later).  <br/><br/> </li>
+  <li>If you're a Tcl/Tk guru, then you may want to access the Tk console to debug things.  <br/> Accordingly, you may want to install <a href="http://tkcon.sourceforge.net">tkcon version 2.3</a> (or later).</li>
+</ul>
+
+<p> Please keep in mind that these are all "optional extras" &#8212; if they're not right for you or your environment, don't bother with them!</p>
+<h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#s.download" id="s.download">Download, install and run</a></h1>
+<p id="rfc.section.3.p.1">Latest stable version is 1.1.2 and available at <a href="http://tkabber.jabber.ru/download">http://tkabber.jabber.ru/download</a>.</p>
+<p id="rfc.section.3.p.2">Older versions can be found at <a href="http://files.jabber.ru/tkabber/">http://files.jabber.ru/tkabber/</a>.</p>
+<p>You can always find the latest development version via <a href="http://fossil-scm.org">Fossil</a>. Execute the following commands:</p>
+<pre>
+fossil clone https://chiselapp.com/user/sgolovan/repository/tkabber tkabber.fossil
+fossil clone https://chiselapp.com/user/sgolovan/repository/tclxmpp tclxmpp.fossil
+mkdir tkabber
+cd tkabber
+fossil open ../tkabber.fossil
+mkdir tclxmpp
+cd tclxmpp
+fossil open --nested ../../tclxmpp.fossil
+</pre>
+<p>And if you want to test some plugins, then do</p>
+<pre>
+fossil clone https://chiselapp.com/user/sgolovan/repository/tkabber-plugins tkabber-plugins.fossil
+mkdir tkabber-plugins
+cd tkabber-plugins
+fossil open ../tkabber-plugins.fossil
+</pre>
+<p>And if you want to try unofficial plugins, then execute</p>
+<pre>
+fossil clone https://chiselapp.com/user/sgolovan/repository/tkabber-contrib tkabber-contrib.fossil
+mkdir tkabber-contrib
+cd tkabber-contrib
+fossil open ../tkabber-contrib.fossil
+</pre>
+<p>They usually include short readme with info on what they do and how to use them.</p>
+<p>If you use the Debian GNU/Linux distribution, you may want to get all required packages by using <em>apt</em>.  Just execute</p>
+<pre>
+apt-get install tk tcllib bwidget
+</pre>
+<p>or</p>
+<pre>
+apt-get install tkabber
+</pre>
+<p>to get the version included into Debian repository.</p>
+<p id="rfc.section.3.p.3">No real installation is required, simply copy the <samp>tkabber/</samp> directory to a commonly-available area, and then either: <em>Tkabber</em> comes with a Makefile, there's really not much to do &#8212; most folks prefer to simply copy the distribution directory to somewhere in their home directory.</p>
+
+<ul>
+  <li>put this directory in your search-path; or,</li>
+  <li>make a calling script/shortcut to the file <samp>tkabber.tcl</samp> in that directory.</li>
+</ul>
+
+<p> Although </p>
+<p>From the shell, you can invoke <em>Tkabber</em> as:</p>
+<pre>
+% tkabber.tcl
+</pre>
+<p>whilst on a windowing system, simply double-click on that file or a short-cut to it.</p>
+<p>If you're a Tcl/Tk guru and have installed <em>tkcon</em>, then you may want to invoke <em>Tkabber</em> as:</p>
+<pre>
+% tkcon.tcl -exec "" -root .tkconn -main "source tkabber.tcl"
+</pre>
+<p><em>Tkabber</em> will automatically know that it's running under <em>tkcon</em> and will start by hiding the <em>Tk</em> console window.  Look under the <samp>Services-&gt;Debug tools</samp> menu to find the checkbutton to show the console. Note that if <em>Tkcon</em> is installed as a Tcl/Tk package then <em>Tkabber</em> will add corresponding menu item under <em>Services-&gt;Debug tools</em> automatically.</p>
+<p>Also you can setup <em>Tkabber</em> as handler for <a href="http://www.xmpp.org/extensions/xep-0081.html">XMPP/Jabber MIME Type </a>.  For this you need to set hanler for <samp>application/xmpp+xml</samp> MIME type in your browser to something like this: </p>
+<pre>
+tkabber -mime %s
+</pre>
+<h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a> <a href="#s.upgrading" id="s.upgrading">Upgrading</a></h1>
+<h1 id="rfc.section.4.1"><a href="#rfc.section.4.1">4.1.</a> <a href="#s.upgrading1.1.1" id="s.upgrading1.1.1">Upgrading from version 1.0, 1.1 or 1.1.1</a></h1>
+<p id="rfc.section.4.1.p.1">Upgrading <em>Tkabber</em> from version 1.0 doesn't require configuration changes. You are advised to upgrade external plugins but it isn't strictly necessary.</p>
+<h1 id="rfc.section.4.2"><a href="#rfc.section.4.2">4.2.</a> <a href="#s.upgrading0.11.1" id="s.upgrading0.11.1">Upgrading from version 0.11.0 or 0.11.1</a></h1>
+<p id="rfc.section.4.2.p.1">When upgrading <em>Tkabber</em> from version 0.11.1 or earlier note that its plugin interface and several configuration options have been changed.</p>
+<h1 id="rfc.section.4.2.1"><a href="#rfc.section.4.2.1">4.2.1.</a> <a href="#ss.upgrading0.11.1.plugins" id="ss.upgrading0.11.1.plugins">External plugins</a></h1>
+<p id="rfc.section.4.2.1.p.1">There are incompatible changes in Tkabber internals, which break the old plugins. So, you'll have to upgrade them as well. If a plugin author hasn't released a version compatible with <em>Tkabber</em> 1.1 then you'll have to disable or remove that plugin.</p>
+<h1 id="rfc.section.4.2.2"><a href="#rfc.section.4.2.2">4.2.2.</a> <a href="#ss.upgrading0.11.1.conf" id="ss.upgrading0.11.1.conf">Configuration options</a></h1>
+<p id="rfc.section.4.2.2.p.1">There are notable changes in specifying a set of proxy servers.  If you define proxy server in the global <samp>loginconf</samp> array then you'll have to do the following: In case if you use the <em>Customize</em> interface, you may open the <em>Manage proxy servers</em> dialog window and add your proxy server there. Note that if you're using the HTTPS proxy then you'll have to add it twice (one in the <em>Tunnel proxies</em> tab and the other in the <em>HTTP proxies</em> tab, see <a href="#s.postload-proxy">section 'The proxy module'</a> <cite title="NONE">[s.postload-proxy]</cite> below). If you define proxy server in the <em>Tkabber</em> config file then you have lines similar to the following in the config:</p>
+<pre>
+set loginconf(proxy) https
+set loginconf(proxyhost) proxy.example.com
+set loginconf(proxyport) 3128
+set loginconf(proxyusername) ""
+set loginconf(proxypassword) ""
+</pre>
+<p>Replace them by the following: </p>
+<pre>
+set proxy1(type) https
+set proxy1(host) proxy.example.com
+set proxy1(port) 3128
+set proxy1(username) ""
+set proxy1(password) ""
+set proxy1(match) *
+set proxy1(exclude) "localhost* 127.0.0.* 172.* 192.168.* 10.*"
+
+set proxy2(type) http
+set proxy2(host) proxy.example.com
+set proxy2(port) 3128
+set proxy2(username) ""
+set proxy2(password) ""
+set proxy2(match) *
+set proxy2(exclude) "localhost* 127.0.0.* 172.* 192.168.* 10.*"
+
+set proxyconf(profile) Proxies
+set proxyconf(tunnel) {proxy1}
+set proxyconf(http) {proxy2}
+</pre>
+<p>which will instruct <em>Tkabber</em> to use these proxies for all connections.  If you need more complicated setup with several proxy profiles, read <a href="#s.postload-proxy">section 'The proxy module'</a> <cite title="NONE">[s.postload-proxy]</cite> below.  </p>
+<h1 id="rfc.section.4.3"><a href="#rfc.section.4.3">4.3.</a> <a href="#s.upgrading0.10.0" id="s.upgrading0.10.0">Upgrading from version 0.10.0</a></h1>
+<p id="rfc.section.4.3.p.1">When upgrading <em>Tkabber</em> from version 0.10.0 or earlier read <a href="#ss.upgrading0.11.1.plugins">the above section on plugins</a> <cite title="NONE">[ss.upgrading0.11.1.plugins]</cite> and also note that several configuration options and user interface elements have been changed.</p>
+<h1 id="rfc.section.4.3.1"><a href="#rfc.section.4.3.1">4.3.1.</a> <a href="#ss.upgrading0.10.0.conf" id="ss.upgrading0.10.0.conf">Configuration options</a></h1>
+<p id="rfc.section.4.3.1.p.1">There are notable changes in handling connection through proxy servers, managing fonts and balloon colors, and detecting breaks in underlying TCP connection to a server.</p>
+<h1 id="rfc.section.4.3.1.1"><a href="#rfc.section.4.3.1.1">4.3.1.1.</a> <a href="#ss.upgrading0.10.0.conf.proxy" id="ss.upgrading0.10.0.conf.proxy">Proxy servers</a></h1>
+<p id="rfc.section.4.3.1.1.p.1">Since SOCKS4 and SOCKS5 proxy types were implemented in addition to HTTP proxy type, the whole set of connection options regarding proxy servers has been changed. This means that after upgrade the old values stored using the Customize mechanism will be lost and the same values in <samp>loginconf</samp> arrays will not be recognized any longer.</p>
+<p id="rfc.section.4.3.1.1.p.2">To learn how to adapt your current proxy settins to the current <em>Tkabber</em> version, read <a href="#ss.upgrading0.11.1.conf">section above</a> <cite title="NONE">[ss.upgrading0.11.1.conf]</cite>, but remember that variables in the <samp>loginconf</samp> array mentioned there have been changed between 0.10.0 and 0.11.0. Use the map below as a reference which variable should actually be used: </p>
+
+<ul>
+  <li>Variable "httpproxy"in 0.10.0  became "proxyhost" in 0.11.0.</li>
+  <li>Variable "httpport" became "proxyport".</li>
+  <li>Variable "httplogin" became "proxyusername".</li>
+  <li>Variable "httppassword" became "proxypassword".</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.3.1.2"><a href="#rfc.section.4.3.1.2">4.3.1.2.</a> <a href="#ss.upgrading0.10.0.conf.fonts" id="ss.upgrading0.10.0.conf.fonts">Resources to control fonts</a></h1>
+<p id="rfc.section.4.3.1.2.p.1">Fonts handling has been partially reworked: the global variable <samp>font</samp> that controls chat and roster fonts has been removed and now <em>Tkabber</em> relies on <em>Tk</em> option database to manage these settings.  You can override roster and chat fonts independently of each other. To do that on systems not based on X Window use <em>Customize</em> options described below.</p>
+<p id="rfc.section.4.3.1.2.p.2">The main consequence of this change is that now the fonts are taken from <em>Tk</em> option database and if it contains sane values you don't need to touch anything (until the update you had to tweak the <samp>font</samp> variable because it was set to font "fixed" by default). The variable <samp>font</samp> does not have any special meaning starting from 0.11.0 release.</p>
+<p id="rfc.section.4.3.1.2.p.3">The second consequence is that you are now able to set fonts for chat and roster windows separately from each other using this list as a reference: </p>
+
+<ul>
+  <li><samp>*font</samp> <em>Tk</em> option database resource sets default font for all widgets used in <em>Tkabber</em>.</li>
+  <li><samp>*Chat*Text.font</samp> <em>Tk</em> option database resource can be used to override font used for chat windows. This resource can be overridden by the <samp>::ifacetk::options(font)</samp> option from the "Main Interface" group of <em>Customize</em> settings.</li>
+  <li><samp>*Roster*font</samp> <em>Tk</em> option database resource can be used to override font used for roster windows. This resource can be overridden by the <samp>::ifacetk::options(roster_font)</samp> option from the "Main Interface" group of <em>Customize</em> settings.</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.3.1.3"><a href="#rfc.section.4.3.1.3">4.3.1.3.</a> <a href="#ss.upgrading0.10.0.conf.kalive" id="ss.upgrading0.10.0.conf.kalive">Keep-alives and dead link detection</a></h1>
+<p id="rfc.section.4.3.1.3.p.1">Keep-alive mechanism that was used to keep NATP devices from disconnecting idle XMPP sessions was accompanied in 0.10.0 with "XMPP ping" mechanism which also implemented dead link detection with support for disconnecting upon detection of network outage.</p>
+<p id="rfc.section.4.3.1.3.p.2">In version 0.11.0, the old keep-alive mechanism has been dropped, so the following two global options have no effect now: </p>
+
+<ul>
+  <li>
+    <samp>keep_alive</samp>
+  </li>
+  <li>
+    <samp>keep_alive_interval</samp>
+  </li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.3.1.3.p.3">In order to get the same functionality, enable XMPP ping using these options in the "IQ" group of Customize settings: </p>
+
+<ul>
+  <li>Enabling <samp>::plugins::ping::options(ping)</samp> will make <em>Tkabber</em> periodically send xmpp:ping IQ request to the server.</li>
+  <li>Set <samp>::plugins::ping::options(timeout)</samp> option to a number of seconds <em>Tkabber</em> should wait for either a xmpp:ping reply or an error to arrive from the server; if there is no answer from the server during this timeout, the socket for this connection will be forcibly disconnected.</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.3.1.4"><a href="#rfc.section.4.3.1.4">4.3.1.4.</a> <a href="#ss.upgrading0.10.0.conf.ballons" id="ss.upgrading0.10.0.conf.ballons">Resources to control appearance of balloon windows</a></h1>
+<p id="rfc.section.4.3.1.4.p.1">Resources controlling the appearance of balloon windows have been made more generic. If you use custom <em>Tk</em> option database settings for balloon windows, change the relevant resources using this map: </p>
+
+<ul>
+  <li>Change references to <samp>*Balloon.background</samp> and <samp>*Balloon.foreground</samp> resources to <samp>*Balloon*background</samp> and <samp>*Balloon*foreground</samp>, respectively.</li>
+  <li>Change references to <samp>*Balloon*padX</samp> and <samp>*Balloon*padY</samp> resources to <samp>*Balloon.text.padX</samp> and <samp>*Balloon.text.padY</samp>, respectively.</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.3.1.5"><a href="#rfc.section.4.3.1.5">4.3.1.5.</a> <a href="#ss.upgrading0.10.0.conf.parser" id="ss.upgrading0.10.0.conf.parser">Support for external XML parser</a></h1>
+<p id="rfc.section.4.3.1.5.p.1">Support for <em>TclXML</em> as an external XML parser has been removed (since <em>TclXML</em> has anyway been unable to support partial XML processing) along with the global variable <samp>use_external_tclxml</samp> which controlled the loading of <em>TclXML</em>.</p>
+<p id="rfc.section.4.3.1.5.p.2">Now expat-based <em>Tcl</em> package <em>tDOM</em> is supported as an external XML parser. It is enabled by default if it is installed.</p>
+<h1 id="rfc.section.4.3.2"><a href="#rfc.section.4.3.2">4.3.2.</a> <a href="#ss.upgrading0.10.0.iface" id="ss.upgrading0.10.0.iface">User interface</a></h1>
+<p id="rfc.section.4.3.2.p.1">There are notable changes in systray mouse gestures, appearance of a main tabbed window, and in behavior of paned window splitters.</p>
+<h1 id="rfc.section.4.3.2.1"><a href="#rfc.section.4.3.2.1">4.3.2.1.</a> <a href="#ss.upgrading0.10.0.iface.tray" id="ss.upgrading0.10.0.iface.tray">System tray icon mouse gestures</a></h1>
+<p id="rfc.section.4.3.2.1.p.1">Mouse gestures bound to system tray (system notification area) icon have been reworked: </p>
+
+<ul>
+  <li>Single click on it with the left mouse button now unconditionally brings the main <em>Tkabber</em> window to front, possibly deiconifying it first.</li>
+  <li>Single click with the middle mouse button now unconditionally iconifies the main <em>Tkabber</em> window.</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.3.2.1.p.2">This differs from the previois behaviour where single click with the left mouse button on <em>Tkabber</em>'s system tray icon toggled the iconified/visible state of the main <em>Tkabber</em> window.</p>
+<h1 id="rfc.section.4.3.2.2"><a href="#rfc.section.4.3.2.2">4.3.2.2.</a> <a href="#ss.upgrading0.10.0.iface.tabs" id="ss.upgrading0.10.0.iface.tabs">New tab management widget</a></h1>
+<p id="rfc.section.4.3.2.2.p.1">The <em>notebook</em> widget which was used to render tabs in tabbed interface mode has been replaced with a new custom widget providing the ability for multi-row placement of tabs and docking them to the left or right sides of the chat window (in addition to top or bottom docking available in 0.10.0 version and earlier).</p>
+<p id="rfc.section.4.3.2.2.p.2">If you adjusted any specific <em>Tk</em> option database resources pertaining to that <em>notebook</em> widget, you have to change them keeping in mind that the new widget is just a bunch of <em>Tk</em> buttons (class <samp>Button</samp>) placed in a frame (called <samp>.nb</samp> as before). The class name for the new widget is <samp>ButtonBar</samp>.</p>
+<p id="rfc.section.4.3.2.2.p.3">So if you explicitly set, say <samp>*Notebook*font</samp> option, you have to change it to <samp>*ButtonBar*font</samp> and so on.</p>
+<h1 id="rfc.section.4.3.2.3"><a href="#rfc.section.4.3.2.3">4.3.2.3.</a> <a href="#ss.upgrading0.10.0.iface.splitters" id="ss.upgrading0.10.0.iface.splitters">Window splitters</a></h1>
+<p id="rfc.section.4.3.2.3.p.1">Window splitters (thin vertical and horizontal windows used to change relative sizes of windows between which a splitter is placed) have been changed to "Windows" style. This differs from previous "Motif" style which implemented explicit "grip box" on each splitter which was the only "active point" of a splitter.</p>
+<h1 id="rfc.section.4.4"><a href="#rfc.section.4.4">4.4.</a> <a href="#s.upgrading0.9.9" id="s.upgrading0.9.9">Upgrading from version 0.9.9</a></h1>
+<p id="rfc.section.4.4.p.1">When upgrading <em>Tkabber</em> from version 0.9.9 or earlier read <a href="#s.upgrading0.10.0">the above section</a> <cite title="NONE">[s.upgrading0.10.0]</cite> and also note the following: </p>
+
+<ul>
+  <li>On Macintosh or Microsoft Windows <em>Tkabber</em> will copy it's configuration directory to a new location (see <a href="#s.configuration">the next section</a> <cite title="NONE">[s.configuration]</cite> for details). If the transfer of the config directory goes smoothly you may delete old <samp>"~/.tkabber"</samp> directory and replace its name in your config file by <samp>$::configdir</samp>.</li>
+  <li>Also, <em>Tkabber</em> will convert chatlogs directory to a new format.</li>
+  <li>Also, <em>Tkabber</em> changed the way it works with emoticons. Instead of loading them in config file you may put you faivorite emoticons directory into <samp>$::configdir/plugins</samp> directory, restart Tkabber and then choose emoticons set using Customize GUI.</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.5"><a href="#rfc.section.5">5.</a> <a href="#s.configuration" id="s.configuration">Configuration</a></h1>
+<p><em>Tkabber</em> maintains its configuration using a set of files placed in a special configuration directory which location depends on the operating system <em>Tkabber</em> runs on. These locations are: </p>
+
+<ul>
+  <li>Unix systems: <samp>"~/.tkabber"</samp>; </li>
+  <li>Macintosh: <samp>"~/Library/Application Support/Tkabber"</samp>; </li>
+  <li>Under Microsoft Windows this location is governed by the policy of the particular flavor of this OS, but the general rule is that the <em>Tkabber</em> configuration directory is named <samp>"Tkabber"</samp> and is located in the special system folder for storing application-specific data.  For example, under Windows XP this will be something like <samp>"C:\Documents and Settings\USERNAME\Application Data\Tkabber"</samp>, where <samp>"USERNAME"</samp> is the login name of a particular operating system's user.  </li>
+</ul>
+
+<p> </p>
+<p><em>Tkabber</em> also honors the value of the <samp>"TKABBER_HOME"</samp> environment variable &#8212; if it exists the whole OS-based guessing of the configuration directory location is cancelled and the value of this environment variable is used instead.</p>
+<p id="rfc.section.5.p.3">Once the pathname of the <em>Tkabber</em> configuration directory is known, its value is assigned to the <samp>"configdir"</samp> global Tcl variable which can be accessed from within the main <em>Tkabber</em> configuration file (see below).</p>
+<p id="rfc.section.5.p.4">One of the first things that <em>Tkabber</em> does when it's starting up is reading a file located in its configuration directory under the name <samp>"config.tcl"</samp>.  This is a <em>Tcl</em> source file, so obviously, it's a lot easier to maintain this file if you know the Tcl programming language.  If you're not familiar with it, that's okay &#8212; most things you'll need to do are pretty simple! (In fact, if you don't have your own configuration file, you'll get the vanilla <em>Tkabber</em>, which hopefully you'll find quite usable.)</p>
+<p id="rfc.section.5.p.5">Note that almost all <em>Tkabber</em> options can be cofigured using graphical interface (menu Tkabber-&gt;Customize), so editing configuration file is not strictly necessary.</p>
+<p><em>Tkabber</em> is configured in four stages: </p>
+
+<ul>
+  <li>in the pre-load stage, configuration options which guide the loading process are set;</li>
+  <li>in the post-load stage, configuration options for each module are set;</li>
+  <li>in the menu-load stage, the user is given an option to re-arrange <em>Tkabber's</em> menu bar; and,</li>
+  <li>the final-load stage allows any last changes to be made before the "login" dialog window is displayed to the user.</li>
+</ul>
+
+<p> Let's look at each, in turn.</p>
+<h1 id="rfc.section.5.1"><a href="#rfc.section.5.1">5.1.</a> <a href="#s.preload" id="s.preload">Pre-load</a></h1>
+<p>There are a few things that you may let <em>Tkabber</em> know immediately.  These are:</p>
+<pre>
+# tabbed interface
+
+set ifacetk::options(use_tabbar) 1
+
+
+# primary look-and-feel
+
+set load_default_xrdb 1
+
+option add *font \
+       "-monotype-arial-medium-r-normal-*-13-*-*-*-*-*-iso10646-1" \
+       userDefault
+
+
+# cryptography by default
+
+set ssj::options(sign-traffic)    0
+set ssj::options(encrypt-traffic) 0
+
+
+# debugging output
+
+set debug_lvls {xmpp warning}
+
+
+# splash window
+
+set show_splash_window 0
+
+
+# force english labels instead of native language
+
+::msgcat::mclocale en
+
+# use mozilla firefox to open web urls in text
+
+set webbrowser "firefox -new-tab %s"
+</pre>
+<h1 id="rfc.section.5.1.1"><a href="#rfc.section.5.1.1">5.1.1.</a> <a href="#s.preload.tab" id="s.preload.tab">Tabbed Interface</a></h1>
+<p>The first of these options, <samp>ifacetk::options(use_tabbar)</samp>, tells <em>Tkabber</em> whether you want a tabbed interface or not.  If not, here's what to put in your configuration file:</p>
+<pre>
+set ifacetk::options(use_tabbar) 0
+</pre>
+<p>Although <em>Tkabber</em> immediately applies most of its configuration changes, in order to apply changed option <samp>ifacetk::options(use_tabbar)</samp> you have to restart <em>Tkabber</em>. So, basically you have two options: set <samp>ifacetk::options(use_tabbar)</samp> at the beginning of your configuration file, or using graphical interface save the option and restart <em>Tkabber</em>.</p>
+<h1 id="rfc.section.5.1.2"><a href="#rfc.section.5.1.2">5.1.2.</a> <a href="#s.preload-looknfeel" id="s.preload-looknfeel">Fonts and colors</a></h1>
+<p id="rfc.section.5.1.2.p.1">Many aspects of the <em>Tkabber</em>'s visual appearance such as fonts, colors and geometry of windows can be configured using the <a href="http://wiki.tcl.tk/1727">Tk option database.</a></p>
+<p id="rfc.section.5.1.2.p.2">The corresponding <em>Tk</em>'s <a href="http://www.tcl.tk/man/tcl8.6/TkCmd/option.htm">option</a> command can be used in the <em>Tkabber</em>'s configuration file in any acceptable way: from small tweaks to reading files containing elaborate sets of configuration commands; ready-to-use examples of such files are included in the distribution and are located under the "examples/xrdb" directory.</p>
+<p id="rfc.section.5.1.2.p.3">The <em>Tk</em> toolkit is able to initialize its option database from the <em>XRDB</em> (X Resource Database) if its availability is detected at run time.  This means that any settings described here can be tuned via the standard XRDB mechanism (see <samp>man xrdb</samp>).</p>
+<p id="rfc.section.5.1.2.p.4">Beware though that the <em>Tk</em>'s semantics of matching option specifications against the option database differ in some subtle details from that of the <em>Xt</em> toolkit.  The most notable one is the priority of options: <em>Tk</em> prefers the latest option it sees, while <em>Xt</em> prefers "the most specific" one.</p>
+<p id="rfc.section.5.1.2.p.5">When specifying <em>Tkabber</em>-specific options in your <em>XRDB</em> file use the "Tkabber" class as the root element of the options.</p>
+<p id="rfc.section.5.1.2.p.6">See <a href="#XRDB">Appendix B</a> for a list of all the resources that you can set to control <em>Tkabber's</em> look-and-feel.</p>
+<p>Probably the most commonly used way to configure <em>Tkabber</em>'s visual appearance (especially on Windows platforms which lack <em>XRDB</em> mechanism) is to put all the necessary settings in some file and then ask <em>Tk</em> to update its option database from it, like this: </p>
+<pre>
+    set load_default_xrdb 0
+    option readfile $::configdir/newlook.xrdb userDefault
+</pre>
+<p>The first line tells <em>Tkabber</em> not to load its default "xrdb" file, whilst the second line tells <em>Tkabber</em> which file to load instead. Look at the provided example "xrdb" files to get the idea about how they are organised. Of course, you can use any of that files as a template. And of course, you can simply specify any of the example files instead of your own to the <samp>option readfile</samp> command to get the provided "theme".  </p>
+<p>Alternatively, if you're a Tcl "old timer", you can always do: </p>
+<pre>
+    set load_default_xrdb 0
+    tk_bisque
+</pre>
+<p>to set the palette to a pleasing color scheme.  Read more about this in <samp>man palette</samp>.  </p>
+<p>You can also customize the fonts <em>Tkabber</em> uses to render its user interface: </p>
+<pre>
+    option add *font \
+        "-monotype-arial-medium-r-normal-*-13-*-*-*-*-*-iso10646-1" \
+        userDefault
+</pre>
+<p>The above setting (operating on the Tk option database) selects the font used for all UI elements like buttons and labels and roster and conversation windows.  Obviously, you should choose fonts that suit your taste.  </p>
+<p>If you want to specify another font for roster labels use the following option: </p>
+<pre>
+    option add *Roster*font \
+           "-misc-fixed-medium-r-normal-*-12-*-*-*-*-*-iso10646-1" \
+           userDefault
+</pre>
+<p id="rfc.section.5.1.2.p.7">When picking fonts, observe these rules: <em>Tkabber</em>'s configuration files (i.e. not using <em>XRDB</em> directly) you are not forced to use "X-style" (XLFD) font descriptions and may instead specify fonts using sometimes more convenient <em>Tk</em> features described in <a href="http://tcl.tk/man/tcl8.6/TkCmd/font.htm#M13">Tk font manual page</a>.</p>
+
+<ul>
+  <li>Under X, encoding (charset) of fonts must match that of your locale.</li>
+  <li>Ensure that the specified font exists, since if it's not, <em>Tk</em> will try hard to pick the most suitable one which often yields not what you want. (The best bet is to first pick the font using some tool like <samp>xfontsel</samp>.)</li>
+</ul>
+
+<p> Note that when specifying settings using the </p>
+<h1 id="rfc.section.5.1.3"><a href="#rfc.section.5.1.3">5.1.3.</a> <a href="#s.preload-crypto" id="s.preload-crypto">Cryptography by default</a></h1>
+<p id="rfc.section.5.1.3.p.1">Next, you may want to <em>Tkabber</em> to use cryptography by default.  There are two options: <em>Tkabber</em> will complain immediately if it isn't able to load its cryptographic module; otherwise, the default behavior is to proceed without any cryptographic buttons, menus, and so on.)</p>
+
+<ul>
+  <li>whether the traffic you send should be digitally-signed; and,</li>
+  <li>if you have cryptographic information for someone, should the default action be to encipher your traffic for them.</li>
+</ul>
+
+<p> (By defining these options early on, </p>
+<h1 id="rfc.section.5.1.4"><a href="#rfc.section.5.1.4">5.1.4.</a> <a href="#s.preload-debugoutput" id="s.preload-debugoutput">Debugging Output</a></h1>
+<p><em>Tkabber</em> has a lot of debugging output.  By default, it gets printed to the standard output by a Tcl procedure called <samp>debugmsg</samp> (if there's standard output available). However, only information about those modules listed in a variable called <samp>debug_lvls</samp> will be printed.</p>
+<p>If you know how to program Tcl, then this will seem rather obvious:</p>
+<pre>
+set debug_lvls [list message presence ssj warning]
+
+# if you want a different behavior,
+#     define your own...
+
+proc debugmsg {module msg} {
+#    ...
+}
+</pre>
+<p>Most users won't care about <samp>debugmsg</samp> because they're running <em>Tkabber</em> under an application launcher so the standard output is never seen.  However, if this isn't the case for you, and you just don't want to see any of this stuff, put this one line in your configuration file:</p>
+<pre>
+set debug_lvls {}
+</pre>
+<h1 id="rfc.section.5.1.5"><a href="#rfc.section.5.1.5">5.1.5.</a> <a href="#s.preload-splashwindow" id="s.preload-splashwindow">Splash window</a></h1>
+<p>By default, when <em>Tkabber</em> startup, it show loading process in splash window.  To disable this feature, put this in your configuration file: </p>
+<pre>
+set show_splash_window 0
+</pre>
+<h1 id="rfc.section.5.1.6"><a href="#rfc.section.5.1.6">5.1.6.</a> <a href="#s.preload-internation" id="s.preload-internation">I18n/L10n</a></h1>
+<p><em>Tkabber</em> can show all messages in user's native language.  This is done by using Tcl's built-in <em>msgcat</em> package which looks for a directory called <samp>msgs/</samp> wherever you installed <em>Tkabber</em>, and then uses the <samp>LC_MESSAGES</samp> environment variable (or <samp>LANG</samp> if <samp>LC_MESSAGES</samp> not set) to select the appropriate file.  If you wish, you can force use of a particular language by putting a line like this in your configuration file: </p>
+<pre>
+::msgcat::mclocale en
+</pre>
+<h1 id="rfc.section.5.1.7"><a href="#rfc.section.5.1.7">5.1.7.</a> <a href="#s.preload-webbrowser" id="s.preload-webbrowser">Browse URL</a></h1>
+<p><em>Tkabber</em> executes a browser when you click on a URL in chat windows, or in user info window, or in headlines window etc. It uses some heuristics to find which browsers are installed in the system and invokes the first browser it finds.</p>
+<p>If <em>Tkabber</em>'s decision on which browser to use is suboptimal to you, or if you want to add some options to the browser command line (open URL in a new tab, or in a new window etc.) you may set the varable <samp>webbrowser</samp> like the following: </p>
+<pre>
+set webbrowser "firefox -new-tab %s"
+</pre>
+<p>Note, that the <samp>%s</samp> in the string (it doesn't have to be at the end) will be replaced by an actual URL when the command will be run. Also, if your favorite browser's path contains spaces, enclose it in braces.  </p>
+<p id="rfc.section.5.1.7.p.2">The following figures shows some examples of setting this variable</p>
+<p>for Windows: </p>
+<pre>
+set webbrowser "{C:/Program Files/Opera/opera.exe} %s"
+
+set webbrowser \
+    "{C:/Program Files/Mozilla Firefox/firefox.exe} -new-window %s"
+
+set webbrowser "{C:/Program Files/Internet Explorer/iexplore.exe} %s"
+</pre>
+<p>for Unix: </p>
+<pre>
+set webbrowser "iceweasel -new-tab %s"
+
+set webbrowser "chromium-browser %s"
+</pre>
+<h1 id="rfc.section.5.1.8"><a href="#rfc.section.5.1.8">5.1.8.</a> <a href="#s.preload-searching" id="s.preload-searching">Searching</a></h1>
+<p><em>Tkabber</em> allows the user to perform textual searching in certain classes of its windows. This searching is controlled by several settings which can be specified in this section.</p>
+<p id="rfc.section.5.1.8.p.2">These settings are described in detail in <a href="#s.ui-searching">Section 7.1</a>.</p>
+<h1 id="rfc.section.5.2"><a href="#rfc.section.5.2">5.2.</a> <a href="#s.postload" id="s.postload">Post-load</a></h1>
+<p id="rfc.section.5.2.p.1">After <em>Tkabber</em> reads your configuration file, it loads all of its own modules, it then invokes a procedure called <samp>postload</samp>.  This procedure is supposed to perform module-specific configuration.</p>
+<p>The default version of this procedure doesn't do anything.  If you want to configure one more module modules, then you need to define the procedure in your configuration file, e.g.,</p>
+<pre>
+proc postload {} {
+# look-and-feel
+
+    set pixmaps::options(pixmaps_theme) Default
+
+    global alert colors alert_lvls
+
+    set alert_lvls(error)        1
+    set alert_lvls(server)       1
+    set alert_lvls(message)      2
+    set alert_lvls(mesg_to_user) 3
+    set alert_colors             {Black DarkBlue Blue Red}
+
+    set ifacetk::options(raise_new_tab) 1
+
+# tray icon
+
+    set ::plugins::tktray::options(enable) 1
+
+# the autoaway module
+
+    set plugins::autoaway::options(awaytime)  5
+    set plugins::autoaway::options(xatime)   15
+    set plugins::autoaway::options(status) \
+        "Automatically away due to idle"
+    set plugins::autoaway::options(drop_priority) 1
+
+
+# the avatar module
+
+    set avatar::options(announce) 0
+    set avatar::options(share)    0
+
+
+# the chat module
+
+    set chat::options(stop_scroll)          0
+    set plugins::options(timestamp_format)  {[%R]}
+
+
+# the clientinfo module
+
+    set plugins::clientinfo::options(autoask) 0
+
+
+# the conferenceinfo module
+
+    set plugins::conferenceinfo::options(autoask)        0
+    set plugins::conferenceinfo::options(interval)       1
+    set plugins::conferenceinfo::options(err_interval)  60
+
+
+# the cryptographic module
+
+    set ssj::options(encrypt,fred@example.com) 1
+
+
+# the emoticon module
+
+    set plugins::emoticons::options(theme) \
+                $::configdir/emoticons/rythmbox
+
+
+# the file transfer module
+
+    set ft::options(download_dir) "/tmp"
+
+
+# the groupchat module
+
+    global gra_group gra_server
+    global gr_nick gr_group gr_server
+    global defaultnick
+
+    set defaultnick(adhoc@conference.example.com) publius
+    set defaultnick(*@conference.example.com) cicerone
+
+
+# the ispell module
+
+    set plugins::ispell::options(enable)              1
+    set plugins::ispell::options(executable)          /usr/bin/hunspell
+    set plugins::ispell::options(command_line)        -d ru_RU,en_US
+    set plugins::ispell::options(dictionary_encoding) ""
+    set plugins::ispell::options(check_every_symbol)  0
+
+# the stream initiation module
+
+    set si::transport(allowed,http://jabber.org/protocol/bytestreams) 0
+    set si::transport(allowed,http://jabber.org/protocol/ibb) 1
+
+
+# the logger module
+
+    set logger::options(logdir)        [file join $::configdir logs]
+    set logger::options(log_chat)      1
+    set logger::options(log_groupchat) 1
+
+# the proxy module
+
+    global proxy1 proxy2 proxy3 proxyconf1 proxyconf2 proxyconf
+
+    set proxy1(type)     https
+    set proxy1(host)     proxy.example.com
+    set proxy1(port)     3128
+    set proxy1(username) ""
+    set proxy1(password) ""
+    set proxy1(match)    *
+    set proxy1(exclude)  "localhost* 127.0.0.* 172.* 192.168.* 10.*"
+
+    set proxy2(type)     http
+    set proxy2(host)     proxy.example.com
+    set proxy2(port)     3128
+    set proxy2(username) ""
+    set proxy2(password) ""
+    set proxy2(match)    *
+    set proxy2(exclude)  "localhost* 127.0.0.* 172.* 192.168.* 10.*"
+
+    set proxy3(type)     socks5
+    set proxy3(host)     proxy.example.com
+    set proxy3(port)     1080
+    set proxy3(username) ""
+    set proxy3(password) ""
+    set proxy3(match)    *
+    set proxy3(exclude)  "localhost* 127.0.0.* 172.* 192.168.* 10.*"
+
+    set proxyconf1(profile) Home
+    set proxyconf1(tunnel)  {}
+    set proxyconf1(http)    {}
+
+    set proxyconf2(profile) Work
+    set proxyconf2(tunnel)  {proxy1 proxy3}
+    set proxyconf2(http)    {proxy2}
+
+    array set proxyconf [array get proxyconf2]
+
+# the login module
+
+    global loginconf loginconf1 loginconf2 autologin
+
+    set loginconf(user)           ""
+    set loginconf(password)       ""
+    set loginconf(server)         example.com
+    set loginconf(resource)       tkabber
+    set loginconf(priority)       16
+    set loginconf(usealtserver)   0
+    set loginconf(altserver)      ""
+    set loginconf(altport)        5422
+    set loginconf(stream_options) plaintext
+    set loginconf(usesasl)        1
+    set loginconf(allowauthplain) 0
+
+    # The following variables are useful when your jabber-server
+    # (example.com) does not have SRV or A-record in DNS
+    set loginconf(usealtserver)  1
+    set loginconf(altserver)     "jabber.example.com"
+
+    set loginconf1(profile)      "Default Account"
+    set loginconf1(user)         mrose
+
+    set loginconf2(profile)      "Test Account"
+    set loginconf2(user)         test
+
+    array set loginconf          [array get loginconf1]
+
+    set autologin 0
+
+
+# the message module
+
+    set message::options(headlines,cache)    1
+    set message::options(headlines,multiple) 1
+
+
+# the raw xml input module
+
+    set plugins::rawxml::set options(pretty_print) 0
+    set plugins::rawxml::set options(indent)       2
+
+
+# the roster module
+
+    set roster::show_only_online            1
+    set roster::roster(collapsed,RSS)       1
+    set roster::roster(collapsed,Undefined) 1
+
+    set roster::aliases(friend@some.host) \
+        {friend@other.host friend@another.host}
+    set roster::use_aliases                 1
+
+
+# the sound module
+
+    set sound::options(mute)                   0
+    set sound::options(mute_if_focus)          0
+    set sound::options(notify_online)          0
+    set sound::options(mute_groupchat_delayed) 1
+    set sound::options(mute_chat_delayed)      0
+    set sound::options(external_play_program) /usr/bin/aplay
+    set sound::options(external_play_program_options) -q
+    set sound::options(delay)
+
+    set sound::options(connected_sound)                     ""
+    set sound::options(presence_available_sound)            ""
+    set sound::options(presence_unavailable_sound)          ""
+    set sound::options(groupchat_server_message_sound)      ""
+    set sound::options(groupchat_their_message_to_me_sound) ""
+}
+</pre>
+<p>This isn't nearly as complicated as it seems.  Let's break it down by individual module</p>
+<h1 id="rfc.section.5.2.1"><a href="#rfc.section.5.2.1">5.2.1.</a> <a href="#s.postload-looknfeel" id="s.postload-looknfeel">Look-and-Feel</a></h1>
+<p><em>Tkabber</em> is shameless in borrowing icons from other Jabber clients.  By setting <samp>pixmaps::options(pixmaps_theme)</samp>, you can select a family of related icons.  Besides <samp>"Default"</samp>, you can choose one of <samp>"Gabber"</samp>, <samp>"JAJC"</samp>, <samp>"Jarl"</samp>, <samp>"Psi"</samp>, <samp>"ICQ"</samp>, or a few other themes.  </p>
+<p id="rfc.section.5.2.1.p.2">If you want, you can have <em>Tkabber</em> use a different theme by putting custom theme subdirectory to <samp>$::configdir/pixmaps/</samp> directory (tilde means home directory). <em>Tkabber</em> knows that it is a theme directory by looking for <samp>icondef.xml</samp> file in the directory.  To find out the structure of icon definition file, look through <em>XEP-0038</em> and go to where you installed <em>Tkabber</em> and take a look at the directory called <samp>"pixmaps/default/"</samp>.</p>
+<p id="rfc.section.5.2.1.p.3">If you're using the tabbed window interface, <em>Tkabber</em> needs a way of telling you that something has changed in a window that's not on top.  This is where the an array called <em>alert_lvls</em> and a list called <em>alert_colors</em> come in.  The array maps an incoming message to a priority number from zero to three.  The list, which is indexed starting at <em>zero</em>, indicates what color the tab should use to let you know that something's changed.  So, the way to read the example is that receiving: </p>
+
+<ul>
+  <li>an error or server message will cause the tab of a lowered window to go dark blue; </li>
+  <li>a groupchat or headline message will cause the tab to go blue; and, </li>
+  <li>a chat message addressed directly to you will cause the tab to go red.  </li>
+</ul>
+
+<p> </p>
+<p>By default, whenever a new tab is created, it is automatically raised.  If you don't like this behavior, add this line: </p>
+<pre>set ifacetk::options(raise_new_tab) 0</pre>
+<h1 id="rfc.section.5.2.2"><a href="#rfc.section.5.2.2">5.2.2.</a> <a href="#s.postload-tktray" id="s.postload-tktray">The system tray icon (for Unix)</a></h1>
+<p id="rfc.section.5.2.2.p.1">This module is presently available only for Unix</p>
+<p id="rfc.section.5.2.2.p.2">To enable the system tray icon you have to install <em>tktray</em> extension and set the config variable <samp>plugins::tktray::options(enable)</samp> to 1.</p>
+<p id="rfc.section.5.2.2.p.3">If you want to control the tray icon appearance and/or position, consult the documentation for your desktop environment or window manager. Note, that the Tkabber's tray icon has WM class <em>TkabberIcon</em>.</p>
+<h1 id="rfc.section.5.2.3"><a href="#rfc.section.5.2.3">5.2.3.</a> <a href="#s.postload-autoaway" id="s.postload-autoaway">The Autoaway Module</a></h1>
+<p id="rfc.section.5.2.3.p.1">There are two variables that control when <em>Tkabber</em> automatically marks you as away: <samp>plugins::autoaway::options(awaytime)</samp> and <samp>plugins::autoaway::options(xatime)</samp>.  Both define the idle threshold in minutes (the number does not have to be integer).</p>
+<p id="rfc.section.5.2.3.p.2">If variable <samp>plugins::autoaway::options(drop_priority)</samp> is set in 1 then <em>Tkabber</em> will set priority to 0 when moving in extended away state.</p>
+<p id="rfc.section.5.2.3.p.3">Variable <samp>plugins::autoaway::options(status)</samp> allows to specify text status, which is set when <em>Tkabber</em> is moving in away state.</p>
+<h1 id="rfc.section.5.2.4"><a href="#rfc.section.5.2.4">5.2.4.</a> <a href="#s.postload-avatar" id="s.postload-avatar">The Avatar Module</a></h1>
+<p id="rfc.section.5.2.4.p.1">There are two variables that you can set to control whether <em>Tkabber</em> will allow others to see your avatar: </p>
+
+<ul>
+  <li><samp>avatar::options(announce)</samp> determines whether your presence information indicates that you have an avatar; and,</li>
+  <li><samp>avatar::options(share)</samp> determines whether requests for your avatar will be honored.</li>
+</ul>
+<h1 id="rfc.section.5.2.5"><a href="#rfc.section.5.2.5">5.2.5.</a> <a href="#s.postload-chat" id="s.postload-chat">The Chat Module</a></h1>
+<p id="rfc.section.5.2.5.p.1">The variable named <samp>chat::options(stop_scroll)</samp> determines whether a chat window should automatically scroll down to the bottom whenever something new comes in.</p>
+<p>You can also set format of time stamp that displayed in beginning of each chat message.  Refer to <em>Tcl</em> documentation for description of format.  E.g., to display it in <samp>"dd:mm:ss"</samp> format, add this line: </p>
+<pre>
+set plugins::options(timestamp_format) {[%T]}
+</pre>
+<h1 id="rfc.section.5.2.6"><a href="#rfc.section.5.2.6">5.2.6.</a> <a href="#s.postload-clientinfo" id="s.postload-clientinfo">The Clientinfo Module</a></h1>
+<p>This module shows in popup balloons information of used by this user client name, version, and OS.  You can allow or deny automatic asking of this info from users by setting this variable to 1 or 0: </p>
+<pre>set plugins::clientinfo::options(autoask) 1</pre>
+<h1 id="rfc.section.5.2.7"><a href="#rfc.section.5.2.7">5.2.7.</a> <a href="#s.postload-confinfo" id="s.postload-confinfo">The Conferenceinfo Module</a></h1>
+<p>After you join a conference that's listed in your roster, then whenever you mouse over that roster entry, you'll see a popup listing the conference's participants.  If you want to see this popup, regardless of whether you are currently joined with the conference, add this line to your post-load: </p>
+<pre>set plugins::conferenceinfo::options(autoask) 1</pre>
+<p>You can also set interval between these requests with these two variables: </p>
+<pre>
+set plugins::conferenceinfo::options(interval)       1
+set plugins::conferenceinfo::options(err_interval)  60
+</pre>
+<p>The second variable defines how many minutes to wait after receiving an error reply before trying again.  (Usually an error reply indicates that the server hosting the conference doesn't support browsing, so it makes sense not to try that often.  </p>
+<h1 id="rfc.section.5.2.8"><a href="#rfc.section.5.2.8">5.2.8.</a> <a href="#s.postload-crypto" id="s.postload-crypto">The Cryptographic Module</a></h1>
+<p><a href="#s.preload">Earlier</a> <cite title="NONE">[s.preload]</cite> we saw an example where the <samp>ssj::options</samp> array from the cryptographic module was set during the preload.</p>
+<p>In addition to <samp>signed-traffic</samp> and <samp>encrypt-traffic</samp>, you can also tell <em>Tkabber</em> whether to encrypt for a particular JID, e.g.,</p>
+<pre>
+    set ssj::options(encrypt,fred@example.com) 1
+</pre>
+<h1 id="rfc.section.5.2.9"><a href="#rfc.section.5.2.9">5.2.9.</a> <a href="#s.postload-emoti" id="s.postload-emoti">The Emoticons Module</a></h1>
+<p id="rfc.section.5.2.9.p.1">The procedure called <em>plugins::emoticons::load_dir</em> is used to load emoticon definitions from a directory.  The directory contains a file called <samp>"icondef.xml"</samp>, which defines the mapping between each image and its textual emoticon (To find out what this file looks like, go to where you installed <em>Tkabber</em> and take a look at the file called <samp>"emoticons/default/icondef.xml"</samp> or read <a href="http://www.xmpp.org/extensions/xep-0038.html">XEP-0038</a>.) </p>
+<p>If you have just a few icons, and you don't want to create a directory and a textual mapping, you can use the procedure called <samp>plugins::emoticons::add</samp>, e.g.,</p>
+<pre>
+    plugins::emoticons::add ":beer:" \
+        [image create photo -file $::configdir/emoticons/beer.gif]
+</pre>
+<p>If you want to disable all emoticons, you can simply load empty directory.  Put in postload function</p>
+<pre>
+    plugins::emoticons::load_dir ""
+</pre>
+<h1 id="rfc.section.5.2.10"><a href="#rfc.section.5.2.10">5.2.10.</a> <a href="#s.postload-filexfer" id="s.postload-filexfer">The File Transfer Module</a></h1>
+<p>You can set directory in which files will be saved by default: </p>
+<pre>
+    set ft::options(download_dir) "/tmp"
+</pre>
+<h1 id="rfc.section.5.2.11"><a href="#rfc.section.5.2.11">5.2.11.</a> <a href="#s.postload-groupchat" id="s.postload-groupchat">The Groupchat Module</a></h1>
+<p id="rfc.section.5.2.11.p.1">There are several variables that set the dialog window defaults for adding a groupchat to your roster, or joining a groupchat: <samp>gra_server</samp>, <samp>gr_nick</samp> and <samp>gr_server</samp> overriden in login procedure, so better place for changing them is in <samp>connected_hook</samp> (see below).  </p>
+
+<dl>
+  <dt>add to roster dialog window:</dt>
+  <dd style="margin-left: 8"><samp>gra_group</samp> and <samp>gra_server</samp> specify the default room and conference server, repectively; and, </dd>
+  <dt>join dialog window:</dt>
+  <dd style="margin-left: 8"><samp>gr_nick</samp>, <samp>gr_group</samp> and <samp>gr_server</samp> specify the default nickname, room, and conference server, respectively.  </dd>
+</dl>
+
+<p> Note that variables </p>
+<p>You may want to have different nicknames for different groupchats.  Accordingly, the array called <em>defaultnick</em> is used to set the default nickname for when you enter a conference.  The array is indexed by the JID of the room, e.g.,</p>
+<pre>
+    set defaultnick(adhoc@conference.example.com) publius
+</pre>
+<p>Another possibility is to put pattern in parentheses. The following example shows how to specify default nickname for all conferences at <em>conference.example.com</em>: </p>
+<pre>
+    set defaultnick(*@conference.example.com) ciceroni
+</pre>
+<p>Exact JID's take the higher precedence than patterns.  </p>
+<h1 id="rfc.section.5.2.12"><a href="#rfc.section.5.2.12">5.2.12.</a> <a href="#s.postload-ispell" id="s.postload-ispell">The Ispell Module</a></h1>
+<p>On Unix, <em>Tkabber</em> can check spelling of what you entered by calling an external program <em>ispell</em>.  To enable this feature, add following lines to postload function: </p>
+<pre>
+set plugins::ispell::options(enable) 1
+</pre>
+<p id="rfc.section.5.2.12.p.1">If you enabled this module, then you can also define: <samp>plugins::ispell::options(check_every_symbol)</samp> to 1 to check correctness of current word after every entered symbol.  (Usually you don't need to set this option.) </p>
+
+<ul>
+  <li>the path to the <em>ispell</em>, or <em>aspell</em>, or <em>hunspell</em> executable by setting <samp>plugins::ispell::options(executable)</samp></li>
+  <li>the <em>ispell</em> command line options, which can specify dictionaries to use, by setting <samp>plugins::ispell::options(command_line)</samp>; and,</li>
+  <li>the encoding of the output by setting <samp>plugins::ispell::options(dictionary_encoding)</samp>.</li>
+</ul>
+
+<p> If you don't care about putting a large load on your process, then you can also set </p>
+<h1 id="rfc.section.5.2.13"><a href="#rfc.section.5.2.13">5.2.13.</a> <a href="#s.postload-si" id="s.postload-si">The Stream Initiation Module</a></h1>
+<p id="rfc.section.5.2.13.p.1">Stream initiation profile is defined in <em>XEP-0095</em> with two transports (<em>XEP-0047</em> - IBB, <em>XEP-0065</em> - SOCKS5 bytestreams).  With it you can specify what transports you can use, and via negotiation choose more appropriate one.  <em>Tkabber</em> comes with two transport implementations: </p>
+
+<dl>
+  <dt>bytestreams:</dt>
+  <dd style="margin-left: 8">that allows you to connect to any node that supports <samp>bytestreams</samp> transport (mediated connection is not supported yet);</dd>
+  <dt>ibb:</dt>
+  <dd style="margin-left: 8">that uses your <samp>Jabber</samp> connection to transmit the data (which may slowdown other traffic to you).  </dd>
+</dl>
+
+<p> </p>
+<p>If your machine is behind a NAT, then you can't use the <samp>bytestreams</samp> transport, so you should disable it: </p>
+<pre>
+    set si::transport(allowed,http://jabber.org/protocol/bytestreams) 0
+</pre>
+<h1 id="rfc.section.5.2.14"><a href="#rfc.section.5.2.14">5.2.14.</a> <a href="#s.postload-log" id="s.postload-log">The Logger Module</a></h1>
+<p>You can set directory to store logs: </p>
+<pre>
+    set logger::options(logdir) [file join $::configdir logs]
+</pre>
+<p>Also you can allow or disallow storing of private and group chats logs: </p>
+<pre>
+    set logger::options(log_chat)      1
+    set logger::options(log_groupchat) 1
+</pre>
+<h1 id="rfc.section.5.2.15"><a href="#rfc.section.5.2.15">5.2.15.</a> <a href="#s.postload-proxy" id="s.postload-proxy">The Proxy Module</a></h1>
+<p id="rfc.section.5.2.15.p.1">Starting from version 1.0 <em>Tkabber</em> does not keep proxy settings in the <samp>loginconf</samp> array. It uses proxy profiles defined in separate arrays.</p>
+<p>First, you may want to specify a set of proxy servers. You can have multiple proxy servers defined in the config file (to use in different environments, or if in your company different proxies are used to connect to different hosts).  To do so, define global arrays (their names could be arbitrary, but <samp>proxy&lt;number&gt;</samp> looks natural):</p>
+<pre>
+    set proxy1(type)     https
+    set proxy1(host)     proxy.example.com
+    set proxy1(port)     3128
+    set proxy1(username) ""
+    set proxy1(password) ""
+    set proxy1(match)    *
+    set proxy1(exclude)  "localhost* 127.0.0.* 172.* 192.168.* 10.*"
+
+    set proxy2(type)     http
+    set proxy2(host)     proxy.example.com
+    set proxy2(port)     3128
+    set proxy2(username) ""
+    set proxy2(password) ""
+    set proxy2(match)    *
+    set proxy2(exclude)  "localhost* 127.0.0.* 172.* 192.168.* 10.*"
+
+    set proxy3(type)     socks5
+    set proxy3(host)     proxy.example.com
+    set proxy3(port)     1080
+    set proxy3(username) ""
+    set proxy3(password) ""
+    set proxy3(match)    *
+    set proxy3(exclude)  "localhost* 127.0.0.* 172.* 192.168.* 10.*"
+</pre>
+<p>Field <samp>type</samp> is one of the following: <em>"socks4"</em>, <em>"socks5"</em>, <em>"https"</em>, <em>"http"</em>. The firat three types are tunnelling proxies. If you enable them, <em>Tkabber</em> will use them to tunnel its TCP connections (in case of <em>"https"</em> this means using <em>CONNECT</em> method for HTTP proxy).  The other one is used when <em>Tkabber</em> needs to fetch some data via <em>GET</em> or <em>POST</em> method of the HTTP protocol (e.g., when utilizing BOSH or HTTP-poll connection).  </p>
+<p id="rfc.section.5.2.15.p.2">Fields <samp>host</samp>, <samp>port</samp>, <samp>username</samp> and <samp>password</samp> are selfexplanatory.</p>
+<p id="rfc.section.5.2.15.p.3">There are two fields which need some explanation: <samp>match</samp> and <samp>exclude</samp>. When Tkabber needs to connect to a certain <em>host</em> or to get an HTTP document it searches proxies in order they appear in the corresponding proxyconf list (see below) and uses the first proxy for which the <em>host</em> matches one of the patterns from the <samp>match</samp> field but doesn't match any of the patterns from the <samp>exclude</samp> field. The matching uses patterns convention from the <samp>string match</samp> <em>Tcl</em> command.</p>
+<p>Second, you may want to define proxy profiles, and switch between them when the environment changes (it's useful for portable computers). To do so, you may define global arrays named <samp>proxyconf&lt;number&gt;</samp> where numbers must start from 1 and be consecutive, otherwise <em>Tkabber</em> GUI wouldn't be able to switch to them: </p>
+<pre>
+    set proxyconf1(profile) Home
+    set proxyconf1(tunnel)  {}
+    set proxyconf1(http)    {}
+
+    set proxyconf2(profile) Work
+    set proxyconf2(tunnel)  {proxy1 proxy3}
+    set proxyconf2(http)    {proxy2}
+
+    array set proxyconf [array get proxyconf2]
+</pre>
+<p>Here, two proxy profiles are defined. The first one instructs <em>Tkabber</em> not to use any proxies and directly connect to any host. The second one defines two tunnel proxies and one HTTP proxy. Note that HTTPS and HTTP proxy are the same, but they should appear in both <samp>tunnel</samp> and <samp>http</samp> fields anyway. The last line chooses the default proxy profile, which is <em>Work</em> in the example above.  </p>
+<p id="rfc.section.5.2.15.p.4">Also, you can edit proxy settings using <em>Tkabber</em> GUI under <em>Tkabber-&gt;Manage proxy servers</em> menu item.</p>
+<h1 id="rfc.section.5.2.16"><a href="#rfc.section.5.2.16">5.2.16.</a> <a href="#s.postload-login" id="s.postload-login">The Login Module</a></h1>
+<p id="rfc.section.5.2.16.p.1">The first task is to initialize the configuration defaults for the <em>login</em> module.  As you can see above, the global array <samp>loginconf</samp> has a whole bunch of elements, e.g., <samp>user</samp>, <samp>password</samp>, and so on.</p>
+<p id="rfc.section.5.2.16.p.2">Elements <samp>loginconf(user)</samp> and <samp>loginconf(password)</samp>specify username and password to authenticate at your <em>Jabber</em> server.</p>
+<p id="rfc.section.5.2.16.p.3">Element <samp>loginconf(server)</samp> must be set to <em>Jabber</em> server name (the part of you <em>JID</em> after <samp>@</samp>.</p>
+<p id="rfc.section.5.2.16.p.4">Element <samp>loginconf(stream_options)</samp> is set to one of the following values: </p>
+
+<ul>
+  <li>plaintext &#8212; use plaintext connection;</li>
+  <li>encrypted &#8212; use encrypted (via STARTTLS mechanism) connection (this option requires tls extension to be installed);</li>
+  <li>ssl &#8212; use encrypted (via legacy SSL mechanism) connection (this option requires tls extension to be installed);</li>
+  <li>compressed &#8212; use compressed connection (this option requires Ztcl extension to be installed).</li>
+</ul>
+<p><em>Tkabber</em> tries to resolve <em>Jabber</em> server name using <em>SRV</em> first and usual <em>A</em> records in <em>DNS</em>.  If the resolution fails (for example if you are in LAN environment without <em>DNS</em>) you can force <em>Tkabber</em> to connect to the server using <samp>loginconf(altserver)</samp> and <samp>loginconf(altport)</samp> options (do not forget to set <samp>loginconf(usealtserver)</samp> to <samp>1</samp>).</p>
+<p id="rfc.section.5.2.16.p.6">Another option is to use <em>BOSH</em> (XEP-0124 and XEP-0206) connect method (if your server supports it) and tunnel <em>XMPP</em> traffic through <em>HTTP</em>.  To enable <em>BOSH</em> set <samp>loginconf(usebosh)</samp> to <samp>1</samp>. <em>Tkabber</em> then tries to find connect <em>URL</em> using <em>TXT</em> record in <em>DNS</em> (see XEP-0156).  You can specify <em>URL</em> manually by setting <samp>loginconf(boshurl)</samp>.</p>
+<p id="rfc.section.5.2.16.p.7">And another option is to use <em>HTTP</em>-polling connect method (if your server supports it) and tunnel <em>XMPP</em> traffic through <em>HTTP</em>.  To enable <em>HTTP</em>-polling set <samp>loginconf(usehttppoll)</samp> to <samp>1</samp>. <em>Tkabber</em> then tries to find connect <em>URL</em> using <em>TXT</em> record in <em>DNS</em> (see XEP-0156).  You can specify <em>URL</em> manually by setting <samp>loginconf(pollurl)</samp>.</p>
+<p id="rfc.section.5.2.16.p.8">This collection of elements, which is termed a login profile, is what populates the dialog window you'll see when <em>Tkabber</em> wants to connect to the server.</p>
+<p id="rfc.section.5.2.16.p.9">It turns out that <em>Tkabber</em> lets you have as many different login profiles as you want.  If you want more than just one, they're named <samp>loginconf1</samp>, <samp>loginconf2</samp>, and so on.</p>
+<p id="rfc.section.5.2.16.p.10">What the example above shows is the default values for all profiles being set in <samp>loginconf</samp>, and then two profiles, one called <samp>"Default Account"</samp> and the other called <samp>"Test Account"</samp> being created.</p>
+<p id="rfc.section.5.2.16.p.11">If you want to automatically login to server, then you can set the <samp>autologin</samp> variable to <samp>1</samp>.  </p>
+<p id="rfc.section.5.2.16.p.12">If you set the <samp>autologin</samp> variable to <samp>-1</samp>, then <em>Tkabber</em> will not automatically login and will not show login dialog.  </p>
+<p id="rfc.section.5.2.16.p.13">Default value for <samp>autologin</samp> is <samp>0</samp>. In this case <em>Tkabber</em> shows login dialog.  </p>
+<h1 id="rfc.section.5.2.17"><a href="#rfc.section.5.2.17">5.2.17.</a> <a href="#s.postload-message" id="s.postload-message">The Message Module</a></h1>
+<p id="rfc.section.5.2.17.p.1">By default, when you restart <em>Tkabber</em> it won't remember the headlines you received.  If you want <em>Tkabber</em> to remember headlines whenever you run it, set <samp>message::options(headlines,cache)</samp> to <samp>1</samp>.</p>
+<p id="rfc.section.5.2.17.p.2">By default, <em>Tkabber</em> will put all headline messages into a single window.  If you want <em>Tkabber</em> to use a seperate window for each headline source, set <samp>message::options(headlines,multiple)</samp> to <samp>1</samp>.</p>
+<h1 id="rfc.section.5.2.18"><a href="#rfc.section.5.2.18">5.2.18.</a> <a href="#s.postload-rawxml" id="s.postload-rawxml">The Raw XML Input Module</a></h1>
+<p id="rfc.section.5.2.18.p.1">With this module you can monitor incoming/outgoing traffic from connection to server and send custom XML stanzas.  Also you can switch on <samp>pretty print</samp> option to see incoming and outgoing XML stanzas pretty printed.  Note, that with this option they may be drawed incorrectly, e.g. for XHTML tags.  Also you can set indentation level via <samp>indent</samp> option.  </p>
+<h1 id="rfc.section.5.2.19"><a href="#rfc.section.5.2.19">5.2.19.</a> <a href="#s.postload-roster" id="s.postload-roster">The Roster Module</a></h1>
+<p id="rfc.section.5.2.19.p.1">By default, your entire roster is shown, even those items that aren't online.  The variable called <samp>roster::show_only_online</samp> controls this.  </p>
+<p id="rfc.section.5.2.19.p.2">Similarly by default, each item in every category is shown in the roster.  If you want to hide the items in a given category, the array called <samp>roster::roster</samp> lets you do this.  In the example, we see that two groups (<samp>"RSS"</samp> and <samp>"Undefined"</samp>) start with their items hidden.  </p>
+<p id="rfc.section.5.2.19.p.3">Some peoples use several JIDs.  <em>Tkabber</em> lets you specify an alias for people like these, so it will show only one entry in the roster.  In the example, we see that user <samp>friend@some.host</samp> have aliases <samp>friend@other.host</samp> and <samp>friend@another.host</samp>.  You can also disable all aliases by setting <samp>roster::use_aliases</samp> to <samp>0</samp>.  </p>
+<h1 id="rfc.section.5.2.20"><a href="#rfc.section.5.2.20">5.2.20.</a> <a href="#s.postload-sound" id="s.postload-sound">The Sound Module</a></h1>
+<p><em>Tkabber</em> can play sounds on some events.  It can use for this <em>snack</em> library or external program that can play <em>WAV</em> files.  Sound notifications is enabled when <em>Tkabber</em> starts.  </p>
+<p>If you want to start <em>Tkabber</em> with sound muted add the following line: </p>
+<pre>set sound::options(mute) 1 </pre>
+<p>If you want <em>Tkabber</em> to stop notifying you when you are not online (in away or dnd state) add the following line: </p>
+<pre>set sound::options(notify_online) 1 </pre>
+<p>If you want <em>Tkabber</em> to mute sound when it is focued (and you are paying enough attention to it) add the following line: </p>
+<pre>set sound::options(mute_if_focus) 1 </pre>
+<p>You can also mute sounds of delayed groupchat messages and delayed personal chat messages: </p>
+<pre>
+set sound::options(mute_groupchat_delayed) 1
+set sound::options(mute_chat_delayed)      0
+</pre>
+<p>If you want to use external program for playing sounds and possibly this program's options, then also add something like this (these options are suitable for Linux users with ALSA installed): </p>
+<pre>
+set sound::options(external_play_program) /usr/bin/aplay
+set sound::options(external_play_program_options) -q
+</pre>
+<p>You can also set minimal interval (in milliseconds) between playing different sounds.  </p>
+<pre>set sound::options(delay) 200</pre>
+<p><em>Tkabber</em> allows you to specify the filename it will play notifying about some more or less important events. These are: </p>
+
+<ul>
+  <li><samp>sound::options(connected_sound)</samp> &#8212; sound playing when <em>Tkabber</em> is connected to the server;</li>
+  <li><samp>sound::options(presence_available_sound)</samp> &#8212; sound playing when available presence is coming;</li>
+  <li><samp>sound::options(presence_unavailable_sound)</samp> &#8212; sound playing when unavailable presence is coming;</li>
+  <li><samp>sound::options(chat_my_message_sound)</samp> &#8212; sound playing when you send one-to-one chat message;</li>
+  <li><samp>sound::options(chat_their_message_sound)</samp> &#8212; sound playing when you receive one-to-one chat message;</li>
+  <li><samp>sound::options(groupchat_server_message_sound)</samp> &#8212; sound playing when you receive groupchat message from server;</li>
+  <li><samp>sound::options(groupchat_my_message_sound)</samp> &#8212; sound playing when you receive groupchat message from server;</li>
+  <li><samp>sound::options(groupchat_their_message_sound)</samp> &#8212; sound playing when you receive groupchat message from another user;</li>
+  <li><samp>sound::options(groupchat_their_message_to_me_sound)</samp> &#8212; sound playing when you receive highlighted (usually personally addressed) groupchat message from another user.</li>
+</ul>
+
+<p> </p>
+<p>If you want to disable sound notification for some of the events, then you can add line like this: </p>
+<pre>
+set sound::options(connected_sound)                     ""
+set sound::options(presence_available_sound)            ""
+set sound::options(presence_unavailable_sound)          ""
+set sound::options(groupchat_server_message_sound)      ""
+set sound::options(groupchat_their_message_to_me_sound) ""
+</pre>
+<h1 id="rfc.section.5.3"><a href="#rfc.section.5.3">5.3.</a> <a href="#s.menuload" id="s.menuload">Menu-load</a></h1>
+<p id="rfc.section.5.3.p.1">After <em>Tkabber</em> invokes your <samp>postload</samp> procedure, it starts building the GUI.  One of the most important things it does is build up a list that specifies its menu bar.  It then invokes a procedure called <samp>menuload</samp>, which is allowed to modify that specification before <em>Tkabber</em> uses it.</p>
+<p>The default version of this procedure is the identity function, i.e..,</p>
+<pre>
+proc menuload {description} { return $description }
+</pre>
+<p id="rfc.section.5.3.p.2">If you <em>really</em> want to change the menubar specification, then here's how to get started: </p>
+
+<ol>
+  <li>Go to where you installed the <em>BWidget</em> library and take a look at the file called <samp>"BWman/MainFrame.html"</samp>.  The documentation for the <samp>"-menu"</samp> option explains the syntax of the specification.</li>
+  <li>Go to where you installed <em>Tkabber</em> and take a look at the file called <samp>"iface.tcl"</samp>.  Look for the line that starts with <samp>"set descmenu"</samp>.  This will show you the specification given to your <samp>menuload</samp> procedure.</li>
+  <li>Go to where you installed <em>Tkabber</em> and take a look at the file called <samp>"examples/mtr-config.tcl"</samp>.  Look at the <samp>menuload</samp> procedure defined there.  It lays out <em>Tkabber's</em> menu bar similar to <em>Gabber's</em>.</li>
+  <li>Finally, study the procedures listed here.</li>
+</ol>
+<h1 id="rfc.section.5.3.1"><a href="#rfc.section.5.3.1">5.3.1.</a> <a href="#s.menuload-avatar" id="s.menuload-avatar">The Avatar Module</a></h1>
+<p id="rfc.section.5.3.1.p.1">The procedure called <samp>avatar::store_on_server</samp> stores your avatar on the server.</p>
+<h1 id="rfc.section.5.3.2"><a href="#rfc.section.5.3.2">5.3.2.</a> <a href="#s.menuload-browser" id="s.menuload-browser">The Browser Module</a></h1>
+<p id="rfc.section.5.3.2.p.1">The procedure called <samp>browser::open</samp> opens a new browser window.</p>
+<h1 id="rfc.section.5.3.3"><a href="#rfc.section.5.3.3">5.3.3.</a> <a href="#s.menuload-groupchat" id="s.menuload-groupchat">The Groupchat Module</a></h1>
+<p id="rfc.section.5.3.3.p.1">The procedure called <samp>add_group_dialog</samp> displays a dialog window when you want to add a groupchat to your roster.  Similarly, the procedure called <samp>join_group_dialog</samp> displays a dialog window when you want to join a groupchat.</p>
+<h1 id="rfc.section.5.3.4"><a href="#rfc.section.5.3.4">5.3.4.</a> <a href="#s.menuload-login" id="s.menuload-login">The Login Module</a></h1>
+<p id="rfc.section.5.3.4.p.1">The procedure called <samp>show_login_dialog</samp> displays a dialog window when you want to login to the server.  (Prior to attempting to login, if necessary it will logout).  Naturally, the procedure called <samp>logout</samp> does just that; however, if you want get a dialog window for confirmation, use <samp>show_logout_dialog</samp> instead.</p>
+<h1 id="rfc.section.5.3.5"><a href="#rfc.section.5.3.5">5.3.5.</a> <a href="#s.menuload-message" id="s.menuload-message">The Message Module</a></h1>
+<p id="rfc.section.5.3.5.p.1">If you want to send a message to someone, the procedure called <samp>message::send_dialog</samp> will put up a dialog window.  It takes upto three optional arguments: the recipient JID, the subject, and the thread.</p>
+<p id="rfc.section.5.3.5.p.2">If you want to get added to someone's roster, the procedure called <samp>message::send_subscribe_dialog</samp> will put up a dialog window.  It takes one optional argument: the recipient JID.</p>
+<h1 id="rfc.section.5.3.6"><a href="#rfc.section.5.3.6">5.3.6.</a> <a href="#s.menuload-presence" id="s.menuload-presence">The Presence Module</a></h1>
+<p id="rfc.section.5.3.6.p.1">If you want to display information about a user, the procedure called <samp>userinfo::open</samp> will put up a dialog window.  It takes two optional arguments: the user's JID; and, whether or not the dialog window should be editable.</p>
+<p>Obviously, the second argument makes sense only if it's your own information, i.e.,</p>
+<pre>
+    global loginconf
+
+    userinfo::open \
+        ${loginconf(user)}@$loginconf(server)/$loginconf(resource) 1
+</pre>
+<p id="rfc.section.5.3.6.p.2">There are also two variables that you can use to set your own presence: <samp>userstatus</samp> and <samp>textstatus</samp>.  The first variable takes one of five values: </p>
+
+<ul>
+  <li>available;</li>
+  <li>chat;</li>
+  <li>away;</li>
+  <li>xa;</li>
+  <li>dnd; or,</li>
+  <li>invisible.</li>
+</ul>
+
+<p> The second variable takes any textual value.</p>
+<p>Changes to your presence information are propagated only when <samp>userstatus</samp> is changed.  Accordingly, if you make a change to <samp>textstatus</samp>, be sure to write <samp>userstatus</samp> immediately afterwards, even if it's a no-op, e.g.,</p>
+<pre>
+    global userstatus textstatus
+
+    set textstatus "Out to lunch"
+    set userstatus $userstatus
+</pre>
+<h1 id="rfc.section.5.3.7"><a href="#rfc.section.5.3.7">5.3.7.</a> <a href="#s.menuload-miscellany" id="s.menuload-miscellany">Miscellany</a></h1>
+<p id="rfc.section.5.3.7.p.1">Finally, you can use the procedure named <samp>help_window</samp> to display some textual help.  This procedure takes two arguments: the title for the window; and, the text to display.</p>
+<p id="rfc.section.5.3.7.p.2">Also, instead of calling <samp>exit</samp> to terminate <em>Tkabber</em>, please use the <samp>quit</samp> procedure instead.</p>
+<h1 id="rfc.section.5.4"><a href="#rfc.section.5.4">5.4.</a> <a href="#s.finalload" id="s.finalload">Final-Load</a></h1>
+<p id="rfc.section.5.4.p.1">Finally, right before <em>Tkabber</em> goes to display the login dialog, it invokes a procedure called <samp>finload</samp>, which does whatever you want it to.</p>
+<h1 id="rfc.section.6"><a href="#rfc.section.6">6.</a> <a href="#s.extensibility" id="s.extensibility">Extensibility</a></h1>
+<p id="rfc.section.6.p.1">In addition to various configuration mechanisms, <em>Tkabber</em> lets you define procedures, termed "hooks" that get run when certain events happen.</p>
+<p>Here's an example.  When <em>Tkabber</em> receives a chat message, how does it know what to process and what to draw? The short answer is that it doesn't need to know anything, all it does is:</p>
+<pre>
+hook::run draw_message_hook $chatid $from $type $body $extras
+</pre>
+<p>The <samp>hook::run</samp> procedure invokes whatever hooks have been defined for <samp>draw_message_hook</samp>.  In fact, more than ten procedures may get invoked to satisfy this hook!</p>
+<p>Here's how it works: <em>Tkabber</em> comes with a number of plugins, which get loaded automatically.  Each plugin makes one or more calls that look like this:</p>
+<pre>
+hook::add draw_message_hook [namespace current]::my_draw_hook $prio
+</pre>
+<p>where the last two parameters are: the name of a procedure to run; and, a relative integer priority.</p>
+<p id="rfc.section.6.p.2">When <samp>hook::run</samp> is invoked for <samp>draw_message_hook</samp>, each of these procedures is called, in the priority order (from smallest to largest).  If one of the procedures wants to prevent the later procedures from being called, it returns the string <samp>"stop"</samp>.</p>
+<p>To continue with the example, in between the pre-load and post-load stages of configuration, the following calls get made by different plugins:</p>
+<pre>
+hook::add draw_message_hook [list ...::events::process_x 0] 0
+hook::add draw_message_hook ...::chatstate::process_x 1
+hook::add draw_message_hook ...::check_draw_empty_body 4
+hook::add draw_message_hook ...::chat_open_window 5
+hook::add draw_message_hook [list ...::events::process_x 1] 6
+hook::add draw_message_hook ...::draw_signed 6
+hook::add draw_message_hook ...::draw_encrypted 7
+hook::add draw_message_hook ...::handle_error 10
+hook::add draw_message_hook ...::handle_info 10
+hook::add draw_message_hook ...::draw_timestamp 15
+hook::add draw_message_hook    ::logger::log_message 15
+hook::add draw_message_hook ...::set_message_timestamp 15
+hook::add draw_message_hook ...::add_number_of_messages_to_title 18
+hook::add draw_message_hook ...::chat_message_notify19
+hook::add draw_message_hook ...::handle_server_message 20
+hook::add draw_message_hook ...::roster::update_chat_activity 50
+hook::add draw_message_hook ...::check_nick 60
+hook::add draw_message_hook    ::wmdock::msg_recv 70
+hook::add draw_message_hook ...::handle_last_nick 79
+hook::add draw_message_hook ...::add_bookmark 80
+hook::add draw_message_hook ...::handle_me 83
+hook::add draw_message_hook ...::xhtml::draw_xhtml_message 85
+hook::add draw_message_hook ...::draw_normal_message 87
+</pre>
+<p>Many of these procedures look at the incoming chat message and operate on only certain kinds of messages.  Some of these procedures may return <samp>"stop"</samp>, e.g., <samp>handle_me</samp> which handles chat bodies that start with <samp>"/me"</samp> and <em>draw_xhtml_message</em> which visualizes <em>XHTML</em> formatted messages.  (In this example, the actual namespaces were replaced with <samp>"...:"</samp> to make it more readable).</p>
+<p id="rfc.section.6.p.3">Now let's look at the different kind of hooks that <em>Tkabber</em> knows about.</p>
+<h1 id="rfc.section.6.1"><a href="#rfc.section.6.1">6.1.</a> Message Hooks</h1>
+<p>When <em>Tkabber</em> receives a message stanza it calls two hooks: </p>
+<pre>
+rewrite_message_hook \
+    xlib from id type is_subject subject body err thread priority x
+process_message_hook \
+    $xlib $from $id $type $is_subject $subject $body $err $thread \
+    $priority $x
+</pre>
+<p id="rfc.section.6.1.p.1">The first hook takes eleven variable names as arguments, so the calling procedures can rewrite them. This means that a procedure in this hook should call <samp>upvar 2 $varbody body</samp> and use the <samp>body</samp> variable to change the actual message body. For example, this allows <em>Tkabber</em> to put decrypted message into the <samp>body</samp> variable if it is encrypted.</p>
+<p id="rfc.section.6.1.p.2">The second hook does the job of showing message to the user (or doing something else with it if it's a special message like part of an in-band file transfer.</p>
+<p>When you are about to send a chat or normal message to the wire, a hook is run:</p>
+<pre>
+rewrite_outgoing_message_hook xlib to id type subject body err thread x
+</pre>
+<p>The hook takes nine variable names as arguments, so the calling procedures can rewrite them. This means that a procedure in this hook should call <samp>upvar 2 $varbody body</samp> and use the <samp>body</samp> variable to change the actual message body. For example, this allows <em>Tkabber</em> to encrypt message and put the encrypted message into the <samp>body</samp> variable to send. This hook is introduced in <em>Tkabber</em> 1.1, and is used by the OTR plugin, so the latter will not work in <em>Tkabber</em> 1.0 and older.</p>
+<h1 id="rfc.section.6.2"><a href="#rfc.section.6.2">6.2.</a> Chat Hooks</h1>
+<p>When <em>Tkabber</em> decides that it needs to open a (tabbed) window for a chat or groupchat, two hooks are run:</p>
+<pre>
+open_chat_pre_hook  $chatid $type
+open_chat_post_hook $chatid $type
+</pre>
+<p>Both hooks are given two parameters: the chatid (ID of the chat or conference room window, you always can obtain JID using <samp>chat::get_jid</samp> and connection token using <samp>chat::get_xlib</samp> routines); and, and the type of chat (either <samp>"chat"</samp> or <samp>"groupchat"</samp>).</p>
+<p>Similarly, when <em>Tkabber</em> encounters activity on a tabbed window, a hook is run:</p>
+<pre>
+raise_chat_tab_hook $path $chatid
+</pre>
+<p>The hook is given two parameters: the path of the <em>Tk</em> widget for the tabbed window; and, the chatid of the chat or conference room window.</p>
+<p>When you want to send a chat message, a hook is run:</p>
+<pre>
+chat_send_message_hook $chatid $user $body $type
+</pre>
+<p>The hook is given four parameters: the chatid of the recipient; the localpart of your login identity; the body of the message; and, the type of chat.</p>
+<pre>
+draw_message_hook $chatid $from $type $body $extras
+</pre>
+<p>The hook is given five parameters: the chatid of the sender window (JID includes a resource); the JID of the sender (without the resource); the type of chat; the body of the message; and, a nested-list of additional payload elements.  (This last parameter isn't documented in this version of the documentation.) </p>
+<p>Chat windows have menubuttons, and two hooks are used to add items in menu: </p>
+<pre>
+chat_create_user_menu_hook $path $xlib $jid
+chat_create_conference_menu_hook $path $xlib $jid
+</pre>
+<p>The first is used in user chat windows, and second in groupchat ones.  Hooks are given three parameters: the path of the <em>Tk</em> menu widget; connection token; and, the JID of user or conference.  </p>
+<p>In groupchat windows it is possible to complete participants' nicks or commands by pressing TAB key.  List of completions is generated by running this hook: </p>
+<pre>
+generate_completions_hook $chatid $compsvar $wordstart $line
+</pre>
+<p>The hook is given four parameters: the chatid of conference window; name of global variable, in which current list of possible completions is stored; index of position where completion must be inserted; and content of text widget where completion is requested.  </p>
+<p>When someone enters/exits conference or changes their presence, the following hooks are called: </p>
+<pre>
+chat_user_enter    $group $nick
+chat_user_exit     $group $nick
+chat_user_presence $group $nick
+</pre>
+<p>The hooks are given two parameters: chatid of conference and nick of participant.  </p>
+<p>When someone changes his/her nickname in a conference room, the following hook is called: </p>
+<pre>
+room_nickname_changed_hook $chatid $nick $new_nick
+</pre>
+<p>The hook is given three parameters: chatid of conference old nickname and the new nickname of participant.  </p>
+<h1 id="rfc.section.6.3"><a href="#rfc.section.6.3">6.3.</a> Login Hooks</h1>
+<p>Two hooks are invoked whenever a session is connected or disconnected:</p>
+<pre>
+connected_hook $xlib
+
+disconnected_hook $xlib
+</pre>
+<p>Both hooks are given one parameter: connection token (<em>Tkabber</em> allows several connections at once).</p>
+<h1 id="rfc.section.6.4"><a href="#rfc.section.6.4">6.4.</a> Presence Hooks</h1>
+<p>When our presence status changes, a hook is run:</p>
+<pre>
+change_our_presence_post_hook $status
+</pre>
+<p id="rfc.section.6.4.p.1">The hook is given one parameter: the new presence status value, i.e., one of: </p>
+
+<ul>
+  <li>available;</li>
+  <li>chat;</li>
+  <li>away;</li>
+  <li>xa;</li>
+  <li>dnd; or</li>
+  <li>unavailable.</li>
+</ul>
+<p>Similarly, when someone else's presence changes, a hook is run:</p>
+<pre>
+on_change_user_presence_hook $label $status
+</pre>
+<p>The hook is given two parameters: the label associated with the JID (e.g., "fred") or the JID itself (e.g., "fred@example.com") if no label exists in the roster; and, the user's new status.</p>
+<p>And for all received presence packets, a hook is run: </p>
+<pre>
+client_presence_hook $xlib $from $type $x $args
+</pre>
+<p>The hook is given four parameters: connection token, who send this presence, type of presence (e.g., "error", "unavailable"), list of extended subtags and parameters of this presence (e.g., "-show xa -status online").  </p>
+<h1 id="rfc.section.6.5"><a href="#rfc.section.6.5">6.5.</a> Info/Query Hook</h1>
+<p>When an IQ stanza is received, a hook is run:</p>
+<pre>
+client_iq_hook $xlib $from $type $queries $args
+</pre>
+<p>The hook is given four compulsory parameters: connection token, who sent this query/response type of stanza (e.g., "get", "set", "result" or "error"), list of query subelements (usually it contains only one element), list of optional arguments (e.g., "-lang language -to jid -id id -x $list_of_other_attributes").  </p>
+<h1 id="rfc.section.6.6"><a href="#rfc.section.6.6">6.6.</a> Roster Hooks</h1>
+<p>When an item is added to the roster window, one of the four hooks is run to add stuff to the menu associated with that item: </p>
+<pre>
+roster_conference_popup_menu_hook $path $xlib $jid
+
+roster_service_popup_menu_hook $path $xlib $jid
+
+roster_jid_popup_menu_hook $path $xlib $jid
+
+roster_group_popup_menu_hook $path $xlib $name
+</pre>
+<p>When run, each hook is given three parameters: the path of the <em>Tk</em> menu widget; the connection token; and, a JID of the roster item (or the name of the roster group for the last one).  </p>
+<p>Also the following hook is run to add stuff to the menu in groupchats: </p>
+<pre>
+roster_create_groupchat_user_menu_hook $path $xlib $jid
+</pre>
+<p>The hook is given three parameters: the path of the <em>Tk</em> menu widget; the connection token; and, a JID of user.  </p>
+<p>The following hook is run to add stuff to the popup balloon for each roster item: </p>
+<pre>
+roster_user_popup_info_hook $varname $xlib $jid
+</pre>
+<p>The hook is given three parameters: the variable name in which current popup text is stored, the connection token, and the JID of the roster item.  </p>
+<h1 id="rfc.section.6.7"><a href="#rfc.section.6.7">6.7.</a> Miscellaneous Hooks</h1>
+<p>There are three "obvious" hooks:</p>
+<pre>
+postload_hook
+
+finload_hook
+
+quit_hook
+</pre>
+<p>The first two, by default, run the <samp>postload</samp> and <samp>finload</samp> procedures, respectively. <samp>postload_hook</samp> is run after all code has been loaded and before initializing main <em>Tkabber</em> window. After that <samp>finload_hook</samp> is run.  The final hook is called just before <em>Tkabber</em> terminates (cf., <a href="#s.menuload-miscellany">Section 5.3.7</a>).</p>
+<p>You can add custom pages to userinfo window using</p>
+<pre>
+userinfo_hook $path $xlib $jid $editable
+</pre>
+<p>It is run with four arguments: the userinfo notebook widget name; the connection token; the JID of the user; and a boolean parameter which indicates whether the form is editable.  </p>
+<h1 id="rfc.section.7"><a href="#rfc.section.7">7.</a> <a href="#s.user-interface" id="s.user-interface">User Interface basics</a></h1>
+<h1 id="rfc.section.7.1"><a href="#rfc.section.7.1">7.1.</a> <a href="#s.ui-searching" id="s.ui-searching">Searching</a></h1>
+<p id="rfc.section.7.1.p.1">Search panel may be invoked in certain classes of <em>Tkabber</em> windows using the <samp>&lt;&lt;OpenSearchPanel&gt;&gt;</samp> Tk virtual event which is bound by default to the <samp>&lt;Control-S&gt;</samp> keyboard command.</p>
+<p id="rfc.section.7.1.p.2">Search panel can be dismissed by pressing the <samp>&lt;Escape&gt;</samp> key and the default search action ("search down") is activated by pressing the <samp>&lt;Return&gt;</samp> key while entering the search pattern.</p>
+<p id="rfc.section.7.1.p.3">Search panel is currenlty available in: </p>
+
+<ul>
+  <li>Chat and groupchat windows;</li>
+  <li>Service discovery window;</li>
+  <li>Chat history logs;</li>
+  <li>All windows of the "Chats history" tool.</li>
+  <li>Headlines window.</li>
+  <li>Raw XML log window.</li>
+  <li>MUC affiliations and roles lists.</li>
+</ul>
+<p id="rfc.section.7.1.p.4">Searching may be customized using the settings located under the <em>Plugins &#8594; Search</em> group of the <em>Customize</em> window.  These setings are: </p>
+
+<ul>
+  <li><samp>::plugins::search::options(case)</samp>: perform case-sensitive searching (<em>off</em> by default); </li>
+  <li><samp>::plugins::search::options(mode)</samp>: selects searching mode which can be one of: <ul><li><em>substring</em> &#8212; use simple substring search: the typed search string is taken verbatim and then the attempt to locate it is performed. This is the default mode.  </li><li><em>glob</em> &#8212; uses "glob-style" (or "shell-style") matching: special symbols are recognized and they provide for "wildcarding": <ul><li><em>*</em> matches zero or more characters;</li><li><em>?</em> matches exactly one character;</li><li><em>[</em> and <em>]</em> define character classes, e.g., <samp>[A-Z]</samp> will match any character in the series "A", "B", ... "Z".</li></ul><p> The full syntax is described in </p><a href="http://www.tcl.tk/man/tcl8.6/TclCmd/string.htm#M35">Tcl string manual page</a>.  That is, this search mode can be convenient for those who want more general yet simple approach to searching and is familiar with the "shell globbing" concept found in Unix shells.  </li><li><em>regexp</em> &#8212; provides for searching using full-blown regular expressions engine. The full syntax is described in <a href="http://www.tcl.tk/man/tcl8.6/TclCmd/re_syntax.htm">Tcl re_syntax manual page</a>.  </li></ul><p> </p></li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.appendix.A"><a href="#rfc.appendix.A">Appendix A.</a> Releases History</h1>
+<h1 id="rfc.appendix.A.1"><a href="#rfc.appendix.A.1">A.1.</a> Main changes in 1.1.2+</h1>
+<p/>
+
+<ul>
+  <li>Dropped Tcl/Tk 8.4 support. Now Tcl/Tk 8.5 is required</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.appendix.A.2"><a href="#rfc.appendix.A.2">A.2.</a> Main changes in 1.1.2</h1>
+<p/>
+
+<ul>
+  <li>Fixed a bug in displaying search results and copying JID from the search results to clipboard</li>
+  <li>Fixed a few bugs with nonexistent canvas tags in Georoster and Poker plugins</li>
+  <li>Fixed a restoring user status from autoaway</li>
+  <li>A few other fixes and minor enhancements</li>
+  <li>This is the last release which supports Tcl/Tk 8.4 (with the exceptions of the OTR and Poker plugins)</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.appendix.A.3"><a href="#rfc.appendix.A.3">A.3.</a> Main changes in 1.1.1</h1>
+<p/>
+
+<ul>
+  <li>Fixed a few bugs in passing URL to web browsers</li>
+  <li>Fixed a regression when message intended to be GPG-encrypted is sent plaintext</li>
+  <li>Fixed a few crashes in OTR plugin</li>
+  <li>A few other fixes and enhancements</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.appendix.A.4"><a href="#rfc.appendix.A.4">A.4.</a> Main changes in 1.1</h1>
+<p/>
+
+<ul>
+  <li>Added new OTR plugin (requires Tcl/Tk 8.5 to operate)</li>
+  <li>Roster versioning (XEP-0237 and RFC-6121)</li>
+  <li>Added new Battleship game plugin</li>
+  <li>A few fixes and enhancements</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.appendix.A.5"><a href="#rfc.appendix.A.5">A.5.</a> Main changes in 1.0</h1>
+<p/>
+
+<ul>
+  <li>Completely rewritten Tkabber internals</li>
+  <li>Dropped Tcl/Tk 8.3 support. Now Tcl/Tk 8.4 is required</li>
+  <li>Partial IPv6 support (requires Tcl/Tk 8.6)</li>
+  <li>Switched from TclGPGME to TclGPG for encryption and signing</li>
+  <li>Added new connection method BOSH (XEP-0124 and XEP-0206)</li>
+  <li>Disabled SSLv2 and enabled TLSv1 TLS options</li>
+  <li>Added user nicknames (XEP-0172) support.</li>
+  <li>Updated the CAPTCHA forms (XEP-0158) support</li>
+  <li>Added metacontacts (XEP-0209) support</li>
+  <li>Implemented multiple proxy profiles</li>
+  <li>Implemented remote controlling from a locally executed script</li>
+  <li>Added new plugins: floatingcontact, poker</li>
+  <li>Rewritten most plugins to support disabling and unloading on the fly</li>
+  <li>A few interface enhancements (search in MUC affiliations lists, proxy management)</li>
+  <li>Many fixes and enhancements</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.appendix.A.6"><a href="#rfc.appendix.A.6">A.6.</a> Main changes in 0.11.1</h1>
+<p/>
+
+<ul>
+  <li>New default sound theme by Serge Yudin</li>
+  <li>Added new plugins: quotelastmsg, singularity, stripes</li>
+  <li>Many fixes and enhancements</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.appendix.A.7"><a href="#rfc.appendix.A.7">A.7.</a> Main changes in 0.11.0</h1>
+<p/>
+
+<ul>
+  <li>New tabbed user interface. Tab headers now occupy several rows and tab bar can be docked to the left and right sides of chat window</li>
+  <li>Roster filter</li>
+  <li>Added support for pixmaps (in particular emoticons) JISP archives (XEP-0038)</li>
+  <li>Added support for SOCKS4a and SOCKS5 proxy for the main connection</li>
+  <li>Added user location support (XEP-0080)</li>
+  <li>Added user mood support (XEP-0107)</li>
+  <li>Added user activity support (XEP-0108)</li>
+  <li>Added user tune support (XEP-0118)</li>
+  <li>Added entity capabilities (XEP-0115 v.1.5, only reporting) support</li>
+  <li>Added basic robot challenges support (XEP-0158, v.0.9)</li>
+  <li>Added partial data forms media element support (XEP-0221, v.0.2, URIs and images only)</li>
+  <li>Roster is now exported to XML instead of Tcl list</li>
+  <li>Added support for entity time (XEP-0202)</li>
+  <li>Tkabber version is now reported in disco#info (XEP-0232)</li>
+  <li>Moved deprecated Jabber Browser (XEP-0011) to an external plugin</li>
+  <li>Moved Jidlink file transfer to an external plugin</li>
+  <li>Added several new plugins: attline, ctcomp, custom-urls, floatinglog, gmail, openurl, presencecmd, receipts</li>
+  <li>Many fixes and enhancements</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.appendix.A.8"><a href="#rfc.appendix.A.8">A.8.</a> Main changes in 0.10.0</h1>
+<p/>
+
+<ul>
+  <li>New artwork by Artem Bannikov</li>
+  <li>Mediated SOCKS5 connection support for file transfer (XEP-0065)</li>
+  <li>Blocking communicaation with users not in roster (using XEP-0016 via simple interface)</li>
+  <li>Translatable outgoing error messages support (based on recipient's xml:lang)</li>
+  <li>Remote controlling clients support (XEP-0146)</li>
+  <li>Extended stanza addressing support (XEP-0033)</li>
+  <li>New chats history tool with search over the all chatlog files</li>
+  <li>Roster item icons are chosen based on Disco queries to item server</li>
+  <li>Search in Disco, Browser, Headlines, RawXML, and Customize windows</li>
+  <li>New internal plugins: abbrev allows to abbreviate words in chat input windows, postpone stores/restores current input window content</li>
+  <li>New external plugins (aniemoticons, latex, tkabber-khim, traffic, renju)</li>
+  <li>Emoticons theme now can be loaded using GUI</li>
+  <li>Most Tkabber's tabs can now be stored on exit and restored on start</li>
+  <li>XMPP ping support (XEP-0199). Reconnecting based on XMPP ping replies</li>
+  <li>Delayed delivery now recognizes XEP-0203 timestamps</li>
+  <li>Added optional 'My Resources' roster group, which contains other connected resources of the same JID</li>
+  <li>Many fixes and enhancements</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.appendix.A.9"><a href="#rfc.appendix.A.9">A.9.</a> Main changes in 0.9.9</h1>
+<p/>
+
+<ul>
+  <li>Improved privacy lists interface</li>
+  <li>Support for stream compression (XEP-0138)</li>
+  <li>Support for SRV DNS-records</li>
+  <li>Support for TXT DNS-records (XEP-0156)</li>
+  <li>Support for ad-hoc commands (XEP-0050)</li>
+  <li>Improved headlines support</li>
+  <li>Chat state notification support (XEP-0085)</li>
+  <li>Many fixes and enhancements</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.appendix.A.10"><a href="#rfc.appendix.A.10">A.10.</a> Main changes in 0.9.8</h1>
+<p/>
+
+<ul>
+  <li>Support for STARTTLS</li>
+  <li>Reorganized menu</li>
+  <li>Support for searching in chat window</li>
+  <li>Support for annotations about roster items (XEP-0145)</li>
+  <li>Support for conference rooms bookmarks (XEP-0048)</li>
+  <li>Added multilogin support for GPGME</li>
+  <li>Better support for xml:lang</li>
+  <li>Support for service discovery extensions (XEP-0128)</li>
+  <li>Support for NTLM authentication</li>
+  <li>Many fixes and enhancements</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.appendix.A.11"><a href="#rfc.appendix.A.11">A.11.</a> Main changes in 0.9.7beta</h1>
+<p/>
+
+<ul>
+  <li>Updated support for file transfer (XEP-0095, XEP-0096, XEP-0047, XEP-0065)</li>
+  <li>Support for colored nicks and messages in conference</li>
+  <li>Better multiple logins support</li>
+  <li>Updated support for xml:lang</li>
+  <li>Support for IDNA (RFC3490)</li>
+  <li>Many fixes and enhancements</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.appendix.A.12"><a href="#rfc.appendix.A.12">A.12.</a> Main changes in 0.9.6beta</h1>
+<p/>
+
+<ul>
+  <li>Multiple logins support</li>
+  <li>History now splitted by month</li>
+  <li>Animated emoticons support</li>
+  <li>Many user interface improvements</li>
+  <li>More XMPP support</li>
+  <li>More translations</li>
+  <li>Bugfixes</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.appendix.A.13"><a href="#rfc.appendix.A.13">A.13.</a> Main changes in 0.9.5beta</h1>
+<p/>
+
+<ul>
+  <li>Nested roster groups</li>
+  <li>Messages emphasizing</li>
+  <li>User interface improvements</li>
+  <li>Support for XMPP/Jabber MIME Type</li>
+  <li>Bugfixes</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.appendix.B"><a href="#rfc.appendix.B">Appendix B.</a> <a href="#XRDB" id="XRDB">Tk option database resources</a></h1>
+<p id="rfc.section.B.p.1">Here is list of the most essential <em>Tkabber</em>-specific <em>Tk option database</em> resources that you need to change look: </p>
+
+<dl>
+  <dt>Tkabber.geometry</dt>
+  <dd style="margin-left: 8">Geometry of main window.  </dd>
+  <dt>*Chat.chatgeometry</dt>
+  <dd style="margin-left: 8"/>
+  <dt>*Chat.groupchatgeometry</dt>
+  <dd style="margin-left: 8"/>
+  <dt>*Customize.geometry</dt>
+  <dd style="margin-left: 8"/>
+  <dt>*RawXML.geometry</dt>
+  <dd style="margin-left: 8"/>
+  <dt>*Stats.geometry</dt>
+  <dd style="margin-left: 8"/>
+  <dt>*Messages.geometry</dt>
+  <dd style="margin-left: 8"/>
+  <dt>*JDisco.geometry</dt>
+  <dd style="margin-left: 8">Geometry of various windows (when not using tabs).  </dd>
+  <dt>*mainRosterWidth</dt>
+  <dd style="margin-left: 8">The width of the main roster window.  </dd>
+  <dt>*Chat.inputheight</dt>
+  <dd style="margin-left: 8"/>
+  <dt>*RawXML.inputheight</dt>
+  <dd style="margin-left: 8">Height of input windows in chat and raw XML windows.  </dd>
+  <dt>*Balloon.background</dt>
+  <dd style="margin-left: 8"/>
+  <dt>*Balloon.foreground</dt>
+  <dd style="margin-left: 8">Background and foreground colors of popup balloon.  </dd>
+  <dt>*Balloon.style</dt>
+  <dd style="margin-left: 8">Behaviour of popup balloon: can be <samp>delay</samp> (balloon appeared after some time) and <samp>follow</samp> (balloon appeared immediately and follows mouse).  </dd>
+  <dt>*JDisco.fill</dt>
+  <dd style="margin-left: 8">Color of service discovery browser item name.  </dd>
+  <dt>*JDisco.identitycolor</dt>
+  <dd style="margin-left: 8">Color of service discovery browser item identity.  </dd>
+  <dt>*JDisco.featurecolor</dt>
+  <dd style="margin-left: 8">Color of service discovery browser entity feature.  </dd>
+  <dt>*JDisco*Tree*background</dt>
+  <dd style="margin-left: 8">Background of service discovery browser.  </dd>
+  <dt>*Chat.meforeground</dt>
+  <dd style="margin-left: 8">Color of user's messages in chat windows.  </dd>
+  <dt>*Chat.theyforeground</dt>
+  <dd style="margin-left: 8">Color of other peoples messages in chat windows.  </dd>
+  <dt>*Chat.serverlabelforeground</dt>
+  <dd style="margin-left: 8">Color of label before server message.  </dd>
+  <dt>*Chat.serverforeground</dt>
+  <dd style="margin-left: 8">Color of server messages in chat windows.  </dd>
+  <dt>*Chat.errforeground</dt>
+  <dd style="margin-left: 8">Color of error messages in chat windows.  </dd>
+  <dt>*Chat.urlforeground</dt>
+  <dd style="margin-left: 8">Color of URLs in chat windows.  </dd>
+  <dt>*Chat.urlactiveforeground</dt>
+  <dd style="margin-left: 8">Color of mouse highlighted URLs in chat windows.  </dd>
+  <dt>*JDisco.fill</dt>
+  <dd style="margin-left: 8">Default color of items in Service Discovery Browser.  </dd>
+  <dt>*JDisco.featurecolor</dt>
+  <dd style="margin-left: 8">Default color of feature items in Service Discovery Browser.  </dd>
+  <dt>*JDisco.identitycolor</dt>
+  <dd style="margin-left: 8">Default color of identity items in Service Discovery Browser.  </dd>
+  <dt>*JDisco.optioncolor</dt>
+  <dd style="margin-left: 8">Default color of option items in Service Discovery Browser.  </dd>
+  <dt>*JDisco*Tree*background</dt>
+  <dd style="margin-left: 8">Default color of background in Service Discovery Browser.  </dd>
+  <dt>*alertColor0</dt>
+  <dd style="margin-left: 8"/>
+  <dt>*alertColor1</dt>
+  <dd style="margin-left: 8"/>
+  <dt>*alertColor2</dt>
+  <dd style="margin-left: 8"/>
+  <dt>*alertColor3</dt>
+  <dd style="margin-left: 8">Tabs alert colors.  </dd>
+  <dt>*Roster.cbackground</dt>
+  <dd style="margin-left: 8">Roster background color.  </dd>
+  <dt>*Roster.groupindent</dt>
+  <dd style="margin-left: 8">Indentation for group title.  </dd>
+  <dt>*Roster.groupiconindent</dt>
+  <dd style="margin-left: 8">Indentation for group icon.  </dd>
+  <dt>*Roster.jidindent</dt>
+  <dd style="margin-left: 8">Indentation for item name.  </dd>
+  <dt>*Roster.jidmultindent</dt>
+  <dd style="margin-left: 8">Indentation for item with multiple resources.  </dd>
+  <dt>*Roster.subjidindent</dt>
+  <dd style="margin-left: 8">Indentation for item resource.  </dd>
+  <dt>*Roster.iconindent</dt>
+  <dd style="margin-left: 8">Indentation for item icon.  </dd>
+  <dt>*Roster.subitemtype</dt>
+  <dd style="margin-left: 8"/>
+  <dt>*Roster.subiconindent</dt>
+  <dd style="margin-left: 8">Indentation for resource icon.  </dd>
+  <dt>*Roster.textuppad</dt>
+  <dd style="margin-left: 8">Top pad for item's names.  </dd>
+  <dt>*Roster.textdownpad</dt>
+  <dd style="margin-left: 8">Bottom pad for item's names.  </dd>
+  <dt>*Roster.linepad</dt>
+  <dd style="margin-left: 8">Vertical distance between items.  </dd>
+  <dt>*Roster.foreground</dt>
+  <dd style="margin-left: 8">Color of item's names.  </dd>
+  <dt>*Roster.jidfill</dt>
+  <dd style="margin-left: 8">Background of roster item.  </dd>
+  <dt>*Roster.jidhlfill</dt>
+  <dd style="margin-left: 8">Background of roster item when mouse is over.  </dd>
+  <dt>*Roster.jidborder</dt>
+  <dd style="margin-left: 8">Color of item's border.  </dd>
+  <dt>*Roster.groupfill</dt>
+  <dd style="margin-left: 8"/>
+  <dt>*Roster.grouphlfill</dt>
+  <dd style="margin-left: 8"/>
+  <dt>*Roster.groupborder</dt>
+  <dd style="margin-left: 8">The same to roster groups.  </dd>
+  <dt>*Roster.groupcfill</dt>
+  <dd style="margin-left: 8">Background color of collapsed group.  </dd>
+  <dt>*Roster.stalkerforeground</dt>
+  <dd style="margin-left: 8"/>
+  <dt>*Roster.unavailableforeground</dt>
+  <dd style="margin-left: 8"/>
+  <dt>*Roster.dndforeground</dt>
+  <dd style="margin-left: 8"/>
+  <dt>*Roster.xaforeground</dt>
+  <dd style="margin-left: 8"/>
+  <dt>*Roster.awayforeground</dt>
+  <dd style="margin-left: 8"/>
+  <dt>*Roster.availableforeground</dt>
+  <dd style="margin-left: 8"/>
+  <dt>*Roster.chatforeground</dt>
+  <dd style="margin-left: 8">Colors of item name for different presences.  </dd>
+</dl>
+
+<p> </p>
+<h1 id="rfc.appendix.C"><a href="#rfc.appendix.C">Appendix C.</a> Documentation TODO</h1>
+<p id="rfc.section.C.p.1">The next revision of this documentation should discuss: </p>
+
+<ul>
+  <li>Post-load: <ul><li><samp>chat_height</samp> and <samp>chat_width</samp> (appear to be no-ops).</li></ul></li>
+  <li>Menu-load: <ul><li><samp>change_password_dialog</samp></li><li><samp>conference::create_room_dialog</samp></li><li><samp>disco::browser::open_win</samp></li><li><samp>message::send_msg</samp></li><li><samp>privacy::request_lists</samp></li><li><samp>rawxml::open_window</samp></li><li><samp>userinfo::show_info_dialog</samp></li></ul></li>
+  <li>Hooks: the additional payload format.</li>
+</ul>
+<h1 id="rfc.appendix.D"><a href="#rfc.appendix.D">Appendix D.</a> Acknowledgements</h1>
+<p id="rfc.section.D.p.1">Rebecca Malamud was kind enough to design the "enlightened feather" motif used in the <em>Tkabber</em> look-and-feel.</p>
+<p id="rfc.section.D.p.2">The "new look" appeared in the 0.10.0 release ("golden feather" and "blue feather" pixmap themes and the "Earth bulb" logo) was designed by Artem Bannikov.</p>
+<p id="rfc.section.D.p.3">The new sound theme appeared in 0.11.1 release was created by Serge Yudin</p>
+<h1 id="rfc.appendix.E"><a href="#rfc.appendix.E">Appendix E.</a> Copyrights</h1>
+<p id="rfc.section.E.p.1">Copyright &#169; 2002-2025 Alexey Shchepin</p>
+<p><em>Tkabber</em> is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+<p><em>Tkabber</em> is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.</p>
+<h1 id="rfc.authors">
+  <a href="#rfc.authors">Authors' Addresses</a>
+</h1>
+<div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Alexey Yurievich Shchepin</span> 
+	  <span class="n hidden">
+		<span class="family-name">Shchepin</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Process-One</span>
+	<span class="adr">
+	  
+	  <span class="vcardline">
+		<span class="locality"></span> 
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline"></span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:alexey@process-one.net">alexey@process-one.net</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Marshall T. Rose</span> 
+	  <span class="n hidden">
+		<span class="family-name">Rose</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Dover Beach Consulting, Inc.</span>
+	<span class="adr">
+	  <span class="vcardline">POB 255268</span>
+
+	  <span class="vcardline">
+		<span class="locality">Sacramento</span>,  
+		<span class="region">CA</span> 
+		<span class="code">95865-5268</span>
+	  </span>
+	  <span class="country-name vcardline">US</span>
+	</span>
+	<span class="vcardline">Phone: +1 916 483 8878</span>
+
+<span class="vcardline">Fax: +1 916 483 8848</span>
+
+<span class="vcardline">EMail: <a href="mailto:mrose@dbc.mtview.ca.us">mrose@dbc.mtview.ca.us</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Sergei Golovan</span> 
+	  <span class="n hidden">
+		<span class="family-name">Golovan</span>
+	  </span>
+	</span>
+	<span class="org vcardline">New Economic School</span>
+	<span class="adr">
+	  
+	  <span class="vcardline">
+		<span class="locality"></span> 
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline"></span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:sgolovan@nes.ru">sgolovan@nes.ru</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Michail Yurievich Litvak</span> 
+	  <span class="n hidden">
+		<span class="family-name">Litvak</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Colocall Ltd.</span>
+	<span class="adr">
+	  
+	  <span class="vcardline">
+		<span class="locality"></span> 
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline"></span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:mci@shadow.in.ua">mci@shadow.in.ua</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Konstantin Khomoutov</span> 
+	  <span class="n hidden">
+		<span class="family-name">Khomoutov</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Service 007</span>
+	<span class="adr">
+	  
+	  <span class="vcardline">
+		<span class="locality"></span> 
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline"></span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:khomoutov@gmail.com">khomoutov@gmail.com</a></span>
+
+  </address>
+</div>
+
+</body>
+</html>

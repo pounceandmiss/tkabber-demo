@@ -1,0 +1,53 @@
+! ru.rc --
+!
+!       Definition of Russian resources for BWidget
+!
+! Author: Sergei Golovan <sgolovan@nes.ru>
+
+! --- symbolic names of buttons -----------------------------------------------
+
+*abortName:   Прервать
+*retryName:   Повторить
+*ignoreName:  Игнорировать
+*okName:      Продолжить
+*cancelName:  Отменить
+*yesName:     Да
+*noName:      Нет
+
+
+! --- symbolic names of label of SelectFont dialog ----------------------------
+
+*boldName:       Полужирный
+*italicName:     Курсивный
+*underlineName:  Подчеркнутый
+*overstrikeName: Перечеркнутый
+*fontName:       Шрифт
+*sizeName:       Размер
+*styleName:      Вид
+
+
+! --- symbolic names of label of PasswdDlg dialog -----------------------------
+
+*loginName:    Имя
+*passwordName: Пароль
+
+
+! --- resource for SelectFont dialog ------------------------------------------
+
+*SelectFont.title:          Выбор шрифта
+*SelectFont.sampletext:     Sample text, пример текста
+
+
+! --- resource for MessageDlg dialog ------------------------------------------
+
+*MessageDlg.noneTitle:      Сообщение
+*MessageDlg.infoTitle:      Информация
+*MessageDlg.questionTitle:  Вопрос
+*MessageDlg.warningTitle:   Внимание!
+*MessageDlg.errorTitle:     Ошибка
+
+! --- resource for PasswdDlg dialog -------------------------------------------
+
+*PasswdDlg.title:  Ввод имени и пароля
+
+! vim:ft=xdefaults:ts=8:sw=4:sts=4:et

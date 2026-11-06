@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<icondef>
+  <meta>
+    <name>Default</name>
+    <version>0.0.3</version>
+    <description>Tkabber's emoticons.</description>
+    <author>Alexey Shchepin</author>
+    <creation>2002-08-12</creation>
+  </meta>
+  <icon>
+    <text default="true">:-)</text>
+    <text>:)</text>
+    <object mime="image/gif">facehappy.gif</object>
+  </icon>
+  <icon>
+    <text default="true">:-(</text>
+    <text>:(</text>
+    <object mime="image/gif">facesad.gif</object>
+  </icon>
+  <icon>
+    <text default="true">:-O</text>
+    <object mime="image/gif">facestartled.gif</object>
+  </icon>
+  <icon>
+    <text default="true">:-|</text>
+    <object mime="image/gif">facestraight.gif</object>
+  </icon>
+  <icon>
+    <text default="true">:-/</text>
+    <text>:-\</text>
+    <object mime="image/gif">faceironic.gif</object>
+  </icon>
+  <icon>
+    <text default="true">:-D</text>
+    <text>:D</text>
+    <object mime="image/gif">facegrinning.gif</object>
+  </icon>
+  <icon>
+    <text default="true">;-)</text>
+    <text>;)</text>
+    <object mime="image/gif">facewinking.gif</object>
+  </icon>
+  <icon>
+    <text default="true">:-P</text>
+    <text>:P</text>
+    <object mime="image/gif">faceyukky.gif</object>
+  </icon>
+  <icon>
+    <text default="true">:beer:</text>
+    <text>(B)</text>
+    <object mime="image/gif">beer.gif</object>
+  </icon>
+</icondef>
+
+<!-- vim:ft=xml:ts=8:sw=2:sts=2:et
+-->

@@ -1,0 +1,3362 @@
+
+
+
+
+                                                             A. Shchepin
+                                                             Process-One
+                                                                 M. Rose
+                                            Dover Beach Consulting, Inc.
+                                                              S. Golovan
+                                                     New Economic School
+                                                               M. Litvak
+                                                           Colocall Ltd.
+                                                            K. Khomoutov
+                                                             Service 007
+                                                              March 2015
+
+
+                             Tkabber 1.1.2+
+
+Abstract
+
+   _Tkabber_ is an open source Jabber client, written in _Tcl/Tk_.  This
+   memo describes the installation, configuration, and extension of
+   _Tkabber_.
+
+Table of Contents
+
+   1.  Features  . . . . . . . . . . . . . . . . . . . . . . . . . .   3
+   2.  Requirements  . . . . . . . . . . . . . . . . . . . . . . . .   5
+   3.  Download, install and run . . . . . . . . . . . . . . . . . .   8
+   4.  Upgrading . . . . . . . . . . . . . . . . . . . . . . . . . .  10
+     4.1.  Upgrading from version 1.0, 1.1 or 1.1.1  . . . . . . . .  10
+     4.2.  Upgrading from version 0.11.0 or 0.11.1 . . . . . . . . .  10
+       4.2.1.  External plugins  . . . . . . . . . . . . . . . . . .  10
+       4.2.2.  Configuration options . . . . . . . . . . . . . . . .  10
+     4.3.  Upgrading from version 0.10.0 . . . . . . . . . . . . . .  11
+       4.3.1.  Configuration options . . . . . . . . . . . . . . . .  11
+         4.3.1.1.  Proxy servers . . . . . . . . . . . . . . . . . .  12
+         4.3.1.2.  Resources to control fonts  . . . . . . . . . . .  12
+         4.3.1.3.  Keep-alives and dead link detection . . . . . . .  13
+         4.3.1.4.  Resources to control appearance of balloon
+                   windows . . . . . . . . . . . . . . . . . . . . .  13
+         4.3.1.5.  Support for external XML parser . . . . . . . . .  14
+       4.3.2.  User interface  . . . . . . . . . . . . . . . . . . .  14
+         4.3.2.1.  System tray icon mouse gestures . . . . . . . . .  14
+         4.3.2.2.  New tab management widget . . . . . . . . . . . .  14
+         4.3.2.3.  Window splitters  . . . . . . . . . . . . . . . .  15
+     4.4.  Upgrading from version 0.9.9  . . . . . . . . . . . . . .  15
+   5.  Configuration . . . . . . . . . . . . . . . . . . . . . . . .  15
+     5.1.  Pre-load  . . . . . . . . . . . . . . . . . . . . . . . .  16
+       5.1.1.  Tabbed Interface  . . . . . . . . . . . . . . . . . .  17
+       5.1.2.  Fonts and colors  . . . . . . . . . . . . . . . . . .  18
+
+
+
+Shchepin, et al.        Expires September 2, 2015               [Page 1]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+       5.1.3.  Cryptography by default . . . . . . . . . . . . . . .  20
+       5.1.4.  Debugging Output  . . . . . . . . . . . . . . . . . .  20
+       5.1.5.  Splash window . . . . . . . . . . . . . . . . . . . .  21
+       5.1.6.  I18n/L10n . . . . . . . . . . . . . . . . . . . . . .  21
+       5.1.7.  Browse URL  . . . . . . . . . . . . . . . . . . . . .  21
+       5.1.8.  Searching . . . . . . . . . . . . . . . . . . . . . .  22
+     5.2.  Post-load . . . . . . . . . . . . . . . . . . . . . . . .  22
+       5.2.1.  Look-and-Feel . . . . . . . . . . . . . . . . . . . .  27
+       5.2.2.  The system tray icon (for Unix) . . . . . . . . . . .  27
+       5.2.3.  The Autoaway Module . . . . . . . . . . . . . . . . .  28
+       5.2.4.  The Avatar Module . . . . . . . . . . . . . . . . . .  28
+       5.2.5.  The Chat Module . . . . . . . . . . . . . . . . . . .  28
+       5.2.6.  The Clientinfo Module . . . . . . . . . . . . . . . .  28
+       5.2.7.  The Conferenceinfo Module . . . . . . . . . . . . . .  29
+       5.2.8.  The Cryptographic Module  . . . . . . . . . . . . . .  29
+       5.2.9.  The Emoticons Module  . . . . . . . . . . . . . . . .  29
+       5.2.10. The File Transfer Module  . . . . . . . . . . . . . .  30
+       5.2.11. The Groupchat Module  . . . . . . . . . . . . . . . .  30
+       5.2.12. The Ispell Module . . . . . . . . . . . . . . . . . .  31
+       5.2.13. The Stream Initiation Module  . . . . . . . . . . . .  31
+       5.2.14. The Logger Module . . . . . . . . . . . . . . . . . .  32
+       5.2.15. The Proxy Module  . . . . . . . . . . . . . . . . . .  32
+       5.2.16. The Login Module  . . . . . . . . . . . . . . . . . .  34
+       5.2.17. The Message Module  . . . . . . . . . . . . . . . . .  36
+       5.2.18. The Raw XML Input Module  . . . . . . . . . . . . . .  36
+       5.2.19. The Roster Module . . . . . . . . . . . . . . . . . .  36
+       5.2.20. The Sound Module  . . . . . . . . . . . . . . . . . .  36
+     5.3.  Menu-load . . . . . . . . . . . . . . . . . . . . . . . .  38
+       5.3.1.  The Avatar Module . . . . . . . . . . . . . . . . . .  39
+       5.3.2.  The Browser Module  . . . . . . . . . . . . . . . . .  39
+       5.3.3.  The Groupchat Module  . . . . . . . . . . . . . . . .  39
+       5.3.4.  The Login Module  . . . . . . . . . . . . . . . . . .  39
+       5.3.5.  The Message Module  . . . . . . . . . . . . . . . . .  39
+       5.3.6.  The Presence Module . . . . . . . . . . . . . . . . .  39
+       5.3.7.  Miscellany  . . . . . . . . . . . . . . . . . . . . .  40
+     5.4.  Final-Load  . . . . . . . . . . . . . . . . . . . . . . .  41
+   6.  Extensibility . . . . . . . . . . . . . . . . . . . . . . . .  41
+     6.1.  Message Hooks . . . . . . . . . . . . . . . . . . . . . .  42
+     6.2.  Chat Hooks  . . . . . . . . . . . . . . . . . . . . . . .  43
+     6.3.  Login Hooks . . . . . . . . . . . . . . . . . . . . . . .  45
+     6.4.  Presence Hooks  . . . . . . . . . . . . . . . . . . . . .  45
+     6.5.  Info/Query Hook . . . . . . . . . . . . . . . . . . . . .  46
+     6.6.  Roster Hooks  . . . . . . . . . . . . . . . . . . . . . .  46
+     6.7.  Miscellaneous Hooks . . . . . . . . . . . . . . . . . . .  47
+   7.  User Interface basics . . . . . . . . . . . . . . . . . . . .  47
+     7.1.  Searching . . . . . . . . . . . . . . . . . . . . . . . .  47
+     8.1.  URIs  . . . . . . . . . . . . . . . . . . . . . . . . . .  49
+   Appendix A.  Releases History . . . . . . . . . . . . . . . . . .  50
+
+
+
+Shchepin, et al.        Expires September 2, 2015               [Page 2]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+     A.1.  Main changes in 1.1.2+  . . . . . . . . . . . . . . . . .  50
+     A.2.  Main changes in 1.1.2 . . . . . . . . . . . . . . . . . .  50
+     A.3.  Main changes in 1.1.1 . . . . . . . . . . . . . . . . . .  50
+     A.4.  Main changes in 1.1 . . . . . . . . . . . . . . . . . . .  51
+     A.5.  Main changes in 1.0 . . . . . . . . . . . . . . . . . . .  51
+     A.6.  Main changes in 0.11.1  . . . . . . . . . . . . . . . . .  52
+     A.7.  Main changes in 0.11.0  . . . . . . . . . . . . . . . . .  52
+     A.8.  Main changes in 0.10.0  . . . . . . . . . . . . . . . . .  53
+     A.9.  Main changes in 0.9.9 . . . . . . . . . . . . . . . . . .  54
+     A.10. Main changes in 0.9.8 . . . . . . . . . . . . . . . . . .  54
+     A.11. Main changes in 0.9.7beta . . . . . . . . . . . . . . . .  54
+     A.12. Main changes in 0.9.6beta . . . . . . . . . . . . . . . .  55
+     A.13. Main changes in 0.9.5beta . . . . . . . . . . . . . . . .  55
+   Appendix B.  Tk option database resources . . . . . . . . . . . .  55
+   Appendix C.  Documentation TODO . . . . . . . . . . . . . . . . .  58
+   Appendix D.  Acknowledgements . . . . . . . . . . . . . . . . . .  59
+   Appendix E.  Copyrights . . . . . . . . . . . . . . . . . . . . .  59
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  59
+
+1.  Features
+
+   Tkabber [1] provides a _Tcl/Tk_ interface to the Jabber/XMPP [2]
+   instant messaging and presence service.
+
+   _Tcl/Tk_ is a graphical scripting language that runs on the Unix,
+   Windows, and Macintosh platforms.  The choice of _Tcl/Tk_ for a
+   Jabber client is three-fold:
+
+   o  it is portable: once you install a _Tcl/Tk_ interpreter on your
+      system, the _Tkabber_ script "just runs" -- without having to
+      compile anything;
+
+   o  it is customizable: _Tkabber_ reads a configuration file when it
+      starts that tells it the settings of various parameters; and,
+
+   o  it is extensible: the configuration file is actually a _Tcl_
+      script, so you can replace or augment entire portions of _Tkabber_
+      (if you're so inclined).
+
+   _Tkabber_ is fully-featured:
+
+   sessions:
+
+      *  TCP, BOSH and HTTP-polling session transports
+
+      *  XMPP SRV and TXT DNS-records handling
+
+      *  hashed passwords
+
+
+
+Shchepin, et al.        Expires September 2, 2015               [Page 3]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+      *  SASL authentication
+
+      *  encrypted sessions (if you install an optional extension)
+
+      *  compressed sessions (if you install an optional extension)
+
+      *  login via SOCKS4a, SOCKS5 or HTTPS proxy
+
+      *  IPv6 support (from Tcl/Tk 8.6)
+
+      *  user-defined hooks for connection establishment and release
+
+      *  XMPP/Jabber MIME type
+
+   messages:
+
+      *  privacy rules
+
+      *  GPG-signed/encrypted messages (if you install an optional
+         extension)
+
+      *  Off-the-record (OTR [3]) messaging
+
+      *  file transfers (HTTP, SOCKS bytestream, DTCP and IBB
+         transports)
+
+      *  groupchat (GroupChat-1.0 and Multi-User Chat conferencing
+         protocols)
+
+      *  headline messages
+
+      *  message events
+
+      *  completions of nick and commands
+
+      *  hyperlinks
+
+      *  emoticons
+
+      *  user-defined hooks for messages arriving and chat window events
+
+   presence:
+
+      *  signed presence (if you install an optional extension)
+
+      *  avatars
+
+      *  browsing
+
+
+
+Shchepin, et al.        Expires September 2, 2015               [Page 4]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+      *  groupchat and roster invitations
+
+      *  conference room bookmarks
+
+      *  annotations about roster items
+
+      *  vCards
+
+      *  user-defined hooks for presence changes
+
+   windowing:
+
+      *  configurable look-and-feel via a resources database
+
+      *  unicode
+
+      *  tabbed/non-tabbed interface
+
+      *  sound notifications
+
+      *  nested roster groups
+
+      *  roster metacontacts
+
+      *  auto-away
+
+      *  for Unix: spell checking, KDE or freedesktop docking, and
+         WMaker icons
+
+      *  for Windows: taskbar icons
+
+2.  Requirements
+
+   You should already have installed:
+
+   o  Tcl/Tk version 8.5.8 [4] (or later, Tcl/Tk 8.6.3 or later is
+      recommended).  Note, that if you want to use Tkabber in IPv6
+      environment, you'll have to install Tcl/Tk 8.6.
+
+   o  tcllib version 1.8 [5] (or later, tcllib 1.16 or later is required
+      for SCRAM SASL mechanism support).
+
+   o  BWidget 1.9 [6] (or later)
+
+   Most systems already come with these packages pre-installed.  If not,
+   various Unix systems have them available as ready-made packages.
+   Otherwise, go to the URLs above and click on the appropriate download
+   link for your system.  Both _tcllib_ and _BWidget_ are script
+
+
+
+Shchepin, et al.        Expires September 2, 2015               [Page 5]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   libraries -- no compiling is necessary.  In the case of _Tcl/Tk_,
+   there are many ready-made binary packages available on the download
+   site.
+
+   The ActiveTcl [7] distribution contains all three packages (along
+   with the _tls_ and _Img_ package mentioned below); so, you may want
+   to use that instead of three separate downloads.
+
+   At your discretion, there are several optional packages that you may
+   also install.  _Tkabber_ will run just fine without them, but if
+   they're available _Tkabber_ will make additional features available
+   to you.  So, here's the list:
+
+   o  By default, the Tcl's DNS package uses TCP for its communication
+      with DNS servers.  If your DNS server requires usin UDP then you
+      may want to install Tcl UDP extension [8] version 1.0.8 (or
+      later).  This extension works both for Unix and Windows.
+
+
+
+   o  By default, communications between the server and client take
+      place over a plaintext connection.  While this may not be a
+      problem in some local, wired environments, if your server is
+      distant or your client is wireless, then you may want to encrypt
+      all the client/server traffic.
+      Accordingly, you may to install tls version 1.4.1 [9] (or later).
+      This package works on both Unix and Windows.  Note that if you're
+      using Unix, then you'll also need to have _OpenSSL_ installed.
+      Fortunately, this comes preinstalled on many Unix systems.  If
+      it's not on your system, check OpenSSL source page [10].  (The
+      Windows distribution of _tls_ comes with all the necessary DLLs.)
+
+
+
+   o  _Tcl/Tk_ supports only a small number of image formats (i.e.,
+      bitmaps, GIFs and portable pixmaps).  If presence information
+      contains avatars, these may be in other formats (e.g., PNGs or
+      JPGs).
+      Accordingly, you may want to install Img version 1.2 [11] (or
+      later).  This package works on both Unix and Windows.
+
+
+
+   o  Tkabber comes bundled with pure-Tcl XML parser.  If its
+      performance is insufficient, you may want to install tDOM version
+      0.8.0 [12] (or later) and use expat based XML parser.
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015               [Page 6]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   o  Another option in Unix is to compress connection between client
+      and server (it currently disables encryption).
+      There's no special requirements for traffic compression in Tcl/Tk
+      8.6, but if you're using Tcl/Tk 8.5 and want to compress traffic
+      you should install ZTcl version 1.0b4 [13] (or later) and Tclmore
+      version 0.7b1 [14] (or later).
+      (At the time of 0.11.0 release _ZTcl_ and _Tclmore_ home page were
+      unavailable, so you may grab them from a mirror [15].)
+
+
+
+   o  By default, end-to-end communications between two or more Jabber
+      clients is plaintext.  Depending on your environment, this may not
+      be a problem for you.  Alternatively, you may want to digitally-
+      sign all of your outgoing messages, and allow others to encrypt
+      their messages to you.
+      Accordingly, you may want to install the _TclGPG_ package.
+      Depending on what's already installed on your system, you may have
+      to download upto two software bits:
+
+      *  TclGPG [16] (available only in a Fossil [17] repository at
+         present);
+
+      *  GPG version 1.0.7 [18] (or later).
+      Another alternative is to use Off-the-record messaging protocol
+      [19], if your contact supports it.  The OTR plugin is included
+      into _Tkabber plugins collection_ starting from version 1.1 and
+      requires a few packages from _Tcllib_, namely the _aes_, _asn_,
+      _base64_, _math::bignum_, _sha1_, _sha256_ packages.  Also, if
+      you're using Windows, the Memchan [20] extension has to be
+      installed to run the OTR plugin.
+
+
+
+   o  If you're running Unix or Windows, then you may want _Tkabber_ to
+      play predefined sounds when message or presence arrives.
+      Accordingly, you may want to install Snack version 2.2.10 [21] (or
+      later).
+
+
+
+   o  If you're running Unix, then you may want _Tkabber_ to use the
+      docking tray.
+      Accordingly, you may want to install tktray version 1.3 [22] (or
+      later) for freedesktop icon (supported by modern _KDE_ and
+      _GNOME_).
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015               [Page 7]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   o  If you're running Windows, then you may want _Tkabber_ to use the
+      system tray.
+      Accordingly, you may want to install Winico version 0.6 [23] (or
+      later).
+
+
+
+   o  If you're a Tcl/Tk guru, then you may want to access the Tk
+      console to debug things.
+      Accordingly, you may want to install tkcon version 2.3 [24] (or
+      later).
+
+   Please keep in mind that these are all "optional extras" -- if
+   they're not right for you or your environment, don't bother with
+   them!
+
+3.  Download, install and run
+
+   Latest stable version is 1.1.2 and available at
+   http://tkabber.jabber.ru/download .
+
+   Older versions can be found at http://files.jabber.ru/tkabber/ .
+
+   You can always find the latest development version via Fossil [27].
+   Execute the following commands:
+
+fossil clone https://chiselapp.com/user/sgolovan/repository/tkabber tkabber.fossil
+fossil clone https://chiselapp.com/user/sgolovan/repository/tclxmpp tclxmpp.fossil
+mkdir tkabber
+cd tkabber
+fossil open ../tkabber.fossil
+mkdir tclxmpp
+cd tclxmpp
+fossil open --nested ../../tclxmpp.fossil
+
+   And if you want to test some plugins, then do
+
+fossil clone https://chiselapp.com/user/sgolovan/repository/tkabber-plugins tkabber-plugins.fossil
+mkdir tkabber-plugins
+cd tkabber-plugins
+fossil open ../tkabber-plugins.fossil
+
+
+
+
+
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015               [Page 8]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   And if you want to try unofficial plugins, then execute
+
+fossil clone https://chiselapp.com/user/sgolovan/repository/tkabber-contrib tkabber-contrib.fossil
+mkdir tkabber-contrib
+cd tkabber-contrib
+fossil open ../tkabber-contrib.fossil
+
+   They usually include short readme with info on what they do and how
+   to use them.
+
+   If you use the Debian GNU/Linux distribution, you may want to get all
+   required packages by using _apt_.  Just execute
+
+   apt-get install tk tcllib bwidget
+
+   or
+
+   apt-get install tkabber
+
+   to get the version included into Debian repository.
+
+   No real installation is required, simply copy the "tkabber/"
+   directory to a commonly-available area, and then either:
+
+   o  put this directory in your search-path; or,
+
+   o  make a calling script/shortcut to the file "tkabber.tcl" in that
+      directory.
+
+   Although _Tkabber_ comes with a Makefile, there's really not much to
+   do -- most folks prefer to simply copy the distribution directory to
+   somewhere in their home directory.
+
+   From the shell, you can invoke _Tkabber_ as:
+
+   % tkabber.tcl
+
+   whilst on a windowing system, simply double-click on that file or a
+   short-cut to it.
+
+
+
+
+
+
+
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015               [Page 9]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   If you're a Tcl/Tk guru and have installed _tkcon_, then you may want
+   to invoke _Tkabber_ as:
+
+   % tkcon.tcl -exec "" -root .tkconn -main "source tkabber.tcl"
+
+   _Tkabber_ will automatically know that it's running under _tkcon_ and
+   will start by hiding the _Tk_ console window.  Look under the
+   "Services->Debug tools" menu to find the checkbutton to show the
+   console.  Note that if _Tkcon_ is installed as a Tcl/Tk package then
+   _Tkabber_ will add corresponding menu item under _Services->Debug
+   tools_ automatically.
+
+   Also you can setup _Tkabber_ as handler for XMPP/Jabber MIME Type
+   [28].  For this you need to set hanler for "application/xmpp+xml"
+   MIME type in your browser to something like this:
+
+   tkabber -mime %s
+
+4.  Upgrading
+
+4.1.  Upgrading from version 1.0, 1.1 or 1.1.1
+
+   Upgrading _Tkabber_ from version 1.0 doesn't require configuration
+   changes.  You are advised to upgrade external plugins but it isn't
+   strictly necessary.
+
+4.2.  Upgrading from version 0.11.0 or 0.11.1
+
+   When upgrading _Tkabber_ from version 0.11.1 or earlier note that its
+   plugin interface and several configuration options have been changed.
+
+4.2.1.  External plugins
+
+   There are incompatible changes in Tkabber internals, which break the
+   old plugins.  So, you'll have to upgrade them as well.  If a plugin
+   author hasn't released a version compatible with _Tkabber_ 1.1 then
+   you'll have to disable or remove that plugin.
+
+4.2.2.  Configuration options
+
+   There are notable changes in specifying a set of proxy servers.  If
+   you define proxy server in the global "loginconf" array then you'll
+   have to do the following: In case if you use the _Customize_
+   interface, you may open the _Manage proxy servers_ dialog window and
+   add your proxy server there.  Note that if you're using the HTTPS
+   proxy then you'll have to add it twice (one in the _Tunnel proxies_
+   tab and the other in the _HTTP proxies_ tab, see section 'The proxy
+   module' (Section 5.2.15) below).  If you define proxy server in the
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 10]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   _Tkabber_ config file then you have lines similar to the following in
+   the config:
+
+   set loginconf(proxy) https
+   set loginconf(proxyhost) proxy.example.com
+   set loginconf(proxyport) 3128
+   set loginconf(proxyusername) ""
+   set loginconf(proxypassword) ""
+
+   Replace them by the following:
+
+   set proxy1(type) https
+   set proxy1(host) proxy.example.com
+   set proxy1(port) 3128
+   set proxy1(username) ""
+   set proxy1(password) ""
+   set proxy1(match) *
+   set proxy1(exclude) "localhost* 127.0.0.* 172.* 192.168.* 10.*"
+
+   set proxy2(type) http
+   set proxy2(host) proxy.example.com
+   set proxy2(port) 3128
+   set proxy2(username) ""
+   set proxy2(password) ""
+   set proxy2(match) *
+   set proxy2(exclude) "localhost* 127.0.0.* 172.* 192.168.* 10.*"
+
+   set proxyconf(profile) Proxies
+   set proxyconf(tunnel) {proxy1}
+   set proxyconf(http) {proxy2}
+
+   which will instruct _Tkabber_ to use these proxies for all
+   connections.  If you need more complicated setup with several proxy
+   profiles, read section 'The proxy module' (Section 5.2.15) below.
+
+4.3.  Upgrading from version 0.10.0
+
+   When upgrading _Tkabber_ from version 0.10.0 or earlier read the
+   above section on plugins (Section 4.2.1) and also note that several
+   configuration options and user interface elements have been changed.
+
+4.3.1.  Configuration options
+
+   There are notable changes in handling connection through proxy
+   servers, managing fonts and balloon colors, and detecting breaks in
+   underlying TCP connection to a server.
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 11]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+4.3.1.1.  Proxy servers
+
+   Since SOCKS4 and SOCKS5 proxy types were implemented in addition to
+   HTTP proxy type, the whole set of connection options regarding proxy
+   servers has been changed.  This means that after upgrade the old
+   values stored using the Customize mechanism will be lost and the same
+   values in "loginconf" arrays will not be recognized any longer.
+
+   To learn how to adapt your current proxy settins to the current
+   _Tkabber_ version, read section above (Section 4.2.2), but remember
+   that variables in the "loginconf" array mentioned there have been
+   changed between 0.10.0 and 0.11.0.  Use the map below as a reference
+   which variable should actually be used:
+
+   o  Variable "httpproxy"in 0.10.0 became "proxyhost" in 0.11.0.
+
+   o  Variable "httpport" became "proxyport".
+
+   o  Variable "httplogin" became "proxyusername".
+
+   o  Variable "httppassword" became "proxypassword".
+
+4.3.1.2.  Resources to control fonts
+
+   Fonts handling has been partially reworked: the global variable
+   "font" that controls chat and roster fonts has been removed and now
+   _Tkabber_ relies on _Tk_ option database to manage these settings.
+   You can override roster and chat fonts independently of each other.
+   To do that on systems not based on X Window use _Customize_ options
+   described below.
+
+   The main consequence of this change is that now the fonts are taken
+   from _Tk_ option database and if it contains sane values you don't
+   need to touch anything (until the update you had to tweak the "font"
+   variable because it was set to font "fixed" by default).  The
+   variable "font" does not have any special meaning starting from
+   0.11.0 release.
+
+   The second consequence is that you are now able to set fonts for chat
+   and roster windows separately from each other using this list as a
+   reference:
+
+   o  "*font" _Tk_ option database resource sets default font for all
+      widgets used in _Tkabber_.
+
+   o  "*Chat*Text.font" _Tk_ option database resource can be used to
+      override font used for chat windows.  This resource can be
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 12]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+      overridden by the "::ifacetk::options(font)" option from the "Main
+      Interface" group of _Customize_ settings.
+
+   o  "*Roster*font" _Tk_ option database resource can be used to
+      override font used for roster windows.  This resource can be
+      overridden by the "::ifacetk::options(roster_font)" option from
+      the "Main Interface" group of _Customize_ settings.
+
+4.3.1.3.  Keep-alives and dead link detection
+
+   Keep-alive mechanism that was used to keep NATP devices from
+   disconnecting idle XMPP sessions was accompanied in 0.10.0 with "XMPP
+   ping" mechanism which also implemented dead link detection with
+   support for disconnecting upon detection of network outage.
+
+   In version 0.11.0, the old keep-alive mechanism has been dropped, so
+   the following two global options have no effect now:
+
+   o  "keep_alive"
+
+   o  "keep_alive_interval"
+
+   In order to get the same functionality, enable XMPP ping using these
+   options in the "IQ" group of Customize settings:
+
+   o  Enabling "::plugins::ping::options(ping)" will make _Tkabber_
+      periodically send xmpp:ping IQ request to the server.
+
+   o  Set "::plugins::ping::options(timeout)" option to a number of
+      seconds _Tkabber_ should wait for either a xmpp:ping reply or an
+      error to arrive from the server; if there is no answer from the
+      server during this timeout, the socket for this connection will be
+      forcibly disconnected.
+
+4.3.1.4.  Resources to control appearance of balloon windows
+
+   Resources controlling the appearance of balloon windows have been
+   made more generic.  If you use custom _Tk_ option database settings
+   for balloon windows, change the relevant resources using this map:
+
+   o  Change references to "*Balloon.background" and
+      "*Balloon.foreground" resources to "*Balloon*background" and
+      "*Balloon*foreground", respectively.
+
+   o  Change references to "*Balloon*padX" and "*Balloon*padY" resources
+      to "*Balloon.text.padX" and "*Balloon.text.padY", respectively.
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 13]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+4.3.1.5.  Support for external XML parser
+
+   Support for _TclXML_ as an external XML parser has been removed
+   (since _TclXML_ has anyway been unable to support partial XML
+   processing) along with the global variable "use_external_tclxml"
+   which controlled the loading of _TclXML_.
+
+   Now expat-based _Tcl_ package _tDOM_ is supported as an external XML
+   parser.  It is enabled by default if it is installed.
+
+4.3.2.  User interface
+
+   There are notable changes in systray mouse gestures, appearance of a
+   main tabbed window, and in behavior of paned window splitters.
+
+4.3.2.1.  System tray icon mouse gestures
+
+   Mouse gestures bound to system tray (system notification area) icon
+   have been reworked:
+
+   o  Single click on it with the left mouse button now unconditionally
+      brings the main _Tkabber_ window to front, possibly deiconifying
+      it first.
+
+   o  Single click with the middle mouse button now unconditionally
+      iconifies the main _Tkabber_ window.
+
+   This differs from the previois behaviour where single click with the
+   left mouse button on _Tkabber_'s system tray icon toggled the
+   iconified/visible state of the main _Tkabber_ window.
+
+4.3.2.2.  New tab management widget
+
+   The _notebook_ widget which was used to render tabs in tabbed
+   interface mode has been replaced with a new custom widget providing
+   the ability for multi-row placement of tabs and docking them to the
+   left or right sides of the chat window (in addition to top or bottom
+   docking available in 0.10.0 version and earlier).
+
+   If you adjusted any specific _Tk_ option database resources
+   pertaining to that _notebook_ widget, you have to change them keeping
+   in mind that the new widget is just a bunch of _Tk_ buttons (class
+   "Button") placed in a frame (called ".nb" as before).  The class name
+   for the new widget is "ButtonBar".
+
+   So if you explicitly set, say "*Notebook*font" option, you have to
+   change it to "*ButtonBar*font" and so on.
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 14]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+4.3.2.3.  Window splitters
+
+   Window splitters (thin vertical and horizontal windows used to change
+   relative sizes of windows between which a splitter is placed) have
+   been changed to "Windows" style.  This differs from previous "Motif"
+   style which implemented explicit "grip box" on each splitter which
+   was the only "active point" of a splitter.
+
+4.4.  Upgrading from version 0.9.9
+
+   When upgrading _Tkabber_ from version 0.9.9 or earlier read the above
+   section (Section 4.3) and also note the following:
+
+   o  On Macintosh or Microsoft Windows _Tkabber_ will copy it's
+      configuration directory to a new location (see the next section
+      (Section 5) for details).  If the transfer of the config directory
+      goes smoothly you may delete old ""~/.tkabber"" directory and
+      replace its name in your config file by "$::configdir".
+
+   o  Also, _Tkabber_ will convert chatlogs directory to a new format.
+
+   o  Also, _Tkabber_ changed the way it works with emoticons.  Instead
+      of loading them in config file you may put you faivorite emoticons
+      directory into "$::configdir/plugins" directory, restart Tkabber
+      and then choose emoticons set using Customize GUI.
+
+5.  Configuration
+
+   _Tkabber_ maintains its configuration using a set of files placed in
+   a special configuration directory which location depends on the
+   operating system _Tkabber_ runs on.  These locations are:
+
+   o  Unix systems: ""~/.tkabber"";
+
+   o  Macintosh: ""~/Library/Application Support/Tkabber"";
+
+   o  Under Microsoft Windows this location is governed by the policy of
+      the particular flavor of this OS, but the general rule is that the
+      _Tkabber_ configuration directory is named ""Tkabber"" and is
+      located in the special system folder for storing application-
+      specific data.  For example, under Windows XP this will be
+      something like ""C:\Documents and Settings\USERNAME\Application
+      Data\Tkabber"", where ""USERNAME"" is the login name of a
+      particular operating system's user.
+
+   _Tkabber_ also honors the value of the ""TKABBER_HOME"" environment
+   variable -- if it exists the whole OS-based guessing of the
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 15]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   configuration directory location is cancelled and the value of this
+   environment variable is used instead.
+
+   Once the pathname of the _Tkabber_ configuration directory is known,
+   its value is assigned to the ""configdir"" global Tcl variable which
+   can be accessed from within the main _Tkabber_ configuration file
+   (see below).
+
+   One of the first things that _Tkabber_ does when it's starting up is
+   reading a file located in its configuration directory under the name
+   ""config.tcl"".  This is a _Tcl_ source file, so obviously, it's a
+   lot easier to maintain this file if you know the Tcl programming
+   language.  If you're not familiar with it, that's okay -- most things
+   you'll need to do are pretty simple!  (In fact, if you don't have
+   your own configuration file, you'll get the vanilla _Tkabber_, which
+   hopefully you'll find quite usable.)
+
+   Note that almost all _Tkabber_ options can be cofigured using
+   graphical interface (menu Tkabber->Customize), so editing
+   configuration file is not strictly necessary.
+
+   _Tkabber_ is configured in four stages:
+
+   o  in the pre-load stage, configuration options which guide the
+      loading process are set;
+
+   o  in the post-load stage, configuration options for each module are
+      set;
+
+   o  in the menu-load stage, the user is given an option to re-arrange
+      _Tkabber's_ menu bar; and,
+
+   o  the final-load stage allows any last changes to be made before the
+      "login" dialog window is displayed to the user.
+
+   Let's look at each, in turn.
+
+5.1.  Pre-load
+
+
+
+
+
+
+
+
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 16]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   There are a few things that you may let _Tkabber_ know immediately.
+   These are:
+
+   # tabbed interface
+
+   set ifacetk::options(use_tabbar) 1
+
+
+   # primary look-and-feel
+
+   set load_default_xrdb 1
+
+   option add *font \
+          "-monotype-arial-medium-r-normal-*-13-*-*-*-*-*-iso10646-1" \
+          userDefault
+
+
+   # cryptography by default
+
+   set ssj::options(sign-traffic)    0
+   set ssj::options(encrypt-traffic) 0
+
+
+   # debugging output
+
+   set debug_lvls {xmpp warning}
+
+
+   # splash window
+
+   set show_splash_window 0
+
+
+   # force english labels instead of native language
+
+   ::msgcat::mclocale en
+
+   # use mozilla firefox to open web urls in text
+
+   set webbrowser "firefox -new-tab %s"
+
+5.1.1.  Tabbed Interface
+
+
+
+
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 17]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   The first of these options, "ifacetk::options(use_tabbar)", tells
+   _Tkabber_ whether you want a tabbed interface or not.  If not, here's
+   what to put in your configuration file:
+
+   set ifacetk::options(use_tabbar) 0
+
+   Although _Tkabber_ immediately applies most of its configuration
+   changes, in order to apply changed option
+   "ifacetk::options(use_tabbar)" you have to restart _Tkabber_. So,
+   basically you have two options: set "ifacetk::options(use_tabbar)" at
+   the beginning of your configuration file, or using graphical
+   interface save the option and restart _Tkabber_.
+
+5.1.2.  Fonts and colors
+
+   Many aspects of the _Tkabber_'s visual appearance such as fonts,
+   colors and geometry of windows can be configured using the Tk option
+   database. [29]
+
+   The corresponding _Tk_'s option [30] command can be used in the
+   _Tkabber_'s configuration file in any acceptable way: from small
+   tweaks to reading files containing elaborate sets of configuration
+   commands; ready-to-use examples of such files are included in the
+   distribution and are located under the "examples/xrdb" directory.
+
+   The _Tk_ toolkit is able to initialize its option database from the
+   _XRDB_ (X Resource Database) if its availability is detected at run
+   time.  This means that any settings described here can be tuned via
+   the standard XRDB mechanism (see "man xrdb").
+
+   Beware though that the _Tk_'s semantics of matching option
+   specifications against the option database differ in some subtle
+   details from that of the _Xt_ toolkit.  The most notable one is the
+   priority of options: _Tk_ prefers the latest option it sees, while
+   _Xt_ prefers "the most specific" one.
+
+   When specifying _Tkabber_-specific options in your _XRDB_ file use
+   the "Tkabber" class as the root element of the options.
+
+   See Appendix B for a list of all the resources that you can set to
+   control _Tkabber's_ look-and-feel.
+
+
+
+
+
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 18]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   Probably the most commonly used way to configure _Tkabber_'s visual
+   appearance (especially on Windows platforms which lack _XRDB_
+   mechanism) is to put all the necessary settings in some file and then
+   ask _Tk_ to update its option database from it, like this:
+
+       set load_default_xrdb 0
+       option readfile $::configdir/newlook.xrdb userDefault
+
+   The first line tells _Tkabber_ not to load its default "xrdb" file,
+   whilst the second line tells _Tkabber_ which file to load instead.
+   Look at the provided example "xrdb" files to get the idea about how
+   they are organised.  Of course, you can use any of that files as a
+   template.  And of course, you can simply specify any of the example
+   files instead of your own to the "option readfile" command to get the
+   provided "theme".
+
+   Alternatively, if you're a Tcl "old timer", you can always do:
+
+       set load_default_xrdb 0
+       tk_bisque
+
+   to set the palette to a pleasing color scheme.  Read more about this
+   in "man palette".
+
+   You can also customize the fonts _Tkabber_ uses to render its user
+   interface:
+
+       option add *font \
+           "-monotype-arial-medium-r-normal-*-13-*-*-*-*-*-iso10646-1" \
+           userDefault
+
+   The above setting (operating on the Tk option database) selects the
+   font used for all UI elements like buttons and labels and roster and
+   conversation windows.  Obviously, you should choose fonts that suit
+   your taste.
+
+   If you want to specify another font for roster labels use the
+   following option:
+
+       option add *Roster*font \
+              "-misc-fixed-medium-r-normal-*-12-*-*-*-*-*-iso10646-1" \
+              userDefault
+
+   When picking fonts, observe these rules:
+
+   o  Under X, encoding (charset) of fonts must match that of your
+      locale.
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 19]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   o  Ensure that the specified font exists, since if it's not, _Tk_
+      will try hard to pick the most suitable one which often yields not
+      what you want.  (The best bet is to first pick the font using some
+      tool like "xfontsel".)
+
+   Note that when specifying settings using the _Tkabber_'s
+   configuration files (i.e. not using _XRDB_ directly) you are not
+   forced to use "X-style" (XLFD) font descriptions and may instead
+   specify fonts using sometimes more convenient _Tk_ features described
+   in Tk font manual page [31].
+
+5.1.3.  Cryptography by default
+
+   Next, you may want to _Tkabber_ to use cryptography by default.
+   There are two options:
+
+   o  whether the traffic you send should be digitally-signed; and,
+
+   o  if you have cryptographic information for someone, should the
+      default action be to encipher your traffic for them.
+
+   (By defining these options early on, _Tkabber_ will complain
+   immediately if it isn't able to load its cryptographic module;
+   otherwise, the default behavior is to proceed without any
+   cryptographic buttons, menus, and so on.)
+
+5.1.4.  Debugging Output
+
+   _Tkabber_ has a lot of debugging output.  By default, it gets printed
+   to the standard output by a Tcl procedure called "debugmsg" (if
+   there's standard output available).  However, only information about
+   those modules listed in a variable called "debug_lvls" will be
+   printed.
+
+   If you know how to program Tcl, then this will seem rather obvious:
+
+   set debug_lvls [list message presence ssj warning]
+
+   # if you want a different behavior,
+   #     define your own...
+
+   proc debugmsg {module msg} {
+   #    ...
+   }
+
+
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 20]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   Most users won't care about "debugmsg" because they're running
+   _Tkabber_ under an application launcher so the standard output is
+   never seen.  However, if this isn't the case for you, and you just
+   don't want to see any of this stuff, put this one line in your
+   configuration file:
+
+   set debug_lvls {}
+
+5.1.5.  Splash window
+
+   By default, when _Tkabber_ startup, it show loading process in splash
+   window.  To disable this feature, put this in your configuration
+   file:
+
+   set show_splash_window 0
+
+5.1.6.  I18n/L10n
+
+   _Tkabber_ can show all messages in user's native language.  This is
+   done by using Tcl's built-in _msgcat_ package which looks for a
+   directory called "msgs/" wherever you installed _Tkabber_, and then
+   uses the "LC_MESSAGES" environment variable (or "LANG" if
+   "LC_MESSAGES" not set) to select the appropriate file.  If you wish,
+   you can force use of a particular language by putting a line like
+   this in your configuration file:
+
+   ::msgcat::mclocale en
+
+5.1.7.  Browse URL
+
+   _Tkabber_ executes a browser when you click on a URL in chat windows,
+   or in user info window, or in headlines window etc.  It uses some
+   heuristics to find which browsers are installed in the system and
+   invokes the first browser it finds.
+
+   If _Tkabber_'s decision on which browser to use is suboptimal to you,
+   or if you want to add some options to the browser command line (open
+   URL in a new tab, or in a new window etc.) you may set the varable
+   "webbrowser" like the following:
+
+   set webbrowser "firefox -new-tab %s"
+
+   Note, that the "%s" in the string (it doesn't have to be at the end)
+   will be replaced by an actual URL when the command will be run.
+   Also, if your favorite browser's path contains spaces, enclose it in
+   braces.
+
+   The following figures shows some examples of setting this variable
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 21]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   for Windows:
+
+   set webbrowser "{C:/Program Files/Opera/opera.exe} %s"
+
+   set webbrowser \
+       "{C:/Program Files/Mozilla Firefox/firefox.exe} -new-window %s"
+
+   set webbrowser "{C:/Program Files/Internet Explorer/iexplore.exe} %s"
+
+   for Unix:
+
+   set webbrowser "iceweasel -new-tab %s"
+
+   set webbrowser "chromium-browser %s"
+
+5.1.8.  Searching
+
+   _Tkabber_ allows the user to perform textual searching in certain
+   classes of its windows.  This searching is controlled by several
+   settings which can be specified in this section.
+
+   These settings are described in detail in Section 7.1.
+
+5.2.  Post-load
+
+   After _Tkabber_ reads your configuration file, it loads all of its
+   own modules, it then invokes a procedure called "postload".  This
+   procedure is supposed to perform module-specific configuration.
+
+   The default version of this procedure doesn't do anything.  If you
+   want to configure one more module modules, then you need to define
+   the procedure in your configuration file, e.g.,
+
+ proc postload {} {
+ # look-and-feel
+
+     set pixmaps::options(pixmaps_theme) Default
+
+     global alert colors alert_lvls
+
+     set alert_lvls(error)        1
+     set alert_lvls(server)       1
+     set alert_lvls(message)      2
+     set alert_lvls(mesg_to_user) 3
+     set alert_colors             {Black DarkBlue Blue Red}
+
+     set ifacetk::options(raise_new_tab) 1
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 22]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+ # tray icon
+
+     set ::plugins::tktray::options(enable) 1
+
+ # the autoaway module
+
+     set plugins::autoaway::options(awaytime)  5
+     set plugins::autoaway::options(xatime)   15
+     set plugins::autoaway::options(status) \
+         "Automatically away due to idle"
+     set plugins::autoaway::options(drop_priority) 1
+
+
+ # the avatar module
+
+     set avatar::options(announce) 0
+     set avatar::options(share)    0
+
+
+ # the chat module
+
+     set chat::options(stop_scroll)          0
+     set plugins::options(timestamp_format)  {[%R]}
+
+
+ # the clientinfo module
+
+     set plugins::clientinfo::options(autoask) 0
+
+
+ # the conferenceinfo module
+
+     set plugins::conferenceinfo::options(autoask)        0
+     set plugins::conferenceinfo::options(interval)       1
+     set plugins::conferenceinfo::options(err_interval)  60
+
+
+ # the cryptographic module
+
+     set ssj::options(encrypt,fred@example.com) 1
+
+
+ # the emoticon module
+
+     set plugins::emoticons::options(theme) \
+                 $::configdir/emoticons/rythmbox
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 23]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+ # the file transfer module
+
+     set ft::options(download_dir) "/tmp"
+
+
+ # the groupchat module
+
+     global gra_group gra_server
+     global gr_nick gr_group gr_server
+     global defaultnick
+
+     set defaultnick(adhoc@conference.example.com) publius
+     set defaultnick(*@conference.example.com) cicerone
+
+
+ # the ispell module
+
+     set plugins::ispell::options(enable)              1
+     set plugins::ispell::options(executable)          /usr/bin/hunspell
+     set plugins::ispell::options(command_line)        -d ru_RU,en_US
+     set plugins::ispell::options(dictionary_encoding) ""
+     set plugins::ispell::options(check_every_symbol)  0
+
+ # the stream initiation module
+
+     set si::transport(allowed,http://jabber.org/protocol/bytestreams) 0
+     set si::transport(allowed,http://jabber.org/protocol/ibb) 1
+
+
+ # the logger module
+
+     set logger::options(logdir)        [file join $::configdir logs]
+     set logger::options(log_chat)      1
+     set logger::options(log_groupchat) 1
+
+ # the proxy module
+
+     global proxy1 proxy2 proxy3 proxyconf1 proxyconf2 proxyconf
+
+     set proxy1(type)     https
+     set proxy1(host)     proxy.example.com
+     set proxy1(port)     3128
+     set proxy1(username) ""
+     set proxy1(password) ""
+     set proxy1(match)    *
+     set proxy1(exclude)  "localhost* 127.0.0.* 172.* 192.168.* 10.*"
+
+     set proxy2(type)     http
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 24]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+     set proxy2(host)     proxy.example.com
+     set proxy2(port)     3128
+     set proxy2(username) ""
+     set proxy2(password) ""
+     set proxy2(match)    *
+     set proxy2(exclude)  "localhost* 127.0.0.* 172.* 192.168.* 10.*"
+
+     set proxy3(type)     socks5
+     set proxy3(host)     proxy.example.com
+     set proxy3(port)     1080
+     set proxy3(username) ""
+     set proxy3(password) ""
+     set proxy3(match)    *
+     set proxy3(exclude)  "localhost* 127.0.0.* 172.* 192.168.* 10.*"
+
+     set proxyconf1(profile) Home
+     set proxyconf1(tunnel)  {}
+     set proxyconf1(http)    {}
+
+     set proxyconf2(profile) Work
+     set proxyconf2(tunnel)  {proxy1 proxy3}
+     set proxyconf2(http)    {proxy2}
+
+     array set proxyconf [array get proxyconf2]
+
+ # the login module
+
+     global loginconf loginconf1 loginconf2 autologin
+
+     set loginconf(user)           ""
+     set loginconf(password)       ""
+     set loginconf(server)         example.com
+     set loginconf(resource)       tkabber
+     set loginconf(priority)       16
+     set loginconf(usealtserver)   0
+     set loginconf(altserver)      ""
+     set loginconf(altport)        5422
+     set loginconf(stream_options) plaintext
+     set loginconf(usesasl)        1
+     set loginconf(allowauthplain) 0
+
+     # The following variables are useful when your jabber-server
+     # (example.com) does not have SRV or A-record in DNS
+     set loginconf(usealtserver)  1
+     set loginconf(altserver)     "jabber.example.com"
+
+     set loginconf1(profile)      "Default Account"
+     set loginconf1(user)         mrose
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 25]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+     set loginconf2(profile)      "Test Account"
+     set loginconf2(user)         test
+
+     array set loginconf          [array get loginconf1]
+
+     set autologin 0
+
+
+ # the message module
+
+     set message::options(headlines,cache)    1
+     set message::options(headlines,multiple) 1
+
+
+ # the raw xml input module
+
+     set plugins::rawxml::set options(pretty_print) 0
+     set plugins::rawxml::set options(indent)       2
+
+
+ # the roster module
+
+     set roster::show_only_online            1
+     set roster::roster(collapsed,RSS)       1
+     set roster::roster(collapsed,Undefined) 1
+
+     set roster::aliases(friend@some.host) \
+         {friend@other.host friend@another.host}
+     set roster::use_aliases                 1
+
+
+ # the sound module
+
+     set sound::options(mute)                   0
+     set sound::options(mute_if_focus)          0
+     set sound::options(notify_online)          0
+     set sound::options(mute_groupchat_delayed) 1
+     set sound::options(mute_chat_delayed)      0
+     set sound::options(external_play_program) /usr/bin/aplay
+     set sound::options(external_play_program_options) -q
+     set sound::options(delay)
+
+     set sound::options(connected_sound)                     ""
+     set sound::options(presence_available_sound)            ""
+     set sound::options(presence_unavailable_sound)          ""
+     set sound::options(groupchat_server_message_sound)      ""
+     set sound::options(groupchat_their_message_to_me_sound) ""
+ }
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 26]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   This isn't nearly as complicated as it seems.  Let's break it down by
+   individual module
+
+5.2.1.  Look-and-Feel
+
+   _Tkabber_ is shameless in borrowing icons from other Jabber clients.
+   By setting "pixmaps::options(pixmaps_theme)", you can select a family
+   of related icons.  Besides ""Default"", you can choose one of
+   ""Gabber"", ""JAJC"", ""Jarl"", ""Psi"", ""ICQ"", or a few other
+   themes.
+
+   If you want, you can have _Tkabber_ use a different theme by putting
+   custom theme subdirectory to "$::configdir/pixmaps/" directory (tilde
+   means home directory). _Tkabber_ knows that it is a theme directory
+   by looking for "icondef.xml" file in the directory.  To find out the
+   structure of icon definition file, look through _XEP-0038_ and go to
+   where you installed _Tkabber_ and take a look at the directory called
+   ""pixmaps/default/"".
+
+   If you're using the tabbed window interface, _Tkabber_ needs a way of
+   telling you that something has changed in a window that's not on top.
+   This is where the an array called _alert_lvls_ and a list called
+   _alert_colors_ come in.  The array maps an incoming message to a
+   priority number from zero to three.  The list, which is indexed
+   starting at _zero_, indicates what color the tab should use to let
+   you know that something's changed.  So, the way to read the example
+   is that receiving:
+
+   o  an error or server message will cause the tab of a lowered window
+      to go dark blue;
+
+   o  a groupchat or headline message will cause the tab to go blue;
+      and,
+
+   o  a chat message addressed directly to you will cause the tab to go
+      red.
+
+   By default, whenever a new tab is created, it is automatically
+   raised.  If you don't like this behavior, add this line:
+
+   set ifacetk::options(raise_new_tab) 0
+
+5.2.2.  The system tray icon (for Unix)
+
+   This module is presently available only for Unix
+
+   To enable the system tray icon you have to install _tktray_ extension
+   and set the config variable "plugins::tktray::options(enable)" to 1.
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 27]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   If you want to control the tray icon appearance and/or position,
+   consult the documentation for your desktop environment or window
+   manager.  Note, that the Tkabber's tray icon has WM class
+   _TkabberIcon_.
+
+5.2.3.  The Autoaway Module
+
+   There are two variables that control when _Tkabber_ automatically
+   marks you as away: "plugins::autoaway::options(awaytime)" and
+   "plugins::autoaway::options(xatime)".  Both define the idle threshold
+   in minutes (the number does not have to be integer).
+
+   If variable "plugins::autoaway::options(drop_priority)" is set in 1
+   then _Tkabber_ will set priority to 0 when moving in extended away
+   state.
+
+   Variable "plugins::autoaway::options(status)" allows to specify text
+   status, which is set when _Tkabber_ is moving in away state.
+
+5.2.4.  The Avatar Module
+
+   There are two variables that you can set to control whether _Tkabber_
+   will allow others to see your avatar:
+
+   o  "avatar::options(announce)" determines whether your presence
+      information indicates that you have an avatar; and,
+
+   o  "avatar::options(share)" determines whether requests for your
+      avatar will be honored.
+
+5.2.5.  The Chat Module
+
+   The variable named "chat::options(stop_scroll)" determines whether a
+   chat window should automatically scroll down to the bottom whenever
+   something new comes in.
+
+   You can also set format of time stamp that displayed in beginning of
+   each chat message.  Refer to _Tcl_ documentation for description of
+   format.  E.g., to display it in ""dd:mm:ss"" format, add this line:
+
+   set plugins::options(timestamp_format) {[%T]}
+
+5.2.6.  The Clientinfo Module
+
+
+
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 28]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   This module shows in popup balloons information of used by this user
+   client name, version, and OS.  You can allow or deny automatic asking
+   of this info from users by setting this variable to 1 or 0:
+
+   set plugins::clientinfo::options(autoask) 1
+
+5.2.7.  The Conferenceinfo Module
+
+   After you join a conference that's listed in your roster, then
+   whenever you mouse over that roster entry, you'll see a popup listing
+   the conference's participants.  If you want to see this popup,
+   regardless of whether you are currently joined with the conference,
+   add this line to your post-load:
+
+   set plugins::conferenceinfo::options(autoask) 1
+
+   You can also set interval between these requests with these two
+   variables:
+
+   set plugins::conferenceinfo::options(interval)       1
+   set plugins::conferenceinfo::options(err_interval)  60
+
+   The second variable defines how many minutes to wait after receiving
+   an error reply before trying again.  (Usually an error reply
+   indicates that the server hosting the conference doesn't support
+   browsing, so it makes sense not to try that often.
+
+5.2.8.  The Cryptographic Module
+
+   Earlier (Section 5.1) we saw an example where the "ssj::options"
+   array from the cryptographic module was set during the preload.
+
+   In addition to "signed-traffic" and "encrypt-traffic", you can also
+   tell _Tkabber_ whether to encrypt for a particular JID, e.g.,
+
+       set ssj::options(encrypt,fred@example.com) 1
+
+5.2.9.  The Emoticons Module
+
+   The procedure called _plugins::emoticons::load_dir_ is used to load
+   emoticon definitions from a directory.  The directory contains a file
+   called ""icondef.xml"", which defines the mapping between each image
+   and its textual emoticon (To find out what this file looks like, go
+   to where you installed _Tkabber_ and take a look at the file called
+   ""emoticons/default/icondef.xml"" or read XEP-0038 [32].)
+
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 29]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   If you have just a few icons, and you don't want to create a
+   directory and a textual mapping, you can use the procedure called
+   "plugins::emoticons::add", e.g.,
+
+       plugins::emoticons::add ":beer:" \
+           [image create photo -file $::configdir/emoticons/beer.gif]
+
+   If you want to disable all emoticons, you can simply load empty
+   directory.  Put in postload function
+
+       plugins::emoticons::load_dir ""
+
+5.2.10.  The File Transfer Module
+
+   You can set directory in which files will be saved by default:
+
+       set ft::options(download_dir) "/tmp"
+
+5.2.11.  The Groupchat Module
+
+   There are several variables that set the dialog window defaults for
+   adding a groupchat to your roster, or joining a groupchat:
+
+   add to roster dialog window:  "gra_group" and "gra_server" specify
+      the default room and conference server, repectively; and,
+
+   join dialog window:  "gr_nick", "gr_group" and "gr_server" specify
+      the default nickname, room, and conference server, respectively.
+
+   Note that variables "gra_server", "gr_nick" and "gr_server" overriden
+   in login procedure, so better place for changing them is in
+   "connected_hook" (see below).
+
+   You may want to have different nicknames for different groupchats.
+   Accordingly, the array called _defaultnick_ is used to set the
+   default nickname for when you enter a conference.  The array is
+   indexed by the JID of the room, e.g.,
+
+       set defaultnick(adhoc@conference.example.com) publius
+
+   Another possibility is to put pattern in parentheses.  The following
+   example shows how to specify default nickname for all conferences at
+   _conference.example.com_:
+
+       set defaultnick(*@conference.example.com) ciceroni
+
+   Exact JID's take the higher precedence than patterns.
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 30]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+5.2.12.  The Ispell Module
+
+   On Unix, _Tkabber_ can check spelling of what you entered by calling
+   an external program _ispell_.  To enable this feature, add following
+   lines to postload function:
+
+   set plugins::ispell::options(enable) 1
+
+   If you enabled this module, then you can also define:
+
+   o  the path to the _ispell_, or _aspell_, or _hunspell_ executable by
+      setting "plugins::ispell::options(executable)"
+
+   o  the _ispell_ command line options, which can specify dictionaries
+      to use, by setting "plugins::ispell::options(command_line)"; and,
+
+   o  the encoding of the output by setting
+      "plugins::ispell::options(dictionary_encoding)".
+
+   If you don't care about putting a large load on your process, then
+   you can also set "plugins::ispell::options(check_every_symbol)" to 1
+   to check correctness of current word after every entered symbol.
+   (Usually you don't need to set this option.)
+
+5.2.13.  The Stream Initiation Module
+
+   Stream initiation profile is defined in _XEP-0095_ with two
+   transports (_XEP-0047_ - IBB, _XEP-0065_ - SOCKS5 bytestreams).  With
+   it you can specify what transports you can use, and via negotiation
+   choose more appropriate one.  _Tkabber_ comes with two transport
+   implementations:
+
+   bytestreams:  that allows you to connect to any node that supports
+      "bytestreams" transport (mediated connection is not supported
+      yet);
+
+   ibb:  that uses your "Jabber" connection to transmit the data (which
+      may slowdown other traffic to you).
+
+   If your machine is behind a NAT, then you can't use the "bytestreams"
+   transport, so you should disable it:
+
+     set si::transport(allowed,http://jabber.org/protocol/bytestreams) 0
+
+
+
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 31]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+5.2.14.  The Logger Module
+
+   You can set directory to store logs:
+
+       set logger::options(logdir) [file join $::configdir logs]
+
+   Also you can allow or disallow storing of private and group chats
+   logs:
+
+       set logger::options(log_chat)      1
+       set logger::options(log_groupchat) 1
+
+5.2.15.  The Proxy Module
+
+   Starting from version 1.0 _Tkabber_ does not keep proxy settings in
+   the "loginconf" array.  It uses proxy profiles defined in separate
+   arrays.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 32]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   First, you may want to specify a set of proxy servers.  You can have
+   multiple proxy servers defined in the config file (to use in
+   different environments, or if in your company different proxies are
+   used to connect to different hosts).  To do so, define global arrays
+   (their names could be arbitrary, but "proxy<number>" looks natural):
+
+       set proxy1(type)     https
+       set proxy1(host)     proxy.example.com
+       set proxy1(port)     3128
+       set proxy1(username) ""
+       set proxy1(password) ""
+       set proxy1(match)    *
+       set proxy1(exclude)  "localhost* 127.0.0.* 172.* 192.168.* 10.*"
+
+       set proxy2(type)     http
+       set proxy2(host)     proxy.example.com
+       set proxy2(port)     3128
+       set proxy2(username) ""
+       set proxy2(password) ""
+       set proxy2(match)    *
+       set proxy2(exclude)  "localhost* 127.0.0.* 172.* 192.168.* 10.*"
+
+       set proxy3(type)     socks5
+       set proxy3(host)     proxy.example.com
+       set proxy3(port)     1080
+       set proxy3(username) ""
+       set proxy3(password) ""
+       set proxy3(match)    *
+       set proxy3(exclude)  "localhost* 127.0.0.* 172.* 192.168.* 10.*"
+
+   Field "type" is one of the following: _"socks4"_, _"socks5"_,
+   _"https"_, _"http"_. The firat three types are tunnelling proxies.
+   If you enable them, _Tkabber_ will use them to tunnel its TCP
+   connections (in case of _"https"_ this means using _CONNECT_ method
+   for HTTP proxy).  The other one is used when _Tkabber_ needs to fetch
+   some data via _GET_ or _POST_ method of the HTTP protocol (e.g., when
+   utilizing BOSH or HTTP-poll connection).
+
+   Fields "host", "port", "username" and "password" are selfexplanatory.
+
+   There are two fields which need some explanation: "match" and
+   "exclude".  When Tkabber needs to connect to a certain _host_ or to
+   get an HTTP document it searches proxies in order they appear in the
+   corresponding proxyconf list (see below) and uses the first proxy for
+   which the _host_ matches one of the patterns from the "match" field
+   but doesn't match any of the patterns from the "exclude" field.  The
+   matching uses patterns convention from the "string match" _Tcl_
+   command.
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 33]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   Second, you may want to define proxy profiles, and switch between
+   them when the environment changes (it's useful for portable
+   computers).  To do so, you may define global arrays named
+   "proxyconf<number>" where numbers must start from 1 and be
+   consecutive, otherwise _Tkabber_ GUI wouldn't be able to switch to
+   them:
+
+       set proxyconf1(profile) Home
+       set proxyconf1(tunnel)  {}
+       set proxyconf1(http)    {}
+
+       set proxyconf2(profile) Work
+       set proxyconf2(tunnel)  {proxy1 proxy3}
+       set proxyconf2(http)    {proxy2}
+
+       array set proxyconf [array get proxyconf2]
+
+   Here, two proxy profiles are defined.  The first one instructs
+   _Tkabber_ not to use any proxies and directly connect to any host.
+   The second one defines two tunnel proxies and one HTTP proxy.  Note
+   that HTTPS and HTTP proxy are the same, but they should appear in
+   both "tunnel" and "http" fields anyway.  The last line chooses the
+   default proxy profile, which is _Work_ in the example above.
+
+   Also, you can edit proxy settings using _Tkabber_ GUI under
+   _Tkabber->Manage proxy servers_ menu item.
+
+5.2.16.  The Login Module
+
+   The first task is to initialize the configuration defaults for the
+   _login_ module.  As you can see above, the global array "loginconf"
+   has a whole bunch of elements, e.g., "user", "password", and so on.
+
+   Elements "loginconf(user)" and "loginconf(password)"specify username
+   and password to authenticate at your _Jabber_ server.
+
+   Element "loginconf(server)" must be set to _Jabber_ server name (the
+   part of you _JID_ after "@".
+
+   Element "loginconf(stream_options)" is set to one of the following
+   values:
+
+   o  plaintext -- use plaintext connection;
+
+   o  encrypted -- use encrypted (via STARTTLS mechanism) connection
+      (this option requires tls extension to be installed);
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 34]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   o  ssl -- use encrypted (via legacy SSL mechanism) connection (this
+      option requires tls extension to be installed);
+
+   o  compressed -- use compressed connection (this option requires Ztcl
+      extension to be installed).
+
+   _Tkabber_ tries to resolve _Jabber_ server name using _SRV_ first and
+   usual _A_ records in _DNS_.  If the resolution fails (for example if
+   you are in LAN environment without _DNS_) you can force _Tkabber_ to
+   connect to the server using "loginconf(altserver)" and
+   "loginconf(altport)" options (do not forget to set
+   "loginconf(usealtserver)" to "1").
+
+   Another option is to use _BOSH_ (XEP-0124 and XEP-0206) connect
+   method (if your server supports it) and tunnel _XMPP_ traffic through
+   _HTTP_.  To enable _BOSH_ set "loginconf(usebosh)" to "1". _Tkabber_
+   then tries to find connect _URL_ using _TXT_ record in _DNS_ (see
+   XEP-0156).  You can specify _URL_ manually by setting
+   "loginconf(boshurl)".
+
+   And another option is to use _HTTP_-polling connect method (if your
+   server supports it) and tunnel _XMPP_ traffic through _HTTP_.  To
+   enable _HTTP_-polling set "loginconf(usehttppoll)" to "1". _Tkabber_
+   then tries to find connect _URL_ using _TXT_ record in _DNS_ (see
+   XEP-0156).  You can specify _URL_ manually by setting
+   "loginconf(pollurl)".
+
+   This collection of elements, which is termed a login profile, is what
+   populates the dialog window you'll see when _Tkabber_ wants to
+   connect to the server.
+
+   It turns out that _Tkabber_ lets you have as many different login
+   profiles as you want.  If you want more than just one, they're named
+   "loginconf1", "loginconf2", and so on.
+
+   What the example above shows is the default values for all profiles
+   being set in "loginconf", and then two profiles, one called ""Default
+   Account"" and the other called ""Test Account"" being created.
+
+   If you want to automatically login to server, then you can set the
+   "autologin" variable to "1".
+
+   If you set the "autologin" variable to "-1", then _Tkabber_ will not
+   automatically login and will not show login dialog.
+
+   Default value for "autologin" is "0".  In this case _Tkabber_ shows
+   login dialog.
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 35]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+5.2.17.  The Message Module
+
+   By default, when you restart _Tkabber_ it won't remember the
+   headlines you received.  If you want _Tkabber_ to remember headlines
+   whenever you run it, set "message::options(headlines,cache)" to "1".
+
+   By default, _Tkabber_ will put all headline messages into a single
+   window.  If you want _Tkabber_ to use a seperate window for each
+   headline source, set "message::options(headlines,multiple)" to "1".
+
+5.2.18.  The Raw XML Input Module
+
+   With this module you can monitor incoming/outgoing traffic from
+   connection to server and send custom XML stanzas.  Also you can
+   switch on "pretty print" option to see incoming and outgoing XML
+   stanzas pretty printed.  Note, that with this option they may be
+   drawed incorrectly, e.g. for XHTML tags.  Also you can set
+   indentation level via "indent" option.
+
+5.2.19.  The Roster Module
+
+   By default, your entire roster is shown, even those items that aren't
+   online.  The variable called "roster::show_only_online" controls
+   this.
+
+   Similarly by default, each item in every category is shown in the
+   roster.  If you want to hide the items in a given category, the array
+   called "roster::roster" lets you do this.  In the example, we see
+   that two groups (""RSS"" and ""Undefined"") start with their items
+   hidden.
+
+   Some peoples use several JIDs.  _Tkabber_ lets you specify an alias
+   for people like these, so it will show only one entry in the roster.
+   In the example, we see that user "friend@some.host" have aliases
+   "friend@other.host" and "friend@another.host".  You can also disable
+   all aliases by setting "roster::use_aliases" to "0".
+
+5.2.20.  The Sound Module
+
+   _Tkabber_ can play sounds on some events.  It can use for this
+   _snack_ library or external program that can play _WAV_ files.  Sound
+   notifications is enabled when _Tkabber_ starts.
+
+   If you want to start _Tkabber_ with sound muted add the following
+   line:
+
+   set sound::options(mute) 1
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 36]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   If you want _Tkabber_ to stop notifying you when you are not online
+   (in away or dnd state) add the following line:
+
+   set sound::options(notify_online) 1
+
+   If you want _Tkabber_ to mute sound when it is focued (and you are
+   paying enough attention to it) add the following line:
+
+   set sound::options(mute_if_focus) 1
+
+   You can also mute sounds of delayed groupchat messages and delayed
+   personal chat messages:
+
+   set sound::options(mute_groupchat_delayed) 1
+   set sound::options(mute_chat_delayed)      0
+
+   If you want to use external program for playing sounds and possibly
+   this program's options, then also add something like this (these
+   options are suitable for Linux users with ALSA installed):
+
+   set sound::options(external_play_program) /usr/bin/aplay
+   set sound::options(external_play_program_options) -q
+
+   You can also set minimal interval (in milliseconds) between playing
+   different sounds.
+
+   set sound::options(delay) 200
+
+   _Tkabber_ allows you to specify the filename it will play notifying
+   about some more or less important events.  These are:
+
+   o  "sound::options(connected_sound)" -- sound playing when _Tkabber_
+      is connected to the server;
+
+   o  "sound::options(presence_available_sound)" -- sound playing when
+      available presence is coming;
+
+   o  "sound::options(presence_unavailable_sound)" -- sound playing when
+      unavailable presence is coming;
+
+   o  "sound::options(chat_my_message_sound)" -- sound playing when you
+      send one-to-one chat message;
+
+   o  "sound::options(chat_their_message_sound)" -- sound playing when
+      you receive one-to-one chat message;
+
+   o  "sound::options(groupchat_server_message_sound)" -- sound playing
+      when you receive groupchat message from server;
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 37]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   o  "sound::options(groupchat_my_message_sound)" -- sound playing when
+      you receive groupchat message from server;
+
+   o  "sound::options(groupchat_their_message_sound)" -- sound playing
+      when you receive groupchat message from another user;
+
+   o  "sound::options(groupchat_their_message_to_me_sound)" -- sound
+      playing when you receive highlighted (usually personally
+      addressed) groupchat message from another user.
+
+   If you want to disable sound notification for some of the events,
+   then you can add line like this:
+
+   set sound::options(connected_sound)                     ""
+   set sound::options(presence_available_sound)            ""
+   set sound::options(presence_unavailable_sound)          ""
+   set sound::options(groupchat_server_message_sound)      ""
+   set sound::options(groupchat_their_message_to_me_sound) ""
+
+5.3.  Menu-load
+
+   After _Tkabber_ invokes your "postload" procedure, it starts building
+   the GUI.  One of the most important things it does is build up a list
+   that specifies its menu bar.  It then invokes a procedure called
+   "menuload", which is allowed to modify that specification before
+   _Tkabber_ uses it.
+
+   The default version of this procedure is the identity function,
+   i.e..,
+
+   proc menuload {description} { return $description }
+
+   If you _really_ want to change the menubar specification, then here's
+   how to get started:
+
+   1.  Go to where you installed the _BWidget_ library and take a look
+       at the file called ""BWman/MainFrame.html"".  The documentation
+       for the ""-menu"" option explains the syntax of the
+       specification.
+
+   2.  Go to where you installed _Tkabber_ and take a look at the file
+       called ""iface.tcl"".  Look for the line that starts with ""set
+       descmenu"".  This will show you the specification given to your
+       "menuload" procedure.
+
+   3.  Go to where you installed _Tkabber_ and take a look at the file
+       called ""examples/mtr-config.tcl"".  Look at the "menuload"
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 38]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+       procedure defined there.  It lays out _Tkabber's_ menu bar
+       similar to _Gabber's_.
+
+   4.  Finally, study the procedures listed here.
+
+5.3.1.  The Avatar Module
+
+   The procedure called "avatar::store_on_server" stores your avatar on
+   the server.
+
+5.3.2.  The Browser Module
+
+   The procedure called "browser::open" opens a new browser window.
+
+5.3.3.  The Groupchat Module
+
+   The procedure called "add_group_dialog" displays a dialog window when
+   you want to add a groupchat to your roster.  Similarly, the procedure
+   called "join_group_dialog" displays a dialog window when you want to
+   join a groupchat.
+
+5.3.4.  The Login Module
+
+   The procedure called "show_login_dialog" displays a dialog window
+   when you want to login to the server.  (Prior to attempting to login,
+   if necessary it will logout).  Naturally, the procedure called
+   "logout" does just that; however, if you want get a dialog window for
+   confirmation, use "show_logout_dialog" instead.
+
+5.3.5.  The Message Module
+
+   If you want to send a message to someone, the procedure called
+   "message::send_dialog" will put up a dialog window.  It takes upto
+   three optional arguments: the recipient JID, the subject, and the
+   thread.
+
+   If you want to get added to someone's roster, the procedure called
+   "message::send_subscribe_dialog" will put up a dialog window.  It
+   takes one optional argument: the recipient JID.
+
+5.3.6.  The Presence Module
+
+   If you want to display information about a user, the procedure called
+   "userinfo::open" will put up a dialog window.  It takes two optional
+   arguments: the user's JID; and, whether or not the dialog window
+   should be editable.
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 39]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   Obviously, the second argument makes sense only if it's your own
+   information, i.e.,
+
+       global loginconf
+
+       userinfo::open \
+           ${loginconf(user)}@$loginconf(server)/$loginconf(resource) 1
+
+   There are also two variables that you can use to set your own
+   presence: "userstatus" and "textstatus".  The first variable takes
+   one of five values:
+
+   o  available;
+
+   o  chat;
+
+   o  away;
+
+   o  xa;
+
+   o  dnd; or,
+
+   o  invisible.
+
+   The second variable takes any textual value.
+
+   Changes to your presence information are propagated only when
+   "userstatus" is changed.  Accordingly, if you make a change to
+   "textstatus", be sure to write "userstatus" immediately afterwards,
+   even if it's a no-op, e.g.,
+
+       global userstatus textstatus
+
+       set textstatus "Out to lunch"
+       set userstatus $userstatus
+
+5.3.7.  Miscellany
+
+   Finally, you can use the procedure named "help_window" to display
+   some textual help.  This procedure takes two arguments: the title for
+   the window; and, the text to display.
+
+   Also, instead of calling "exit" to terminate _Tkabber_, please use
+   the "quit" procedure instead.
+
+
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 40]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+5.4.  Final-Load
+
+   Finally, right before _Tkabber_ goes to display the login dialog, it
+   invokes a procedure called "finload", which does whatever you want it
+   to.
+
+6.  Extensibility
+
+   In addition to various configuration mechanisms, _Tkabber_ lets you
+   define procedures, termed "hooks" that get run when certain events
+   happen.
+
+   Here's an example.  When _Tkabber_ receives a chat message, how does
+   it know what to process and what to draw?  The short answer is that
+   it doesn't need to know anything, all it does is:
+
+   hook::run draw_message_hook $chatid $from $type $body $extras
+
+   The "hook::run" procedure invokes whatever hooks have been defined
+   for "draw_message_hook".  In fact, more than ten procedures may get
+   invoked to satisfy this hook!
+
+   Here's how it works: _Tkabber_ comes with a number of plugins, which
+   get loaded automatically.  Each plugin makes one or more calls that
+   look like this:
+
+   hook::add draw_message_hook [namespace current]::my_draw_hook $prio
+
+   where the last two parameters are: the name of a procedure to run;
+   and, a relative integer priority.
+
+   When "hook::run" is invoked for "draw_message_hook", each of these
+   procedures is called, in the priority order (from smallest to
+   largest).  If one of the procedures wants to prevent the later
+   procedures from being called, it returns the string ""stop"".
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 41]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   To continue with the example, in between the pre-load and post-load
+   stages of configuration, the following calls get made by different
+   plugins:
+
+   hook::add draw_message_hook [list ...::events::process_x 0] 0
+   hook::add draw_message_hook ...::chatstate::process_x 1
+   hook::add draw_message_hook ...::check_draw_empty_body 4
+   hook::add draw_message_hook ...::chat_open_window 5
+   hook::add draw_message_hook [list ...::events::process_x 1] 6
+   hook::add draw_message_hook ...::draw_signed 6
+   hook::add draw_message_hook ...::draw_encrypted 7
+   hook::add draw_message_hook ...::handle_error 10
+   hook::add draw_message_hook ...::handle_info 10
+   hook::add draw_message_hook ...::draw_timestamp 15
+   hook::add draw_message_hook    ::logger::log_message 15
+   hook::add draw_message_hook ...::set_message_timestamp 15
+   hook::add draw_message_hook ...::add_number_of_messages_to_title 18
+   hook::add draw_message_hook ...::chat_message_notify19
+   hook::add draw_message_hook ...::handle_server_message 20
+   hook::add draw_message_hook ...::roster::update_chat_activity 50
+   hook::add draw_message_hook ...::check_nick 60
+   hook::add draw_message_hook    ::wmdock::msg_recv 70
+   hook::add draw_message_hook ...::handle_last_nick 79
+   hook::add draw_message_hook ...::add_bookmark 80
+   hook::add draw_message_hook ...::handle_me 83
+   hook::add draw_message_hook ...::xhtml::draw_xhtml_message 85
+   hook::add draw_message_hook ...::draw_normal_message 87
+
+   Many of these procedures look at the incoming chat message and
+   operate on only certain kinds of messages.  Some of these procedures
+   may return ""stop"", e.g., "handle_me" which handles chat bodies that
+   start with ""/me"" and ?draw_xhtml_message? which visualizes _XHTML_
+   formatted messages.  (In this example, the actual namespaces were
+   replaced with ""...:"" to make it more readable).
+
+   Now let's look at the different kind of hooks that _Tkabber_ knows
+   about.
+
+6.1.  Message Hooks
+
+   When _Tkabber_ receives a message stanza it calls two hooks:
+
+   rewrite_message_hook \
+       xlib from id type is_subject subject body err thread priority x
+   process_message_hook \
+       $xlib $from $id $type $is_subject $subject $body $err $thread \
+       $priority $x
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 42]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   The first hook takes eleven variable names as arguments, so the
+   calling procedures can rewrite them.  This means that a procedure in
+   this hook should call "upvar 2 $varbody body" and use the "body"
+   variable to change the actual message body.  For example, this allows
+   _Tkabber_ to put decrypted message into the "body" variable if it is
+   encrypted.
+
+   The second hook does the job of showing message to the user (or doing
+   something else with it if it's a special message like part of an in-
+   band file transfer.
+
+   When you are about to send a chat or normal message to the wire, a
+   hook is run:
+
+ rewrite_outgoing_message_hook xlib to id type subject body err thread x
+
+   The hook takes nine variable names as arguments, so the calling
+   procedures can rewrite them.  This means that a procedure in this
+   hook should call "upvar 2 $varbody body" and use the "body" variable
+   to change the actual message body.  For example, this allows
+   _Tkabber_ to encrypt message and put the encrypted message into the
+   "body" variable to send.  This hook is introduced in _Tkabber_ 1.1,
+   and is used by the OTR plugin, so the latter will not work in
+   _Tkabber_ 1.0 and older.
+
+6.2.  Chat Hooks
+
+   When _Tkabber_ decides that it needs to open a (tabbed) window for a
+   chat or groupchat, two hooks are run:
+
+   open_chat_pre_hook  $chatid $type
+   open_chat_post_hook $chatid $type
+
+   Both hooks are given two parameters: the chatid (ID of the chat or
+   conference room window, you always can obtain JID using
+   "chat::get_jid" and connection token using "chat::get_xlib"
+   routines); and, and the type of chat (either ""chat"" or
+   ""groupchat"").
+
+   Similarly, when _Tkabber_ encounters activity on a tabbed window, a
+   hook is run:
+
+   raise_chat_tab_hook $path $chatid
+
+   The hook is given two parameters: the path of the _Tk_ widget for the
+   tabbed window; and, the chatid of the chat or conference room window.
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 43]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   When you want to send a chat message, a hook is run:
+
+   chat_send_message_hook $chatid $user $body $type
+
+   The hook is given four parameters: the chatid of the recipient; the
+   localpart of your login identity; the body of the message; and, the
+   type of chat.
+
+   draw_message_hook $chatid $from $type $body $extras
+
+   The hook is given five parameters: the chatid of the sender window
+   (JID includes a resource); the JID of the sender (without the
+   resource); the type of chat; the body of the message; and, a nested-
+   list of additional payload elements.  (This last parameter isn't
+   documented in this version of the documentation.)
+
+   Chat windows have menubuttons, and two hooks are used to add items in
+   menu:
+
+   chat_create_user_menu_hook $path $xlib $jid
+   chat_create_conference_menu_hook $path $xlib $jid
+
+   The first is used in user chat windows, and second in groupchat ones.
+   Hooks are given three parameters: the path of the _Tk_ menu widget;
+   connection token; and, the JID of user or conference.
+
+   In groupchat windows it is possible to complete participants' nicks
+   or commands by pressing TAB key.  List of completions is generated by
+   running this hook:
+
+   generate_completions_hook $chatid $compsvar $wordstart $line
+
+   The hook is given four parameters: the chatid of conference window;
+   name of global variable, in which current list of possible
+   completions is stored; index of position where completion must be
+   inserted; and content of text widget where completion is requested.
+
+   When someone enters/exits conference or changes their presence, the
+   following hooks are called:
+
+   chat_user_enter    $group $nick
+   chat_user_exit     $group $nick
+   chat_user_presence $group $nick
+
+   The hooks are given two parameters: chatid of conference and nick of
+   participant.
+
+
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 44]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   When someone changes his/her nickname in a conference room, the
+   following hook is called:
+
+   room_nickname_changed_hook $chatid $nick $new_nick
+
+   The hook is given three parameters: chatid of conference old nickname
+   and the new nickname of participant.
+
+6.3.  Login Hooks
+
+   Two hooks are invoked whenever a session is connected or
+   disconnected:
+
+   connected_hook $xlib
+
+   disconnected_hook $xlib
+
+   Both hooks are given one parameter: connection token (_Tkabber_
+   allows several connections at once).
+
+6.4.  Presence Hooks
+
+   When our presence status changes, a hook is run:
+
+   change_our_presence_post_hook $status
+
+   The hook is given one parameter: the new presence status value, i.e.,
+   one of:
+
+   o  available;
+
+   o  chat;
+
+   o  away;
+
+   o  xa;
+
+   o  dnd; or
+
+   o  unavailable.
+
+   Similarly, when someone else's presence changes, a hook is run:
+
+   on_change_user_presence_hook $label $status
+
+   The hook is given two parameters: the label associated with the JID
+   (e.g., "fred") or the JID itself (e.g., "fred@example.com") if no
+   label exists in the roster; and, the user's new status.
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 45]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   And for all received presence packets, a hook is run:
+
+   client_presence_hook $xlib $from $type $x $args
+
+   The hook is given four parameters: connection token, who send this
+   presence, type of presence (e.g., "error", "unavailable"), list of
+   extended subtags and parameters of this presence (e.g., "-show xa
+   -status online").
+
+6.5.  Info/Query Hook
+
+   When an IQ stanza is received, a hook is run:
+
+   client_iq_hook $xlib $from $type $queries $args
+
+   The hook is given four compulsory parameters: connection token, who
+   sent this query/response type of stanza (e.g., "get", "set", "result"
+   or "error"), list of query subelements (usually it contains only one
+   element), list of optional arguments (e.g., "-lang language -to jid
+   -id id -x $list_of_other_attributes").
+
+6.6.  Roster Hooks
+
+   When an item is added to the roster window, one of the four hooks is
+   run to add stuff to the menu associated with that item:
+
+   roster_conference_popup_menu_hook $path $xlib $jid
+
+   roster_service_popup_menu_hook $path $xlib $jid
+
+   roster_jid_popup_menu_hook $path $xlib $jid
+
+   roster_group_popup_menu_hook $path $xlib $name
+
+   When run, each hook is given three parameters: the path of the _Tk_
+   menu widget; the connection token; and, a JID of the roster item (or
+   the name of the roster group for the last one).
+
+   Also the following hook is run to add stuff to the menu in
+   groupchats:
+
+   roster_create_groupchat_user_menu_hook $path $xlib $jid
+
+   The hook is given three parameters: the path of the _Tk_ menu widget;
+   the connection token; and, a JID of user.
+
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 46]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   The following hook is run to add stuff to the popup balloon for each
+   roster item:
+
+   roster_user_popup_info_hook $varname $xlib $jid
+
+   The hook is given three parameters: the variable name in which
+   current popup text is stored, the connection token, and the JID of
+   the roster item.
+
+6.7.  Miscellaneous Hooks
+
+   There are three "obvious" hooks:
+
+   postload_hook
+
+   finload_hook
+
+   quit_hook
+
+   The first two, by default, run the "postload" and "finload"
+   procedures, respectively. "postload_hook" is run after all code has
+   been loaded and before initializing main _Tkabber_ window.  After
+   that "finload_hook" is run.  The final hook is called just before
+   _Tkabber_ terminates (cf., Section 5.3.7).
+
+   You can add custom pages to userinfo window using
+
+   userinfo_hook $path $xlib $jid $editable
+
+   It is run with four arguments: the userinfo notebook widget name; the
+   connection token; the JID of the user; and a boolean parameter which
+   indicates whether the form is editable.
+
+7.  User Interface basics
+
+7.1.  Searching
+
+   Search panel may be invoked in certain classes of _Tkabber_ windows
+   using the "<<OpenSearchPanel>>" Tk virtual event which is bound by
+   default to the "<Control-S>" keyboard command.
+
+   Search panel can be dismissed by pressing the "<Escape>" key and the
+   default search action ("search down") is activated by pressing the
+   "<Return>" key while entering the search pattern.
+
+   Search panel is currenlty available in:
+
+   o  Chat and groupchat windows;
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 47]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   o  Service discovery window;
+
+   o  Chat history logs;
+
+   o  All windows of the "Chats history" tool.
+
+   o  Headlines window.
+
+   o  Raw XML log window.
+
+   o  MUC affiliations and roles lists.
+
+   Searching may be customized using the settings located under the
+   _Plugins \u002D-> Search_ group of the _Customize_ window.  These
+   setings are:
+
+   o  "::plugins::search::options(case)": perform case-sensitive
+      searching (_off_ by default);
+
+   o  "::plugins::search::options(mode)": selects searching mode which
+      can be one of:
+
+      *  _substring_ -- use simple substring search: the typed search
+         string is taken verbatim and then the attempt to locate it is
+         performed.  This is the default mode.
+
+      *  _glob_ -- uses "glob-style" (or "shell-style") matching:
+         special symbols are recognized and they provide for
+         "wildcarding":
+
+         +  _*_ matches zero or more characters;
+
+         +  _?_ matches exactly one character;
+
+         +  _[_ and _]_ define character classes, e.g., "[A-Z]" will
+            match any character in the series "A", "B", ... "Z".
+
+         The full syntax is described in Tcl string manual page [33].
+         That is, this search mode can be convenient for those who want
+         more general yet simple approach to searching and is familiar
+         with the "shell globbing" concept found in Unix shells.
+
+      *  _regexp_ -- provides for searching using full-blown regular
+         expressions engine.  The full syntax is described in Tcl
+         re_syntax manual page [34].
+
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 48]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+8.  References
+
+8.1.  URIs
+
+   [1] http://tkabber.jabber.ru/
+
+   [2] http://www.jabber.org/
+
+   [3] https://otr.cypherpunks.ca/
+
+   [4] http://sourceforge.net/project/showfiles.php?group_id=10894
+
+   [5] http://sourceforge.net/project/showfiles.php?group_id=12883
+
+   [6] http://sourceforge.net/project/showfiles.php?group_id=12883
+
+   [7] http://www.activestate.com/Products/ActiveTcl
+
+   [8] http://sourceforge.net/projects/tcludp/
+
+   [9] http://sourceforge.net/project/showfiles.php?group_id=13248
+
+   [10] http://www.openssl.org/source/
+
+   [11] http://sourceforge.net/projects/tkimg/
+
+   [12] http://www.tdom.org/
+
+   [13] https://gna.org/projects/ztcl/
+
+   [14] https://gna.org/projects/ztcl/
+
+   [15] http://sgolovan.nes.ru/jabber/ztcl/
+
+   [16] https://chiselapp.com/user/sgolovan/repository/tclgpg/
+
+   [17] http://fossil-scm.org
+
+   [18] http://www.gnupg.org/download.html
+
+   [19] https://otr.cypherpunks.ca/
+
+   [20] http://memchan.sourceforge.net/
+
+   [21] http://www.speech.kth.se/snack/download.html
+
+   [22] http://sw4me.com/wiki/Tktray
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 49]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   [23] http://sourceforge.net/projects/tktable/
+
+   [24] http://tkcon.sourceforge.net
+
+   [27] http://fossil-scm.org
+
+   [28] http://www.xmpp.org/extensions/xep-0081.html
+
+   [29] http://wiki.tcl.tk/1727
+
+   [30] http://www.tcl.tk/man/tcl8.6/TkCmd/option.htm
+
+   [31] http://tcl.tk/man/tcl8.6/TkCmd/font.htm#M13
+
+   [32] http://www.xmpp.org/extensions/xep-0038.html
+
+   [33] http://www.tcl.tk/man/tcl8.6/TclCmd/string.htm#M35
+
+   [34] http://www.tcl.tk/man/tcl8.6/TclCmd/re_syntax.htm
+
+Appendix A.  Releases History
+
+A.1.  Main changes in 1.1.2+
+
+   o  Dropped Tcl/Tk 8.4 support.  Now Tcl/Tk 8.5 is required
+
+A.2.  Main changes in 1.1.2
+
+   o  Fixed a bug in displaying search results and copying JID from the
+      search results to clipboard
+
+   o  Fixed a few bugs with nonexistent canvas tags in Georoster and
+      Poker plugins
+
+   o  Fixed a restoring user status from autoaway
+
+   o  A few other fixes and minor enhancements
+
+   o  This is the last release which supports Tcl/Tk 8.4 (with the
+      exceptions of the OTR and Poker plugins)
+
+A.3.  Main changes in 1.1.1
+
+   o  Fixed a few bugs in passing URL to web browsers
+
+   o  Fixed a regression when message intended to be GPG-encrypted is
+      sent plaintext
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 50]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   o  Fixed a few crashes in OTR plugin
+
+   o  A few other fixes and enhancements
+
+A.4.  Main changes in 1.1
+
+   o  Added new OTR plugin (requires Tcl/Tk 8.5 to operate)
+
+   o  Roster versioning (XEP-0237 and RFC-6121)
+
+   o  Added new Battleship game plugin
+
+   o  A few fixes and enhancements
+
+A.5.  Main changes in 1.0
+
+   o  Completely rewritten Tkabber internals
+
+   o  Dropped Tcl/Tk 8.3 support.  Now Tcl/Tk 8.4 is required
+
+   o  Partial IPv6 support (requires Tcl/Tk 8.6)
+
+   o  Switched from TclGPGME to TclGPG for encryption and signing
+
+   o  Added new connection method BOSH (XEP-0124 and XEP-0206)
+
+   o  Disabled SSLv2 and enabled TLSv1 TLS options
+
+   o  Added user nicknames (XEP-0172) support.
+
+   o  Updated the CAPTCHA forms (XEP-0158) support
+
+   o  Added metacontacts (XEP-0209) support
+
+   o  Implemented multiple proxy profiles
+
+   o  Implemented remote controlling from a locally executed script
+
+   o  Added new plugins: floatingcontact, poker
+
+   o  Rewritten most plugins to support disabling and unloading on the
+      fly
+
+   o  A few interface enhancements (search in MUC affiliations lists,
+      proxy management)
+
+   o  Many fixes and enhancements
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 51]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+A.6.  Main changes in 0.11.1
+
+   o  New default sound theme by Serge Yudin
+
+   o  Added new plugins: quotelastmsg, singularity, stripes
+
+   o  Many fixes and enhancements
+
+A.7.  Main changes in 0.11.0
+
+   o  New tabbed user interface.  Tab headers now occupy several rows
+      and tab bar can be docked to the left and right sides of chat
+      window
+
+   o  Roster filter
+
+   o  Added support for pixmaps (in particular emoticons) JISP archives
+      (XEP-0038)
+
+   o  Added support for SOCKS4a and SOCKS5 proxy for the main connection
+
+   o  Added user location support (XEP-0080)
+
+   o  Added user mood support (XEP-0107)
+
+   o  Added user activity support (XEP-0108)
+
+   o  Added user tune support (XEP-0118)
+
+   o  Added entity capabilities (XEP-0115 v.1.5, only reporting) support
+
+   o  Added basic robot challenges support (XEP-0158, v.0.9)
+
+   o  Added partial data forms media element support (XEP-0221, v.0.2,
+      URIs and images only)
+
+   o  Roster is now exported to XML instead of Tcl list
+
+   o  Added support for entity time (XEP-0202)
+
+   o  Tkabber version is now reported in disco#info (XEP-0232)
+
+   o  Moved deprecated Jabber Browser (XEP-0011) to an external plugin
+
+   o  Moved Jidlink file transfer to an external plugin
+
+   o  Added several new plugins: attline, ctcomp, custom-urls,
+      floatinglog, gmail, openurl, presencecmd, receipts
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 52]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   o  Many fixes and enhancements
+
+A.8.  Main changes in 0.10.0
+
+   o  New artwork by Artem Bannikov
+
+   o  Mediated SOCKS5 connection support for file transfer (XEP-0065)
+
+   o  Blocking communicaation with users not in roster (using XEP-0016
+      via simple interface)
+
+   o  Translatable outgoing error messages support (based on recipient's
+      xml:lang)
+
+   o  Remote controlling clients support (XEP-0146)
+
+   o  Extended stanza addressing support (XEP-0033)
+
+   o  New chats history tool with search over the all chatlog files
+
+   o  Roster item icons are chosen based on Disco queries to item server
+
+   o  Search in Disco, Browser, Headlines, RawXML, and Customize windows
+
+   o  New internal plugins: abbrev allows to abbreviate words in chat
+      input windows, postpone stores/restores current input window
+      content
+
+   o  New external plugins (aniemoticons, latex, tkabber-khim, traffic,
+      renju)
+
+   o  Emoticons theme now can be loaded using GUI
+
+   o  Most Tkabber's tabs can now be stored on exit and restored on
+      start
+
+   o  XMPP ping support (XEP-0199).  Reconnecting based on XMPP ping
+      replies
+
+   o  Delayed delivery now recognizes XEP-0203 timestamps
+
+   o  Added optional 'My Resources' roster group, which contains other
+      connected resources of the same JID
+
+   o  Many fixes and enhancements
+
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 53]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+A.9.  Main changes in 0.9.9
+
+   o  Improved privacy lists interface
+
+   o  Support for stream compression (XEP-0138)
+
+   o  Support for SRV DNS-records
+
+   o  Support for TXT DNS-records (XEP-0156)
+
+   o  Support for ad-hoc commands (XEP-0050)
+
+   o  Improved headlines support
+
+   o  Chat state notification support (XEP-0085)
+
+   o  Many fixes and enhancements
+
+A.10.  Main changes in 0.9.8
+
+   o  Support for STARTTLS
+
+   o  Reorganized menu
+
+   o  Support for searching in chat window
+
+   o  Support for annotations about roster items (XEP-0145)
+
+   o  Support for conference rooms bookmarks (XEP-0048)
+
+   o  Added multilogin support for GPGME
+
+   o  Better support for xml:lang
+
+   o  Support for service discovery extensions (XEP-0128)
+
+   o  Support for NTLM authentication
+
+   o  Many fixes and enhancements
+
+A.11.  Main changes in 0.9.7beta
+
+   o  Updated support for file transfer (XEP-0095, XEP-0096, XEP-0047,
+      XEP-0065)
+
+   o  Support for colored nicks and messages in conference
+
+   o  Better multiple logins support
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 54]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   o  Updated support for xml:lang
+
+   o  Support for IDNA (RFC3490)
+
+   o  Many fixes and enhancements
+
+A.12.  Main changes in 0.9.6beta
+
+   o  Multiple logins support
+
+   o  History now splitted by month
+
+   o  Animated emoticons support
+
+   o  Many user interface improvements
+
+   o  More XMPP support
+
+   o  More translations
+
+   o  Bugfixes
+
+A.13.  Main changes in 0.9.5beta
+
+   o  Nested roster groups
+
+   o  Messages emphasizing
+
+   o  User interface improvements
+
+   o  Support for XMPP/Jabber MIME Type
+
+   o  Bugfixes
+
+Appendix B.  Tk option database resources
+
+   Here is list of the most essential _Tkabber_-specific _Tk option
+   database_ resources that you need to change look:
+
+   Tkabber.geometry  Geometry of main window.
+
+   *Chat.chatgeometry
+
+   *Chat.groupchatgeometry
+
+   *Customize.geometry
+
+   *RawXML.geometry
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 55]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   *Stats.geometry
+
+   *Messages.geometry
+
+   *JDisco.geometry  Geometry of various windows (when not using tabs).
+
+   *mainRosterWidth  The width of the main roster window.
+
+   *Chat.inputheight
+
+   *RawXML.inputheight  Height of input windows in chat and raw XML
+      windows.
+
+   *Balloon.background
+
+   *Balloon.foreground  Background and foreground colors of popup
+      balloon.
+
+   *Balloon.style  Behaviour of popup balloon: can be "delay" (balloon
+      appeared after some time) and "follow" (balloon appeared
+      immediately and follows mouse).
+
+   *JDisco.fill  Color of service discovery browser item name.
+
+   *JDisco.identitycolor  Color of service discovery browser item
+      identity.
+
+   *JDisco.featurecolor  Color of service discovery browser entity
+      feature.
+
+   *JDisco*Tree*background  Background of service discovery browser.
+
+   *Chat.meforeground  Color of user's messages in chat windows.
+
+   *Chat.theyforeground  Color of other peoples messages in chat
+      windows.
+
+   *Chat.serverlabelforeground  Color of label before server message.
+
+   *Chat.serverforeground  Color of server messages in chat windows.
+
+   *Chat.errforeground  Color of error messages in chat windows.
+
+   *Chat.urlforeground  Color of URLs in chat windows.
+
+   *Chat.urlactiveforeground  Color of mouse highlighted URLs in chat
+      windows.
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 56]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   *JDisco.fill  Default color of items in Service Discovery Browser.
+
+   *JDisco.featurecolor  Default color of feature items in Service
+      Discovery Browser.
+
+   *JDisco.identitycolor  Default color of identity items in Service
+      Discovery Browser.
+
+   *JDisco.optioncolor  Default color of option items in Service
+      Discovery Browser.
+
+   *JDisco*Tree*background  Default color of background in Service
+      Discovery Browser.
+
+   *alertColor0
+
+   *alertColor1
+
+   *alertColor2
+
+   *alertColor3  Tabs alert colors.
+
+   *Roster.cbackground  Roster background color.
+
+   *Roster.groupindent  Indentation for group title.
+
+   *Roster.groupiconindent  Indentation for group icon.
+
+   *Roster.jidindent  Indentation for item name.
+
+   *Roster.jidmultindent  Indentation for item with multiple resources.
+
+   *Roster.subjidindent  Indentation for item resource.
+
+   *Roster.iconindent  Indentation for item icon.
+
+   *Roster.subitemtype
+
+   *Roster.subiconindent  Indentation for resource icon.
+
+   *Roster.textuppad  Top pad for item's names.
+
+   *Roster.textdownpad  Bottom pad for item's names.
+
+   *Roster.linepad  Vertical distance between items.
+
+   *Roster.foreground  Color of item's names.
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 57]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   *Roster.jidfill  Background of roster item.
+
+   *Roster.jidhlfill  Background of roster item when mouse is over.
+
+   *Roster.jidborder  Color of item's border.
+
+   *Roster.groupfill
+
+   *Roster.grouphlfill
+
+   *Roster.groupborder  The same to roster groups.
+
+   *Roster.groupcfill  Background color of collapsed group.
+
+   *Roster.stalkerforeground
+
+   *Roster.unavailableforeground
+
+   *Roster.dndforeground
+
+   *Roster.xaforeground
+
+   *Roster.awayforeground
+
+   *Roster.availableforeground
+
+   *Roster.chatforeground  Colors of item name for different presences.
+
+Appendix C.  Documentation TODO
+
+   The next revision of this documentation should discuss:
+
+   o  Post-load:
+
+      *  "chat_height" and "chat_width" (appear to be no-ops).
+
+   o  Menu-load:
+
+      *  "change_password_dialog"
+
+      *  "conference::create_room_dialog"
+
+      *  "disco::browser::open_win"
+
+      *  "message::send_msg"
+
+      *  "privacy::request_lists"
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 58]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+      *  "rawxml::open_window"
+
+      *  "userinfo::show_info_dialog"
+
+   o  Hooks: the additional payload format.
+
+Appendix D.  Acknowledgements
+
+   Rebecca Malamud was kind enough to design the "enlightened feather"
+   motif used in the _Tkabber_ look-and-feel.
+
+   The "new look" appeared in the 0.10.0 release ("golden feather" and
+   "blue feather" pixmap themes and the "Earth bulb" logo) was designed
+   by Artem Bannikov.
+
+   The new sound theme appeared in 0.11.1 release was created by Serge
+   Yudin
+
+Appendix E.  Copyrights
+
+   Copyright (C) 2002-2025 Alexey Shchepin
+
+   _Tkabber_ is free software; you can redistribute it and/or modify it
+   under the terms of the GNU General Public License as published by the
+   Free Software Foundation; either version 2 of the License, or (at
+   your option) any later version.
+
+   _Tkabber_ is distributed in the hope that it will be useful, but
+   WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   General Public License for more details.
+
+Authors' Addresses
+
+   Alexey Yurievich Shchepin
+   Process-One
+
+   Email: alexey@process-one.net
+
+
+
+
+
+
+
+
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 59]
+
+                             Tkabber 1.1.2+                   March 2015
+
+
+   Marshall T. Rose
+   Dover Beach Consulting, Inc.
+   POB 255268
+   Sacramento, CA  95865-5268
+   US
+
+   Phone: +1 916 483 8878
+   Fax:   +1 916 483 8848
+   Email: mrose@dbc.mtview.ca.us
+
+
+   Sergei Golovan
+   New Economic School
+
+   Email: sgolovan@nes.ru
+
+
+   Michail Yurievich Litvak
+   Colocall Ltd.
+
+   Email: mci@shadow.in.ua
+
+
+   Konstantin Khomoutov
+   Service 007
+
+   Email: khomoutov@gmail.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Shchepin, et al.        Expires September 2, 2015              [Page 60]

@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+
+# PROVIDE: rssbot
+# REQUIRE: DAEMON
+
+. /etc/rc.subr
+
+name="rssbot"
+rcvar=$name
+command="/usr/pkg/libexec/rssbot.tcl"
+command_interpreter=tclsh
+pidfile="/var/run/${name}.pid"
+command_args="-from ${name}/`hostname -s` -pidfile $pidfile -logfile /tmp/${name}.log &"
+
+load_rc_config $name
+run_rc_command "$1"

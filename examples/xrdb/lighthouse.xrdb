@@ -1,0 +1,254 @@
+! Main window geometry
+!!Tkabber.geometry:                           800x600-70+100
+!Tkabber.geometry:                          236x879-70+0
+
+! Chat window geometry (in no tabs mode)
+!!*Chat.geometry:                             500x500
+
+! Browser and Headlines window geometry (in no tabs mode)
+!!*JBrowser.geometry:                         500x500
+
+! Roster width (tabbed interface only)
+!!Tkabber.mainRosterWidth:                    110
+
+! Roster width in groupchat windows
+!!Tkabber.chatRosterWidth:                    105
+
+! Scrollbar bed color
+*troughColor:                               #ddddd0
+
+*background:                                #eeeee0
+*foreground:                                #000000
+*readonlyBackground:                        #eeeee0
+*disabledForeground:                        #747474
+*disabledBackground:                        #d6d6d6
+
+! Colors, which are used when mouse is over the item
+*activeBackground:                          #fffff0
+*activeForeground:                          #000000
+
+! Colors and border width selected item
+*selectBackground:                          #5f7ca8
+*selectForeground:                          #f5f5f5
+*selectBorderWidth:                         0
+*inactiveSelectBackground:                  #5f7ca8
+
+! Color for checkboxes
+*selectColor:                               #ddddd0
+*Menu*selectColor:                          #5f7ca8
+
+! Color of traversal highlight rectangle
+*highlightBackground:                       #eeeee0
+*highlightColor:                            #000000
+
+! Color of insertion cursor
+*insertBackground:                          #000000
+
+! Font for drawing text (except chats and roster font)
+!*font:                                     {Unifont 10}
+!!*font:                                      {Verdana 10}
+
+! Currently there is only progressbar (at the splash screen)
+*ProgressBar.foreground:                    #334080
+
+! Flatten Spinbox, ComboBox and ArrowButton
+!!*Spinbox.borderWidth:                       1
+*Spinbox.background:                        #f5f5f5
+*Spinbox.buttonBackground:                  #eeeee0
+!!*SpinBox.borderWidth:                       1
+*SpinBox*Entry*highlightBackground:         #ddddd0
+!!*ComboBox.borderWidth:                      1
+*ArrowButton.borderWidth:                   0
+*ArrowButton.highlightThickness:            0
+
+! Colors for multicolumn listboxes (as in search result window)
+*Mclistbox.background:                      #f5f5f5
+*Mclistbox.labelActiveBackground:           #fffff0
+*Mclistbox.labelBackground:                 #ddddd0
+
+
+! Type of subitem in roster (1 - display number of resources,
+! 2 - display arrow, 3 - display both, 0 - display nothing
+*Roster.subitemtype:                        3
+
+! Roster background color
+*Roster.cbackground:                        #f5f5f5
+
+! Inactive metaJID background color
+*Roster.metajidfill:                        #e0e0da
+
+! Active metaJID background color
+*Roster.metajidhlfill:                      #ccccc0
+
+! Color of border around metaJID
+*Roster.metajidborder:                      #e0e0da
+
+! JID background color
+*Roster.jidfill:                            #f5f5f5
+
+! Active JID background color
+*Roster.jidhlfill:                          #ddddd0
+
+! Color of border around JID
+*Roster.jidborder:                          #f5f5f5
+
+! group background color
+*Roster.groupfill:                          #ccccc0
+
+! closed group background color
+*Roster.groupcfill:                         #e9e9e9
+
+! Active group background color
+*Roster.grouphlfill:                        #bbbbb0
+
+! Color of border around group
+*Roster.groupborder:                        #eeeee0
+
+! Indent of group names
+!!*Roster.groupindent:                        21
+
+! Indent of JIDs
+!!*Roster.jidindent:                          42
+
+! Indent of second order JIDs
+! (resources for those who is logged in multiple times)
+!!*Roster.subjidindent:                       62
+
+! Indent of group icons (closed or open arrow icon)
+!!*Roster.groupiconindent:                    2
+
+! Indent of group icons when subitemtype is 2 or 3
+!!*Roster.subgroupiconindent:                 2
+
+! Indent of regular JID icons (status icon)
+!!*Roster.iconindent:                         21
+
+! Indent of second order JID icons
+!!*Roster.subiconindent:                      42
+
+! Additional amount of text height
+!!*Roster.textuppad:                          0
+!!*Roster.textdownpad:                        0
+
+! Vertical distance between adjacent items
+!!*Roster.linepad:                            2
+
+! Foregrounds of JID label
+! (stalkerforeground is for contacts with pending subscription)
+*Roster.stalkerforeground:                  #663333
+
+! Other colors are selfexplanatory
+*Roster.unavailableforeground:              #515151
+*Roster.dndforeground:                      #515129
+*Roster.xaforeground:                       #0b3760
+*Roster.awayforeground:                     #0b3760
+*Roster.availableforeground:                dodgerblue4
+*Roster.chatforeground:                     dodgerblue4
+
+! Colors in chat and groupchat windows
+*Chat*Text.background:                      #f5f5f5
+
+! Color of other people nicknames
+*Chat.theyforeground:                       firebrick4
+
+! Color of my nickname
+*Chat.meforeground:                         dodgerblue4
+
+! Colors of server messages
+*Chat.serverlabelforeground:                seagreen
+*Chat.serverforeground:                     #4b3a70
+
+! Color of error messages
+*Chat.errforeground:                        firebrick
+
+! Color of inactive urls in text
+*urlforeground:                             dodgerblue4
+
+! Color of active urls in text
+*urlactiveforeground:                       dodgerblue3
+
+! Colors of erroneous words (when ispell module is using)
+*Text.errorColor:                           firebrick4
+*Text.comboColor:                           dodgerblue4
+
+! Colors of tab labels (when in tabbed mode)
+! Usual color
+*alertColor0:                               black
+
+! Color when server message is arrived
+*alertColor1:                               mediumpurple4
+
+! Color when message is arrived
+*alertColor2:                               dodgerblue4
+
+! Color when personally addressed message is arrived
+*alertColor3:                               firebrick4
+
+! Colors for browser and discovery service windows
+*JBrowser.fill:                             #000000
+*JBrowser.activefill:                       #f5f5f5
+*JBrowser.border:                           #eeeee0
+*JBrowser.nscolor:                          #747474
+*JBrowser.nsactivecolor:                    #747474
+
+*JDisco.fill:                               #000000
+*JDisco.activefill:                         #f5f5f5
+*JDisco.border:                             #eeeee0
+*JDisco.featurecolor:                       #747474
+*JDisco.identitycolor:                      DarkGreen
+*JDisco.optioncolor:                        DarkViolet
+*Tree*background:                           #f5f5f5
+
+! Tooltip options
+*Balloon*background:                        #ffeeaa
+*Balloon*foreground:                        #000000
+*DynamicHelp.background:                    #ffeeaa
+*DynamicHelp.foreground:                    #000000
+
+
+*Listbox.background:                        #f5f5f5
+*Listbox.foreground:                        #000000
+!!*Listbox.borderWidth:                       1
+
+*Text.background:                           #f5f5f5
+*Text.foreground:                           #000000
+!!*Text.borderWidth:                          1
+
+*Entry.background:                          #f5f5f5
+*Entry.foreground:                          #000000
+!!*Entry.borderWidth:                         1
+
+
+*NoteBook*Entry.background:                 #f5f5f5
+*NoteBook*Entry.disabledBackground:         #e9e9e9
+*NoteBook*Entry.foreground:                 #000000
+
+!!*Button.borderWidth:                        1
+*Button.background:                         #ddddd0
+*Button.activeBackground:                   #fffff0
+
+! Main toolbar buttons
+*mainframe.topf.tb0.bbox.Button.background: #eeeee0
+*mainframe.topf.tb1.bbox.Button.background: #eeeee0
+*mainframe.topf.tb2.bbox.Button.background: #eeeee0
+*mainframe.topf.tb3.bbox.Button.background: #eeeee0
+*mainframe.topf.tb4.bbox.Button.background: #eeeee0
+*mainframe.topf.tb5.bbox.Button.background: #eeeee0
+
+! Sign/encrypt message buttons
+*bottom.buttons1.Button.background:         #eeeee0
+
+*Chat*Button.background:                    #eeeee0
+
+!!*Menu.activeBorderWidth:                    1
+!!*Menu.borderWidth:                          1
+!!*Menubutton.borderWidth:                    1
+*Menu.activeBackground:                     #5f7ca8
+*Menu.activeForeground:                     #f5f5f5
+*Menubutton.activeBackground:               #fffff0
+*Menubutton.activeForeground:               #000000
+
+*Buttonbox*borderWidth:                     0
+*Buttonbox*activeBorderWidth:               0
+
+! vim:ft=xdefaults:ts=8:sw=4:sts=4:et

@@ -1,0 +1,53 @@
+! pl.rc --
+!
+!       Definition of Polish resources for BWidget
+!
+! Author: Irek Chmielowiec <irek.ch@gmail.com>
+
+! --- symbolic names of buttons -----------------------------------------------
+
+*abortName:   Przerwij
+*retryName:   Ponów
+*ignoreName:  Ignoruj
+*okName:      OK
+*cancelName:  Anuluj
+*yesName:     Tak
+*noName:      Nie
+
+
+! --- symbolic names of label of SelectFont dialog ----------------------------
+
+*boldName:       Pogrubienie
+*italicName:     Kursywa
+*underlineName:  Podkreślenie
+*overstrikeName: Przekreślenie
+*fontName:       &Nazwa
+*sizeName:       &Rozmiar
+*styleName:      &Styl
+
+
+! --- symbolic names of label of PasswdDlg dialog -----------------------------
+
+*loginName:    &Użytkownik
+*passwordName: &Hasło
+
+
+! --- resource for SelectFont dialog ------------------------------------------
+
+*SelectFont.title:          Wybór czcionki
+*SelectFont.sampletext:     Przykładowy tekst, ĄąĘęĆćŁłŃńÓóŻżŹź
+
+
+! --- resource for MessageDlg dialog ------------------------------------------
+
+*MessageDlg.noneTitle:      Wiadomość
+*MessageDlg.infoTitle:      Informacja
+*MessageDlg.questionTitle:  Pytanie
+*MessageDlg.warningTitle:   Ostrzeżenie
+*MessageDlg.errorTitle:     Błąd
+
+! --- resource for PasswdDlg dialog -------------------------------------------
+
+*PasswdDlg.title:   Podaj nazwę użytkownika i hasło
+
+! vim:ft=xdefaults:ts=8:sw=4:sts=4:et

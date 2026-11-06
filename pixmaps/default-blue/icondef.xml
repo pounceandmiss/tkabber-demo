@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<icondef>
+  <meta>
+    <name>Default Blue</name>
+    <version>2.1a</version>
+    <description>Tkabber's Default Blue Style</description>
+    <creation>2006-09-19</creation>
+    <author>Artem Bannikov</author>
+  </meta>
+  <!-- Docking icons -->
+  <icon>
+    <image xmlns='tkimage'>docking/chat</image>
+    <object mime="image/gif">docking/available-chat.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>docking/available</image>
+    <object mime="image/gif">docking/available.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>docking/away</image>
+    <object mime="image/gif">docking/available-away.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>docking/dnd</image>
+    <object mime="image/gif">docking/available-dnd.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>docking/tkabber</image>
+    <object mime="image/ico">docking/tkabber.ico</object>
+  </icon>
+  <!-- Roster icons -->
+  <icon>
+    <image xmlns='tkimage'>roster/user/chat</image>
+    <object mime="image/gif">roster/available-chat.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/available</image>
+    <object mime="image/gif">roster/available.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/away</image>
+    <object mime="image/gif">roster/available-away.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/dnd</image>
+    <object mime="image/gif">roster/available-dnd.gif</object>
+  </icon>
+</icondef>
+
+<!-- vim:ft=xml:ts=8:sw=2:sts=2:et
+-->

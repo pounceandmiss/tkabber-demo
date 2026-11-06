@@ -1,0 +1,14 @@
+! default.xrdb --
+!
+!       Default resources for the Tk interface.
+
+*Panedwindow*showHandle:                                0
+*Panedwindow*sashWidth:                                 0.5m
+*Panedwindow*sashPad:                                   0.25m
+
+*mainframe*topf*ButtonBox*Button*highlightThickness:    0
+*mainframe*topf*ButtonBox*Button*borderWidth:           0.25m
+*mainframe*topf*ButtonBox*Button*padX:                  0.25m
+*mainframe*topf*ButtonBox*Button*padY:                  0.25m
+
+! vim:ft=xdefaults:ts=8:sw=4:sts=4:et

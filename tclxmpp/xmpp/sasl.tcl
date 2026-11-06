@@ -1,0 +1,1084 @@
+# sasl.tcl --
+#
+#       This file is part of the XMPP library. It provides support for the
+#       SASL authentication layer via the tclsasl or tcllib SASL package.
+#       Also, it binds resource and opens XMPP session.
+#
+# Copyright (c) 2008-2016 Sergei Golovan <sgolovan@nes.ru>
+#
+# See the file "license.terms" for information on usage and redistribution
+# of this file, and for a DISCLAMER OF ALL WARRANTIES.
+
+package require base64
+package require xmpp::stanzaerror
+
+package provide xmpp::sasl 0.2
+
+namespace eval ::xmpp::sasl {
+    namespace export auth abort
+
+    variable saslpack
+    variable encodeToUTF8
+    variable v
+
+    if {![catch {package require sasl 1.0}]} {
+        set saslpack tclsasl
+    } elseif {![catch {package require SASL 1.0} v]} {
+        catch {package require SASL::NTLM}
+        catch {package require SASL::XGoogleToken}
+        if {![catch {package require SASL::SCRAM}]} {
+            # Provide more secure SCRAM-SHA-256 mechanism
+
+            package require sha256
+
+            proc ::SASL::SCRAM::SHA-256:hash {str} {
+                sha2::sha256 -bin $str
+            }
+
+            proc ::SASL::SCRAM::SHA-256:hmac {key str} {
+                sha2::hmac -bin -key $key $str
+            }
+
+            proc ::SASL::SCRAM::SHA-256:client {context challenge args} {
+                client ::SASL::SCRAM::SHA-256:hash ::SASL::SCRAM::SHA-256:hmac $context $challenge
+            }
+
+            proc ::SASL::SCRAM::SHA-256:server {context clientrsp args} {
+                server ::SASL::SCRAM::SHA-256:hash ::SASL::SCRAM::SHA-256:hmac $context $clientrsp
+            }
+
+            # Register the SCRAM-SHA-256 SASL mechanism with the Tcllib SASL package
+
+            ::SASL::register SCRAM-SHA-256 55 ::SASL::SCRAM::SHA-256:client ::SASL::SCRAM::SHA-256:server
+        }
+        set saslpack tcllib
+
+        if {[package vcompare $v 1.3.2] >= 0} {
+            set encodeToUTF8 0
+        } else {
+            set encodeToUTF8 1
+        }
+    } else {
+        return -code error [::msgcat::mc "No SASL package found"]
+    }
+
+    switch -- $saslpack {
+        tclsasl {
+            sasl::client_init -callbacks {}
+        }
+        tcllib {
+            if {[lsearch -exact [::SASL::mechanisms] EXTERNAL] < 0} {
+                # Register the EXTERNAL SASL authentication mechanism
+
+                namespace eval ::SASL::EXTERNAL {
+                    proc client {context challenge args} {
+                        upvar #0 $context ctx
+                        incr ctx(step)
+                        set username [eval $ctx(callback) [list $context username]]
+                        set realm [eval $ctx(callback) [list $context realm]]
+                        set ctx(response) $username@$realm
+                        return 0
+                    }
+
+                    ::SASL::register EXTERNAL 100 [namespace current]::client
+                }
+            }
+        }
+        default {
+            # empty
+        }
+    }
+
+    # SASL error messages
+    ::xmpp::stanzaerror::registerType sasl [::msgcat::mc "Authentication error"]
+
+    variable lcode
+    variable type
+    variable cond
+    variable description
+    foreach {lcode type cond description} [list \
+        401 sasl aborted                [::msgcat::mc "Aborted"] \
+        401 sasl incorrect-encoding     [::msgcat::mc "Incorrect encoding"] \
+        401 sasl invalid-authzid        [::msgcat::mc "Invalid authzid"] \
+        401 sasl invalid-mechanism      [::msgcat::mc "Invalid mechanism"] \
+        401 sasl mechanism-too-weak     [::msgcat::mc "Mechanism too weak"] \
+        401 sasl not-authorized         [::msgcat::mc "Not authorized"] \
+        401 sasl temporary-auth-failure [::msgcat::mc "Temporary auth\
+                                                       failure"]] \
+    {
+        ::xmpp::stanzaerror::registerError $lcode $type $cond $description
+    }
+}
+
+# ::xmpp::sasl::auth --
+#
+#       Authenticate an existing XMPP stream using SASL method described
+#       either in RFC-6120 (for clients) or in XEP-0225 (for components).
+#
+# Arguments:
+#       xlib                    XMPP token. It must be connected and XMPP
+#                               stream must be opened.
+#       -username   username    Username to authenticate (clients only).
+#       -password   password    Password to use in authentication (clients
+#                               only).
+#       -resource   resource    XMPP resource to bind to the stream after
+#                               successful authentication (clients only).
+#       -domain     domain      Domain name to bind to (components only).
+#       -secret     secret      Secret to use in authentication (components
+#                               only).
+#       -disable    mechlist    List of SASL mechanisms which are explicitly
+#                               forbidden to use.
+#       -digest     digest      (optional, defaults to "yes") Boolean value
+#                               which specifies if a digest authentication
+#                               method should be used. A special value "auto"
+#                               allows to select digest authentication if it's
+#                               available and fallback to plaintext if the
+#                               digest method isn't provided by server. Note
+#                               that Tclsasl doesn't allow one to disable
+#                               digest authentication mechanisms.
+#       -timeout    timeout     (optional, defaults to 0 which means infinity)
+#                               Timeout (in milliseconds) for authentication
+#                               queries.
+#       -command    callback    (optional) If present, it turns on asynchronous
+#                               mode. After successful or failed authentication
+#                               "callback" is invoked with two appended
+#                               arguments: status ("ok", "error", "abort" or
+#                               "timeout") and either authenticated JID if
+#                               status is "ok", or error stanza otherwise.
+#
+# Result:
+#       Empty string.
+#
+# Side effects:
+#       In state of waiting for reply from server terminates waiting process.
+
+
+proc ::xmpp::sasl::auth {xlib args} {
+    variable saslpack
+    variable id
+
+    if {![info exists id]} {
+        set id 0
+    }
+
+    set token [namespace current]::[incr id]
+    variable $token
+    upvar 0 $token state
+
+    ::xmpp::Debug $xlib 2 $token
+
+    ::xmpp::Set $xlib abortCommand [namespace code [abort $token]]
+
+    set state(xlib) $xlib
+    set state(-server)  [::xmpp::Set $xlib server]
+    set state(-digest)  1
+    set state(-disable) {}
+    set state(-sm) disable
+    set timeout 0
+    catch {unset state(mechanisms)}
+
+    foreach {key val} $args {
+        switch -- $key {
+            -domain   -
+            -secret   -
+            -username -
+            -resource -
+            -password -
+            -disable  -
+            -sm -
+            -command {
+                set state($key) $val
+            }
+            -timeout {
+                set timeout $val
+            }
+            -digest {
+                if {[string is true -strict $val]} {
+                    set state(-digest) 1
+                } elseif {[string is false -strict $val]} {
+                    set state(-digest) 0
+                } elseif {$val eq "auto"} {
+                    set state(-digest) 0.5
+                } else {
+                    unset state
+                    return -code error \
+                           [::msgcat::mc "Illegal value \"%s\" for\
+                                          option \"%s\"" $val $key]
+                }
+            }
+            default {
+                unset state
+                return -code error [::msgcat::mc "Illegal option \"%s\"" $key]
+            }
+        }
+    }
+
+    set count 0
+    foreach key {-username -domain} {
+        if {[info exists state($key)]} {
+            incr count
+        }
+    }
+    if {$count >= 2} {
+        unset state
+        return -code error [::msgcat::mc "Only one option \"-username\"\
+                                          or \"-domain\" is allowed"]
+    }
+
+    if {[info exists state(-username)]} {
+        foreach key {-resource
+                     -password} {
+            if {![info exists state($key)]} {
+                unset state
+                return -code error [::msgcat::mc "Missing option \"%s\"" $key]
+            }
+        }
+    } elseif {[info exists state(-domain)]} {
+        foreach key {-secret} {
+            if {![info exists state($key)]} {
+                unset state
+                return -code error [::msgcat::mc "Missing option \"%s\"" $key]
+            }
+        }
+    } else {
+        unset state
+        return -code error [::msgcat::mc "Missing option \"-username\"\
+                                          or \"-domain\""]
+    }
+
+    ::xmpp::RegisterElement $xlib * urn:ietf:params:xml:ns:xmpp-sasl \
+                            [namespace code [list Parse $token]]
+
+    # Resource binding and session establishing use IQ
+    ::xmpp::RegisterElement $xlib iq * [list ::xmpp::ParseIQ $xlib]
+
+    switch -- $saslpack {
+        tclsasl {
+            if {[info exists state(-username)]} {
+                set callback TclsaslCallbackUser
+            } else {
+                set callback TclsaslCallbackComponent
+            }
+            foreach key {authname pass getrealm cnonce} {
+                lappend callbacks \
+                    [list $key [namespace code [list $callback $token]]]
+            }
+
+            set state(token) \
+                [sasl::client_new -service     xmpp \
+                                  -serverFQDN  $state(-server) \
+                                  -callbacks   $callbacks \
+                                  -flags       success_data]
+
+            if {$state(-digest) == 1} {
+                set flags {noplaintext}
+            } elseif {$state(-digest) > 0} {
+                set flags {}
+            } else {
+                unset state
+                return -code error [::msgcat::mc "Cannot forbid digest\
+                                                  mechanisms"]
+            }
+
+            $state(token) -operation setprop \
+                          -property sec_props \
+                          -value [list min_ssf 0 \
+                                       max_ssf 0 \
+                                       flags $flags]
+        }
+        tcllib {
+            if {[info exists state(-username)]} {
+                set callback TcllibCallbackUser
+            } else {
+                set callback TcllibCallbackComponent
+            }
+            set state(token) \
+                [SASL::new -service xmpp \
+                           -type client \
+                           -server $state(-server) \
+                           -callback [namespace code [list $callback $token]]]
+            # Workaround a bug 1545306 in Tcllib SASL module
+            set ::SASL::digest_md5_noncecount 0
+        }
+    }
+
+    if {$timeout > 0} {
+        set state(afterid) \
+            [after $timeout \
+                   [namespace code \
+                              [list AbortAuth $token timeout \
+                                    [::msgcat::mc "SASL authentication\
+                                                   timed out"]]]]
+    }
+
+    ::xmpp::TraceStreamFeatures $xlib \
+                    [namespace code [list AuthContinue $token]]
+
+    if {[info exists state(-command)]} {
+        # Asynchronous mode
+        return $token
+    } else {
+        # Synchronous mode
+        vwait $token\(status)
+
+        foreach {status msg} $state(status) break
+        unset state
+
+        if {$status eq "ok"} {
+            return $msg
+        } else {
+            if {$status eq "abort"} {
+                return -code break $msg
+            } else {
+                return -code error $msg
+            }
+        }
+    }
+}
+
+# ::xmpp::sasl::abort --
+#
+#       Abort an existing authentication procedure, or do nothing if it's
+#       already finished.
+#
+# Arguments:
+#       token           Authentication control token which is returned by
+#                       ::xmpp::sasl::auth procedure.
+#
+# Result:
+#       Empty string.
+#
+# Side effects:
+#       In state of waiting for reply from server terminates waiting process.
+
+proc ::xmpp::sasl::abort {token} {
+    AbortAuth $token abort [::msgcat::mc "SASL authentication aborted"]
+}
+
+# ::xmpp::sasl::AbortAuth --
+#
+#       Abort an existing authentication procedure, or do nothing if it's
+#       already finished.
+#
+# Arguments:
+#       token           Authentication control token which is returned by
+#                       ::xmpp::sasl::auth procedure.
+#       status          (error, abort or timeout) Status code of the abortion.
+#       msg             Error message.
+#
+# Result:
+#       Empty string.
+#
+# Side effects:
+#       In state of waiting for reply from server terminates waiting process.
+
+proc ::xmpp::sasl::AbortAuth {token status msg} {
+    variable $token
+    upvar 0 $token state
+
+    if {![info exists state(xlib)]} return
+
+    set xlib $state(xlib)
+
+    ::xmpp::Debug $xlib 2 "$token"
+
+    ::xmpp::RemoveTraceStreamFeatures $xlib \
+                                [namespace code [list AuthContinue $token]]
+
+    if {[info exists state(reopenStream)]} {
+        ::xmpp::GotStream $xlib abort {}
+        return
+    }
+
+    set error [::xmpp::xml::create error -cdata $msg]
+
+    if {[info exists state(id)]} {
+        ::xmpp::abortIQ $xlib $state(id) $status $error
+    } else {
+        Finish $token $status $error
+    }
+    return
+}
+
+##########################################################################
+
+proc ::xmpp::sasl::Parse {token xmlElement} {
+    variable $token
+    upvar 0 $token state
+
+    ::xmpp::xml::split $xmlElement tag xmlns attrs cdata subels
+
+    switch -- $tag {
+        challenge {
+            Step $token $cdata
+        }
+        success {
+            Success $token
+        }
+        failure {
+            Failure $token $subels
+        }
+    }
+}
+
+##########################################################################
+
+proc ::xmpp::sasl::AuthContinue {token featuresList} {
+    variable saslpack
+    variable $token
+    upvar 0 $token state
+    set xlib $state(xlib)
+
+    ::xmpp::Debug $xlib 2 "$token $featuresList"
+
+    if {[catch {FindMechanisms $featuresList} mechanisms]} {
+        Finish $token error \
+               [::xmpp::stanzaerror::error modify not-acceptable -text \
+                        [::msgcat::mc "Server hasn't provided SASL\
+                                       authentication feature"]]
+        return
+    }
+
+    ::xmpp::Debug $xlib 2 "$token mechs: $mechanisms"
+
+    switch -- $saslpack {
+        tclsasl {
+            set code [catch {
+                $state(token) \
+                    -operation start \
+                    -mechanisms $mechanisms \
+                    -interact [namespace code [list Interact $token]]
+            } result]
+        }
+        tcllib {
+            set code [catch {ChooseMech $token $mechanisms} result]
+
+            if {!$code} {
+                set state(mech) $result
+                SASL::configure $state(token) -mech $state(mech)
+                switch -glob -- $state(mech) {
+                    SCRAM-* -
+                    PLAIN -
+                    EXTERNAL -
+                    X-GOOGLE-TOKEN {
+                        # Initial responce
+                        set code [catch {SASL::step $state(token) ""} result]
+                        if {!$code} {
+                            set output [SASL::response $state(token)]
+                        }
+                    }
+                    default {
+                        set output ""
+                    }
+                }
+                if {!$code} {
+                    set result [list mechanism $state(mech) output $output]
+                }
+            }
+        }
+    }
+
+    ::xmpp::Debug $xlib 2 "$token SASL code $code: $result"
+
+    switch -- $code {
+        0 -
+        4 {
+            array set resarray $result
+            set data [::xmpp::xml::create auth \
+                          -xmlns urn:ietf:params:xml:ns:xmpp-sasl \
+                          -attrs [list mechanism $resarray(mechanism)] \
+                          -cdata [base64::encode -maxlen 0 $resarray(output)]]
+
+            ::xmpp::outXML $xlib $data
+        }
+        default {
+            set str [::msgcat::mc "SASL auth error:\n%s" $result]
+            Finish $token error \
+                   [::xmpp::stanzaerror::error sasl undefined-condition \
+                            -text $str]
+        }
+    }
+}
+
+proc ::xmpp::sasl::FindMechanisms {featuresList} {
+    set saslFeature 0
+    set mechanisms {}
+
+    foreach feature $featuresList {
+        ::xmpp::xml::split $feature tag xmlns attrs cdata subels
+
+        if {$xmlns eq "urn:ietf:params:xml:ns:xmpp-sasl" && $tag eq "mechanisms"} {
+            set saslFeature 1
+            foreach subel $subels {
+                ::xmpp::xml::split $subel stag sxmlns sattrs scdata ssubels
+                if {$stag eq "mechanism"} {
+                    lappend mechanisms $scdata
+                }
+            }
+        }
+    }
+
+    if {$saslFeature} {
+        return $mechanisms
+    } else {
+        return -code error
+    }
+}
+
+##########################################################################
+
+proc ::xmpp::sasl::ChooseMech {token mechanisms} {
+    variable $token
+    upvar 0 $token state
+
+    set forbiddenMechs $state(-disable)
+
+    if {$state(-digest) == 1} {
+        lappend forbiddenMechs PLAIN LOGIN
+    } elseif {$state(-digest) == 0} {
+        foreach m [SASL::mechanisms] {
+            switch -- $m {
+                PLAIN -
+                LOGIN {}
+                default {lappend forbiddenMechs $m}
+            }
+        }
+    }
+
+    foreach m [SASL::mechanisms] {
+        if {[lsearch -exact $mechanisms $m] >= 0 && \
+                [lsearch -exact $forbiddenMechs $m] < 0} {
+            return $m
+        }
+    }
+    if {[llength $mechanisms] == 0} {
+        return -code error [::msgcat::mc "Server provided no SASL mechanisms"]
+    } elseif {[llength $mechanisms] == 1} {
+        return -code error [::msgcat::mc "Server provided mechanism\
+                                          %s. It is forbidden" \
+                                         [lindex $mechanisms 0]]
+    } else {
+        return -code error [::msgcat::mc "Server provided mechanisms\
+                                          %s. They are forbidden" \
+                                         [join $mechanisms ", "]]
+    }
+}
+
+##########################################################################
+
+proc ::xmpp::sasl::Step {token serverin64} {
+    variable saslpack
+    variable $token
+    upvar 0 $token state
+    set xlib $state(xlib)
+
+    set serverin [base64::decode $serverin64]
+
+    ::xmpp::Debug $xlib 2 "$token SASL challenge: $serverin"
+
+    switch -- $saslpack {
+        tclsasl {
+            set code [catch {
+                $state(token) \
+                    -operation step \
+                    -input     $serverin \
+                    -interact  [namespace code [list Interact $token]]
+            } result]
+        }
+        tcllib {
+            set code [catch {SASL::step $state(token) $serverin} result]
+
+            if {!$code} {
+                set result [SASL::response $state(token)]
+            }
+        }
+    }
+
+    ::xmpp::Debug $xlib 2 "$token SASL code $code: $result"
+
+    switch -- $code {
+        0 -
+        4 {
+            set data [::xmpp::xml::create response \
+                          -xmlns urn:ietf:params:xml:ns:xmpp-sasl \
+                          -cdata [base64::encode -maxlen 0 $result]]
+
+            ::xmpp::outXML $xlib $data
+        }
+        default {
+            Finish $token error \
+                   [::xmpp::stanzaerror::error sasl undefined-condition \
+                            -text [::msgcat::mc "SASL step error: %s" $result]]
+        }
+    }
+}
+
+##########################################################################
+
+proc ::xmpp::sasl::TclsaslCallbackUser {token data} {
+    variable $token
+    upvar 0 $token state
+    set xlib $state(xlib)
+
+    ::xmpp::Debug $xlib 2 "$token $data"
+
+    array set params $data
+
+    switch -- $params(id) {
+        user {
+            # authzid
+            return ""
+        }
+        authname {
+            #username
+            return [encoding convertto utf-8 $state(-username)]
+        }
+        pass {
+            return [encoding convertto utf-8 $state(-password)]
+        }
+        getrealm {
+            return [encoding convertto utf-8 $state(-server)]
+        }
+        default {
+            return -code error \
+                [::msgcat::mc "SASL callback error: client needs to\
+                               write \"%s\"" $params(id)]
+        }
+    }
+}
+
+proc ::xmpp::sasl::TclsaslCallbackComponent {token data} {
+    variable $token
+    upvar 0 $token state
+    set xlib $state(xlib)
+
+    ::xmpp::Debug $xlib 2 "$token $data"
+
+    array set params $data
+
+    switch -- $params(id) {
+        user {
+            # authzid
+            return ""
+        }
+        authname {
+            #username
+            return [encoding convertto utf-8 $state(-domain)]
+        }
+        pass {
+            return [encoding convertto utf-8 $state(-secret)]
+        }
+        getrealm {
+            return [encoding convertto utf-8 $state(-server)]
+        }
+        default {
+            return -code error \
+                [::msgcat::mc "SASL callback error: client needs to\
+                               write \"%s\"" $params(id)]
+        }
+    }
+}
+
+##########################################################################
+
+proc ::xmpp::sasl::TcllibCallbackUser {token stoken command args} {
+    variable encodeToUTF8
+    variable $token
+    upvar 0 $token state
+    set xlib $state(xlib)
+
+    ::xmpp::Debug $xlib 2 "$token $stoken $command"
+
+    switch -- $command {
+        login {
+            # authzid
+            return ""
+        }
+        username {
+            switch -glob -- $state(mech)/$encodeToUTF8 {
+                SCRAM-*/* -
+                DIGEST-MD5/0 {
+                    return $state(-username)
+                }
+                default {
+                    return [encoding convertto utf-8 $state(-username)]
+                }
+            }
+        }
+        password {
+            switch -glob -- $state(mech)/$encodeToUTF8 {
+                SCRAM-*/* -
+                DIGEST-MD5/0 {
+                    return $state(-password)
+                }
+                default {
+                    return [encoding convertto utf-8 $state(-password)]
+                }
+            }
+        }
+        realm {
+            return [encoding convertto utf-8 $state(-server)]
+        }
+        hostname {
+            return [info host]
+        }
+        default {
+            return -code error \
+                [::msgcat::mc "SASL callback error: client needs to\
+                               write \"%s\"" $command]
+        }
+    }
+}
+
+proc ::xmpp::sasl::TcllibCallbackComponent {token stoken command args} {
+    variable encodeToUTF8
+    variable $token
+    upvar 0 $token state
+    set xlib $state(xlib)
+
+    ::xmpp::Debug $xlib 2 "$token $stoken $command"
+
+    switch -- $command {
+        login {
+            # authzid
+            return ""
+        }
+        username {
+            switch -glob -- $state(mech)/$encodeToUTF8 {
+                SCRAM-*/* -
+                DIGEST-MD5/0 {
+                    return $state(-domain)
+                }
+                default {
+                    return [encoding convertto utf-8 $state(-domain)]
+                }
+            }
+        }
+        password {
+            switch -glob -- $state(mech)/$encodeToUTF8 {
+                SCRAM-*/* -
+                DIGEST-MD5/0 {
+                    return $state(-secret)
+                }
+                default {
+                    return [encoding convertto utf-8 $state(-secret)]
+                }
+            }
+        }
+        realm {
+            return [encoding convertto utf-8 $state(-server)]
+        }
+        hostname {
+            return [info host]
+        }
+        default {
+            return -code error \
+                [::msgcat::mc "SASL callback error: client needs to\
+                               write \"%s\"" $command]
+        }
+    }
+}
+
+##########################################################################
+
+proc ::xmpp::sasl::Interact {token data} {
+    variable $token
+    upvar 0 $token state
+    set xlib $state(xlib)
+
+    ::xmpp::Debug $xlib 2 "$token $data"
+    # empty
+}
+
+##########################################################################
+
+proc ::xmpp::sasl::Failure {token xmlElements} {
+    variable $token
+    upvar 0 $token state
+    set xlib $state(xlib)
+
+    ::xmpp::Debug $xlib 2 "$token"
+
+    set error [lindex $xmlElements 0]
+    if {$error == ""} {
+        set err not-authorized
+    } else {
+        ::xmpp::xml::split $error tag xmlns attrs cdata subels
+        set err $tag
+    }
+    Finish $token error [::xmpp::stanzaerror::error sasl $err]
+}
+
+##########################################################################
+
+proc ::xmpp::sasl::Success {token} {
+    variable $token
+    upvar 0 $token state
+    set xlib $state(xlib)
+
+    ::xmpp::Debug $xlib 2 "$token"
+
+    # XMPP core section 6.2:
+    # Upon receiving the <success/> element,
+    # the initiating entity MUST initiate a new stream by sending an
+    # opening XML stream header to the receiving entity (it is not
+    # necessary to send a closing </stream> tag first...
+    # Moreover, some servers (ejabberd) won't work if stream is closed.
+
+    set state(reopenStream) \
+        [::xmpp::ReopenStream $xlib \
+                              -command [namespace code [list Reopened $token]]]
+    return
+}
+
+##########################################################################
+
+proc ::xmpp::sasl::Reopened {token status sessionid} {
+    variable $token
+    upvar 0 $token state
+    set xlib $state(xlib)
+
+    unset state(reopenStream)
+
+    ::xmpp::Debug $xlib 2 "$token $status $sessionid"
+
+    if {$status ne "ok"} {
+        Finish $token $status [::xmpp::xml::create error -cdata $sessionid]
+        return
+    }
+
+    ::xmpp::TraceStreamFeatures $xlib \
+                    [namespace code [list ResumeSM $token]]
+    return
+}
+
+proc ::xmpp::sasl::ResumeSM {token featuresList} {
+    variable $token
+    upvar 0 $token state
+    set xlib $state(xlib)
+
+    ::xmpp::Debug $xlib 2 "$token $featuresList"
+
+    if {$state(-sm) ne "resume"} {
+        ::xmpp::sm::reset [::xmpp::Set $xlib sm]
+        ResourceBind $token $featuresList
+    } else {
+        ::xmpp::sm::resume [::xmpp::Set $xlib sm] \
+                           -command [namespace code [list Finish \
+                                                          $token]]
+    }
+}
+
+
+proc ::xmpp::sasl::ResourceBind {token featuresList} {
+    variable $token
+    upvar 0 $token state
+    set xlib $state(xlib)
+
+    ::xmpp::Debug $xlib 2 "$token $featuresList"
+
+    if {[info exists state(-username)]} {
+        foreach feature $featuresList {
+            ::xmpp::xml::split $feature tag xmlns attrs cdata subels
+
+            if {$xmlns eq "urn:ietf:params:xml:ns:xmpp-bind" && $tag eq "bind"} {
+                if {$state(-resource) eq ""} {
+                    set subelements {}
+                } else {
+                    set subelements [list [::xmpp::xml::create resource \
+                                                    -cdata $state(-resource)]]
+                }
+
+                set data [::xmpp::xml::create bind \
+                                    -xmlns $xmlns \
+                                    -subelements $subelements]
+
+                set state(id) \
+                    [::xmpp::sendIQ $xlib set \
+                            -query $data \
+                            -command [namespace code [list EnableSMClient \
+                                                           $token \
+                                                           $featuresList]]]
+                return
+            }
+        }
+
+        Finish $token abort "Can't bind resource"
+        return
+    } else {
+        foreach feature $featuresList {
+            ::xmpp::xml::split $feature tag xmlns attrs cdata subels
+
+            if {$xmlns eq "urn:xmpp:component" && $tag eq "bind"} {
+                set subelements [list [::xmpp::xml::create hostname \
+                                                -cdata $state(-domain)]]
+
+                set data [::xmpp::xml::create bind \
+                                    -xmlns $xmlns \
+                                    -subelements $subelements]
+
+                set state(id) \
+                    [::xmpp::sendIQ $xlib set \
+                            -query $data \
+                            -command [namespace code [list EnableSMComponent \
+                                                           $token \
+                                                           $featuresList]]]
+                return
+            }
+        }
+
+        Finish $token abort "Can't bind hostname"
+        return
+    }
+}
+
+proc ::xmpp::sasl::EnableSMClient {token featuresList status xmlData} {
+    variable $token
+    upvar 0 $token state
+    set xlib $state(xlib)
+
+    ::xmpp::Debug $xlib 2 "$xmlData"
+
+    if {$state(-sm) ne "enable"} {
+        SendSession $token $featuresList $status $xmlData
+    } else {
+        ::xmpp::sm::enable [::xmpp::Set $xlib sm] \
+                           -resume 0 \
+                           -command [namespace code [list SendSession \
+                                                          $token \
+                                                          $featuresList]]
+    }
+}
+
+proc ::xmpp::sasl::EnableSMComponent {token featuresList status xmlData} {
+    variable $token
+    upvar 0 $token state
+    set xlib $state(xlib)
+
+    ::xmpp::Debug $xlib 2 "$xmlData"
+
+    if {$state(-sm) ne "enable"} {
+        Finish $token $status $xmlData
+    } else {
+        ::xmpp::sm::enable [::xmpp::Set $xlib sm] \
+                           -resume 0 \
+                           -command [namespace code [list Finish $token]]
+    }
+}
+
+proc ::xmpp::sasl::SendSession {token featuresList status xmlData} {
+    variable $token
+    upvar 0 $token state
+    set xlib $state(xlib)
+
+    ::xmpp::Debug $xlib 2 "$xmlData"
+
+    switch -- $status {
+        ok {
+            # Store returned JID
+            ::xmpp::xml::split $xmlData tag xmlns attrs cdata subels
+            foreach subel $subels {
+                ::xmpp::xml::split $subel stag sxmlns sattrs scdata ssubels
+
+                switch -- $stag {
+                    jid {
+                        set state(jid) $scdata
+                    }
+                }
+            }
+            foreach feature $featuresList {
+                ::xmpp::xml::split $feature tag xmlns attrs cdata subels
+
+                if {$xmlns eq "urn:ietf:params:xml:ns:xmpp-session" && $tag eq "session"} {
+                    # Establish the session.
+                    set data [::xmpp::xml::create session \
+                                    -xmlns urn:ietf:params:xml:ns:xmpp-session]
+
+                    set state(id) \
+                        [::xmpp::sendIQ $xlib set \
+                                -query $data \
+                                -command [namespace code [list Finish $token]]]
+                    return
+                }
+            }
+            Finish $token ok $xmlData
+        }
+        default {
+            Finish $token $status $xmlData
+        }
+    }
+}
+
+##########################################################################
+
+proc ::xmpp::sasl::Finish {token status xmlData} {
+    variable saslpack
+    variable $token
+    upvar 0 $token state
+
+    if {![info exists state(xlib)]} return
+
+    set xlib $state(xlib)
+
+    if {[info exists state(afterid)]} {
+        after cancel $state(afterid)
+    }
+
+    ::xmpp::Unset $xlib abortCommand
+
+    if {$status eq "ok"} {
+        if {[info exists state(jid)]} {
+            set jid $state(jid)
+        } elseif {[info exists state(-username)]} {
+            set jid [::xmpp::jid::jid $state(-username) \
+                                      $state(-server) \
+                                      $state(-resource)]
+        } else {
+            set jid $state(-domain)
+        }
+
+        ::xmpp::Set $xlib jid $jid
+    }
+
+    ::xmpp::Debug $xlib 2 "$status"
+
+    ::xmpp::UnregisterElement $xlib * urn:ietf:params:xml:ns:xmpp-sasl
+    ::xmpp::UnregisterElement $xlib iq *
+
+    if {[info exists state(token)]} {
+        switch -- $saslpack {
+            tclsasl {
+                rename $state(token) ""
+            }
+            tcllib {
+                SASL::cleanup $state(token)
+            }
+        }
+    }
+
+    # Cleanup in asynchronous mode
+    if {[info exists state(-command)]} {
+        set cmd $state(-command)
+        unset state
+    }
+
+    if {$status eq "ok"} {
+        set msg $jid
+        ::xmpp::CallBack $xlib status [::msgcat::mc "Authentication succeeded"]
+    } else {
+        set msg $xmlData
+        ::xmpp::CallBack $xlib status [::msgcat::mc "Authentication failed"]
+    }
+
+    if {[info exists cmd]} {
+        # Asynchronous mode
+        uplevel #0 $cmd [list $status $msg]
+    } else {
+        # Synchronous mode
+        # Trigger vwait in [auth]
+        set state(status) [list $status $msg]
+    }
+    return
+}
+
+# vim:ts=8:sw=4:sts=4:et

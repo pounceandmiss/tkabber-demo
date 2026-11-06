@@ -1,0 +1,185 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<icondef>
+  <meta>
+    <name>Stars</name>
+    <version>1.0</version>
+    <description>Tkabber's Stars Iconset.</description>
+    <author>Serge Yudin</author>
+    <creation>2006-09-11</creation>
+  </meta>
+  <!-- Toolbar buttons -->
+  <icon>
+    <image xmlns='tkimage'>toolbar/add-user</image>
+    <object mime="image/gif">tkabber/toolbar-add-user.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>toolbar/disco</image>
+    <object mime="image/gif">tkabber/toolbar-disco.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>toolbar/join-conference</image>
+    <object mime="image/gif">tkabber/toolbar-join-conference.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>toolbar/show-offline</image>
+    <object mime="image/gif">tkabber/toolbar-show-offline.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>toolbar/show-online</image>
+    <object mime="image/gif">tkabber/toolbar-show-online.gif</object>
+  </icon>
+  <!-- Browser and Disco icons -->
+  <icon>
+    <image xmlns='tkimage'>browser/client</image>
+    <object mime="image/gif">roster/available.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>browser/user</image>
+    <object mime="image/gif">roster/available.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>browser/conference</image>
+    <object mime="image/gif">roster/conference-available.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>browser/headline</image>
+    <object mime="image/gif">services/rss_online.gif</object>
+  </icon>
+  <!-- Docking icons -->
+  <icon>
+    <image xmlns='tkimage'>docking/chat</image>
+    <object mime="image/gif">docking/available-chat.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>docking/available</image>
+    <object mime="image/gif">docking/available.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>docking/away</image>
+    <object mime="image/gif">docking/available-away.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>docking/xa</image>
+    <object mime="image/gif">docking/available-xa.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>docking/dnd</image>
+    <object mime="image/gif">docking/available-dnd.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>docking/invisible</image>
+    <object mime="image/gif">docking/invisible.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>docking/unavailable</image>
+    <object mime="image/gif">docking/unavailable.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>docking/message</image>
+    <object mime="image/gif">docking/message.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>docking/message-personal</image>
+    <object mime="image/gif">docking/message-personal.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>docking/message-server</image>
+    <object mime="image/gif">docking/message-server.gif</object>
+  </icon>
+  <!-- Roster icons -->
+  <icon>
+    <image xmlns='tkimage'>roster/user/chat</image>
+    <object mime="image/gif">roster/available-chat.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/available</image>
+    <object mime="image/gif">roster/available.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/away</image>
+    <object mime="image/gif">roster/available-away.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/xa</image>
+    <object mime="image/gif">roster/available-xa.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/dnd</image>
+    <object mime="image/gif">roster/available-dnd.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/invisible</image>
+    <object mime="image/gif">roster/invisible.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/unavailable</image>
+    <object mime="image/gif">roster/unavailable.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/unsubscribed</image>
+    <object mime="image/gif">roster/stalker.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/user/error</image>
+    <object mime="image/gif">roster/unavailable.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/conference/available</image>
+    <object mime="image/gif">roster/conference-available.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/conference/unavailable</image>
+    <object mime="image/gif">roster/conference-unavailable.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/group/closed</image>
+    <object mime="image/gif">roster/group-closed.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>roster/group/opened</image>
+    <object mime="image/gif">roster/group-opened.gif</object>
+  </icon>
+  <!-- Roster transport icons -->
+  <!-- RSS -->
+  <icon>
+    <image xmlns='tkimage'>services/rss/away</image>
+    <object mime="image/gif">services/rss_away.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/rss/chat</image>
+    <object mime="image/gif">services/rss_chat.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/rss/dnd</image>
+    <object mime="image/gif">services/rss_dnd.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/rss/unavailable</image>
+    <object mime="image/gif">services/rss_offline.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/rss/available</image>
+    <object mime="image/gif">services/rss_online.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>services/rss/xa</image>
+    <object mime="image/gif">services/rss_xa.gif</object>
+  </icon>
+  <!-- Chat window bookmark -->
+  <icon>
+    <image xmlns='tkimage'>chat/bookmark/red</image>
+    <object mime="image/gif">tkabber/chat-bookmark.gif</object>
+  </icon>
+  <icon>
+    <image xmlns='tkimage'>chat/bookmark/green</image>
+    <object mime="image/gif">tkabber/chat-bookmark1.gif</object>
+  </icon>
+  <!-- Extended address icon -->
+  <icon>
+    <image xmlns='tkimage'>xaddress/info</image>
+    <object mime="image/gif">tkabber/xaddress.gif</object>
+  </icon>
+</icondef>
+
+<!-- vim:ft=xml:ts=8:sw=2:sts=2:et
+-->
